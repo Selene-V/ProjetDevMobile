@@ -163,7 +163,9 @@ public class CategoriesActivity extends AppCompatActivity
                 int idCat = o.getInt("id_categorie");
                 String title = o.getString("titre");
                 String visuel = o.getString("visuel");
-                this.listeCategories.add(new Categorie(idCat, title, visuel));
+                Categorie cat = new Categorie(idCat, title, visuel);
+                System.out.println("------- Categorie : " + cat.getTitre());
+                this.listeCategories.add(cat);
             }
         } catch (JSONException e) {
             e.printStackTrace();
