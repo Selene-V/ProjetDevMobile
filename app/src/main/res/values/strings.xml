@@ -25,4 +25,5 @@
     <string name="vente">Vente</string>
     <string name="catalogue">Catalogue</string>
     <string name="categorie_1">Catégorie 1</string>
+    <string name="ca_erreur_bdd">Attention erreur BDD !</string>
 </resources>
