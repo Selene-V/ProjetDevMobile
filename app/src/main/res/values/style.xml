@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="MonTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <!-- Change la couleur du menu d'en haut -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- Change la couleur de la barre tout en haut -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- Change la couleur du boutons flottant -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Change la couleur du background -->
+        <item name="android:windowBackground">@color/background_general_light</item>
+    </style>
+
+    <!-- Home Screen theme : categories-->
+    <style name="TextCategoriesListe">
+        <item name="android:textSize">@dimen/size_titre_categorie</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="TextPageCategories">
+        <item name="android:textSize">@dimen/size_panier_total</item>
+    </style>
+
+    <style name="ThemeCancel">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/size_text_under_button</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ThemeAdd">
+        <item name="android:textColor">@color/text_blue</item>
+        <item name="android:textSize">@dimen/size_text_under_button</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ThemePrix">
+        <item name="android:textSize">@dimen/size_prix</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ThemeFooter">
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="ErrorSpinner">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/size_error</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- APP BASE -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <!-- MY APP BASE -->
+    <color name="colorPrimary">#FA0505</color>
+    <color name="colorPrimaryDark">#DC3030</color>
+    <color name="colorAccent">#00e5ff</color>
+
+    <!-- BACKGROUND GENERAL -->
+    <color name="background_general_light">#F3D7E1</color>
+
+    <!-- BACKGROOUND CADRE -->
+    <color name="background_cadre">#9CC8CD</color>
+
+    <!-- TEXT -->
+    <color name="text_black">#FF000000</color>
+    <color name="text_blue">#3277DF</color>
+    <color name="text_white">#FFFFFFFF</color>
+
+    <!-- BUTTON -->
+    <color name="button_choose_article_background">#DAA6B8</color>
+
+    <!-- IMAGEBUTTON -->
+    <color name="imagebutton_cancel">#A80204</color>
+    <color name="imagebutton_add">#3277DF</color>
+    <color name="imagebutton_attention">#FFFFFF</color>
+
+    <!-- ALERT -->
+    <color name="alert_cancel_background">#3A3A3A</color>
+
+</resources>

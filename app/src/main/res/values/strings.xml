@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Boutique MonPullMoche</string>
+    <string name="left">&lt;</string>
+    <string name="right">&gt;</string>
+    <string name="rennes">A Noël c\'est moi qui tient les rennes</string>
+    <string name="desc">Un pull qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.</string>
+    <string name="prix">19.5</string>
+    <string name="euro">€</string>
+    <string name="ajout_panier">Pull n°%1$d ajouté au panier</string>
+    <string name="total_panier_texte">Total panier :  </string>
+    <string name="footer">Réalisé par S. VIOLA, 2020</string>
+    <string name="nouveau_produit">Nouveau produit</string>
+    <string name="annuler">Annuler</string>
+    <string name="retour">Retour</string>
+
+    <string name="confirm_titre">Demande de confirmation</string>
+    <string name="confirm_phrase">Attention, vous allez annuler tous les achats effectués sur cette page. Etes-vous sûr ?</string>
+    <string name="confirm_oui">OUI</string>
+    <string name="confirm_non">NON</string>
+
+    <string name="valider">Valider</string>
+    <string name="description">Description</string>
+    <string name="titre">Titre</string>
+    <string name="prix_newproduit">Prix</string>
+    <string name="vente">Vente</string>
+    <string name="catalogue">Catalogue</string>
+    <string name="categorie_1">Catégorie 1</string>
+</resources>

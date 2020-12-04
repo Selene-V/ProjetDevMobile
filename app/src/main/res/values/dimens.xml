@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ACTIVITY MAIN -->
+    <dimen name="size_prix">30sp</dimen>
+    <dimen name="size_text_under_button">12sp</dimen>
+    <dimen name="size_error">15sp</dimen>
+
+    <!-- ACTIVITY AFFICHAGE CATEGORIES -->
+    <dimen name="size_panier_total">20sp</dimen>
+
+    <!-- ACTIVITY ITEM LISTE CATEGORIES -->
+    <dimen name="size_titre_categorie">24sp</dimen>
+</resources>
