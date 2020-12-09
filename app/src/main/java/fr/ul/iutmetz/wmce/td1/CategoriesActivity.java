@@ -83,7 +83,12 @@ public class CategoriesActivity extends AppCompatActivity
         }
 
         this.listeImagesCategories = new ArrayList<>();
-
+        for (int i = 0 ; i < this.listeCategories.size() ; i++){
+            this.listeImagesCategories.add(null);
+            ImageFromURL chargement = new ImageFromURL(this);
+            chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
+                    this.listeCategories.get(i).getVisuel(), String.valueOf(i));
+        }
         this.adaptateur = new CategoriesAdapter(
                 this,
                 this.listeCategories,
