@@ -189,10 +189,12 @@ public class MainActivity extends AppCompatActivity
         this.imageCancel = (ImageButton) this.findViewById(R.id.image_cancel);
         this.errorSpinner = (TextView) this.findViewById(R.id.error_spinner);
 
-        // Changements
-        changement();
-        verifbPrecedent();
-        verifbSuivant();
+        if (this.modele.size()>0){
+            // Changements
+            changement();
+            verifbPrecedent();
+            verifbSuivant();
+        }
 
         if (this.agrandie){
             this.visibilite(View.INVISIBLE);
@@ -251,7 +253,6 @@ public class MainActivity extends AppCompatActivity
 
     public void changement(){
         // Changement img
-        System.out.println("NO PULL COURRANT : " + noPullCourant);
         if (this.listeImagesProduits.get(noPullCourant) != null){
             this.image_pull.setImageBitmap((Bitmap)this.listeImagesProduits.get(noPullCourant));
             this.image_pull_grande.setImageBitmap((Bitmap) this.listeImagesProduits.get(noPullCourant));
@@ -459,7 +460,10 @@ public class MainActivity extends AppCompatActivity
                             this.modele.get(i).getVisuel(), String.valueOf(i));
                 }
             }
+            // Changements
             changement();
+            verifbPrecedent();
+            verifbSuivant();
         } catch (JSONException e) {
             e.printStackTrace();
         }
