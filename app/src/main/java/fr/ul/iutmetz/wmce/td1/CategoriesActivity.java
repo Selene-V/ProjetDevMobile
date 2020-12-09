@@ -38,7 +38,7 @@ public class CategoriesActivity extends AppCompatActivity
     private static final int MAIN_VENTE = 0;
     private static final int MAIN_CATALOGUE = 1;
 
-    private ArrayList<Categorie> listeCategories = new ArrayList<>();
+    private ArrayList<Categorie> listeCategories;
     private double totalPanier;
     private Utils utils = new Utils();
 
@@ -78,16 +78,16 @@ public class CategoriesActivity extends AppCompatActivity
             catDAO.findAll(this);
 
             this.totalPanier = utils.arrondir(0.00);
-
-
         }
+        this.listeCategories = new ArrayList<>();
+
         this.listeImagesCategories = new ArrayList<>();
-        for (int i = 0 ; i < this.listeCategories.size() ; i++){
-            this.listeImagesCategories.add(null);
-            ImageFromURL chargement = new ImageFromURL(this);
-            chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
-                    this.listeCategories.get(i).getVisuel(), String.valueOf(this.listeCategories.get(i).getId()));
-        }
+
+        this.adaptateur = new CategoriesAdapter(
+                this,
+                this.listeCategories,
+                this.listeImagesCategories
+        );
     }
 
     @Override
@@ -97,13 +97,6 @@ public class CategoriesActivity extends AppCompatActivity
         this.lvCategories = this.findViewById(R.id.ca_liste);
         this.prixTotal = (TextView) this.findViewById(R.id.total_panier_nombre);
         this.vente = (RadioButton) this.findViewById(R.id.vente);
-
-
-        this.adaptateur = new CategoriesAdapter(
-                this,
-                this.listeCategories,
-                this.listeImagesCategories
-        );
 
         this.lvCategories.setAdapter(adaptateur);
         this.lvCategories.setOnItemClickListener(this);
@@ -166,7 +159,12 @@ public class CategoriesActivity extends AppCompatActivity
                 Categorie cat = new Categorie(idCat, title, visuel);
                 System.out.println("------- Categorie : " + cat.getTitre());
                 this.listeCategories.add(cat);
+                this.listeImagesCategories.add(null);
+                ImageFromURL chargement = new ImageFromURL(this);
+                chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
+                        this.listeCategories.get(i).getVisuel(), String.valueOf(this.listeCategories.get(i).getId()));
             }
+            this.adaptateur.notifyDataSetChanged();
         } catch (JSONException e) {
             e.printStackTrace();
         }
