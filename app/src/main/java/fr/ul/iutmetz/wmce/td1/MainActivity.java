@@ -26,9 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import fr.ul.iutmetz.wmce.td1.DAO.CategorieDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.ProduitDAO;
-import fr.ul.iutmetz.wmce.td1.modele.Categorie;
 import fr.ul.iutmetz.wmce.td1.modele.Produit;
 import utils.Utils;
 
@@ -146,14 +144,14 @@ public class MainActivity extends AppCompatActivity
             // Recuperation id categorie
             if (this.getIntent().getIntExtra("id_categ", -1)!=-1){
                 this.idCategorie = this.getIntent().getIntExtra("id_categ", -1);
-                ArrayList<Produit> temp = new ArrayList<>();
-
-                for (int i = 0 ; i < this.modele.size() ; i++) {
-                    if (this.modele.get(i).getIdCategorie() == idCategorie){
-                        temp.add(this.modele.get(i));
-                    }
-                }
-                this.modele = temp;
+//                ArrayList<Produit> temp = new ArrayList<>();
+//
+//                for (int i = 0 ; i < this.modele.size() ; i++) {
+//                    if (this.modele.get(i).getIdCategorie() == idCategorie){
+//                        temp.add(this.modele.get(i));
+//                    }
+//                }
+//                this.modele = temp;
             }
 
             if (this.getIntent().getIntExtra("id_bouton_radio", -1)!=-1){
@@ -166,7 +164,7 @@ public class MainActivity extends AppCompatActivity
             this.listeImagesProduits.add(null);
             ImageFromURL chargement = new ImageFromURL(this);
             chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
-                    this.modele.get(i).getVisuel() , String.valueOf(i));
+                    this.modele.get(i).getVisuel(), String.valueOf(i));
         }
     }
 
@@ -252,17 +250,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void changement(){
-        this.listeImagesProduits = new ArrayList<>();
-        for (int i = 0 ; i < this.modele.size() ; i++){
-            this.listeImagesProduits.add(null);
-            ImageFromURL chargement = new ImageFromURL(this);
-            chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
-                    this.modele.get(i).getVisuel() , String.valueOf(i));
-        }
         // Changement img
         System.out.println("NO PULL COURRANT : " + noPullCourant);
         if (this.listeImagesProduits.get(noPullCourant) != null){
-            this.image_pull.setImageBitmap((Bitmap) this.listeImagesProduits.get(noPullCourant));
+            this.image_pull.setImageBitmap((Bitmap)this.listeImagesProduits.get(noPullCourant));
             this.image_pull_grande.setImageBitmap((Bitmap) this.listeImagesProduits.get(noPullCourant));
             System.out.println("--------- liste IMG Produits ---------");
             System.out.println(this.listeImagesProduits);
@@ -447,21 +438,26 @@ public class MainActivity extends AppCompatActivity
         try {
             for (int i = 0 ; i < response.length() ; i++){
                 JSONObject o = response.getJSONObject(i);
-                System.out.println("---------- produit " + i + "------------------");
-                int idProduit = o.getInt("id_produit");
-                String title = o.getString("titre");
-                String desc = o.getString("description");
-                String tarif = String.valueOf(o.getDouble("tarif"));
-                String visuel = o.getString("visuel");
                 int idCat = o.getInt("id_categorie");
 
-                Produit prod = new Produit(idProduit, title, desc, tarif, visuel, idCat);
-                System.out.println("------- Produit : " + prod.getTitre());
-                this.modele.add(prod);
-                this.listeImagesProduits.add(null);
-                ImageFromURL chargement = new ImageFromURL(this);
-                chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
-                        this.modele.get(i).getVisuel() , String.valueOf(i));
+                System.out.println("---------- produit " + i + "------------------");
+                if (idCategorie==idCat) {
+
+                    int idProduit = o.getInt("id_produit");
+                    String title = o.getString("titre");
+                    String desc = o.getString("description");
+                    String tarif = String.valueOf(o.getDouble("tarif"));
+                    String visuel = o.getString("visuel");
+
+                    Produit prod = new Produit(idProduit, title, desc, tarif, visuel, idCat);
+                    System.out.println("------- Produit : " + prod.getTitre());
+                    this.modele.add(prod);
+
+                    this.listeImagesProduits.add(null);
+                    ImageFromURL chargement = new ImageFromURL(this);
+                    chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
+                            this.modele.get(i).getVisuel(), String.valueOf(i));
+                }
             }
             changement();
         } catch (JSONException e) {
