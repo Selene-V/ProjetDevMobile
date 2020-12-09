@@ -74,12 +74,13 @@ public class CategoriesActivity extends AppCompatActivity
 //            listeCategories.add(c1);
 //            listeCategories.add(c2);
 
+            this.listeCategories = new ArrayList<>();
+
             CategorieDAO catDAO = new CategorieDAO();
             catDAO.findAll(this);
 
             this.totalPanier = utils.arrondir(0.00);
         }
-        this.listeCategories = new ArrayList<>();
 
         this.listeImagesCategories = new ArrayList<>();
 
@@ -162,7 +163,7 @@ public class CategoriesActivity extends AppCompatActivity
                 this.listeImagesCategories.add(null);
                 ImageFromURL chargement = new ImageFromURL(this);
                 chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
-                        this.listeCategories.get(i).getVisuel(), String.valueOf(this.listeCategories.get(i).getId()));
+                        this.listeCategories.get(i).getVisuel(), String.valueOf(i));
             }
             this.adaptateur.notifyDataSetChanged();
         } catch (JSONException e) {
