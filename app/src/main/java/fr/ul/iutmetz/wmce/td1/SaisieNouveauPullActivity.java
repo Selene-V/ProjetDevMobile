@@ -56,7 +56,7 @@ public class SaisieNouveauPullActivity extends AppCompatActivity {
         String d = this.descriptionNouveauPull.getText().toString();
         String p = this.prixNouveauPull.getText().toString();
 
-        Produit pull = new Produit(idCategorie ,t, d, p, "imgdefaut");
+        Produit pull = new Produit(-1 ,t, d, p, "imgdefaut", idCategorie);
 
         Intent intent = new Intent();
         intent.putExtra("nouveau_pull", pull);

@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,15 +18,26 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import fr.ul.iutmetz.wmce.td1.DAO.CategorieDAO;
+import fr.ul.iutmetz.wmce.td1.DAO.ProduitDAO;
+import fr.ul.iutmetz.wmce.td1.modele.Categorie;
 import fr.ul.iutmetz.wmce.td1.modele.Produit;
 import utils.Utils;
 
-public class MainActivity extends AppCompatActivity implements DialogInterface.OnClickListener, ActiviteEnAttenteImage {
+public class MainActivity extends AppCompatActivity
+    implements DialogInterface.OnClickListener, ActiviteEnAttenteImage,
+        com.android.volley.Response.Listener<JSONArray>,
+        com.android.volley.Response.ErrorListener {
 
-    private ArrayList<Produit> modele = new ArrayList<>();
-    ;
+    private ArrayList<Produit> modele;
     private int noPullCourant;
     private boolean agrandie;
     private int idCategorie;
@@ -91,30 +103,33 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
             this.idBoutonRadio = savedInstanceState.getInt("id_bouton_radio");
 
         }else {
+//            Produit p0 = new Produit(1, "A Noël c\'est moi qui tient les rennes", "Un pull de rennes qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "19.56", "renne", 1);
+//            Produit p1 = new Produit(2, "A Noël c\'est moi qui tient les chiens", "Un pull de chien qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "25", "chien", 1);
+//            Produit p2 = new Produit(3, "A Noël c\'est mon double pull", "Un pull double qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "35", "double_pull", 1);
+//            Produit p3 = new Produit(4, "A Noël c\'est moi qui tient les lamas", "Un pull de lama qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "2", "lama", 1);
+//            Produit p4 = new Produit(5, "A Noël c\'est moi qui tient les sapins", "Un pull de sapin qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "10.3", "sapin", 1);
+//
+//            Produit b0 = new Produit(6, "Bonnet en laine", "Ceci est un magnifique bonnet en laine qui tient extrememnt chaud !", "19.5", "bonnet_renne", 2);
+//            Produit b1 = new Produit(7, "Bonnet en laine plus cher", "Ce bonnet est exactement le même que celui vu précédemment mais en plus cher ! ", "25", "bonnet_renne", 2);
+//
+//            Produit c0 = new Produit(8, "Dabsquette", "Voici une casquette très laide et qui ne tient absolument pas chaud mais il y a un père noël dessus.", "19.5", "casquette_dab", 3);
+//            Produit c1 = new Produit(9, "Joli renne", "Grâce à cette casquette vous pourrez vous faire passer pour un magnifique renne et tout le monde n'y verra que du feu !", "25", "casquette_renne", 3);
+//
+//
+//            modele.add(p0);
+//            modele.add(p1);
+//            modele.add(b0);
+//            modele.add(c1);
+//            modele.add(p3);
+//            modele.add(p2);
+//            modele.add(c0);
+//            modele.add(p4);
+//            modele.add(b1);
 
-            //Création des 5 pulls dans la liste
-            Produit p0 = new Produit(1, "A Noël c\'est moi qui tient les rennes", "Un pull de rennes qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "19.56", "renne");
-            Produit p1 = new Produit(1, "A Noël c\'est moi qui tient les chiens", "Un pull de chien qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "25", "chien");
-            Produit p2 = new Produit(1, "A Noël c\'est nous qui tennons les rennes", "Un pull doublement plus moche qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "30","double_pull");
-            Produit p3 = new Produit(1, "A Noël c\'est moi qui tient les lamas", "Un pull de lama qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "2", "lama");
-            Produit p4 = new Produit(1, "A Noël c\'est moi qui tient les sapins", "Un pull de sapin qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "10.3", "sapin");
+            this.modele = new ArrayList<>();
 
-            Produit b0 = new Produit(2, "Bonnet en laine", "Ceci est un magnifique bonnet en laine qui tient extrememnt chaud !", "19.5", "bonnet_renne");
-            Produit b1 = new Produit(2, "Bonnet en laine plus cher", "Ce bonnet est exactement le même que celui vu précédemment mais en plus cher ! Merci d'acheter celui la !", "25", "bonnet_renne");
-
-            Produit c0 = new Produit(3, "Dabsquette", "Voici une casquette très laide et qui ne tient absolument pas chaud mais il y a un père noël dessus.", "19.5", "casquette_dab");
-            Produit c1 = new Produit(3, "Joli renne", "Grâce à cette casquette vous pourrez vous faire passer pour un magnifique renne et tout le monde n'y verra que du feu !", "25", "casquette_renne");
-
-
-            modele.add(p0);
-            modele.add(p1);
-            modele.add(b0);
-            modele.add(c1);
-            modele.add(p2);
-            modele.add(p3);
-            modele.add(c0);
-            modele.add(p4);
-            modele.add(b1);
+            ProduitDAO prodDAO= new ProduitDAO();
+            prodDAO.findAll(this);
 
             this.totalPanier = utils.arrondir(0.00);
 
@@ -145,12 +160,13 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                 this.idBoutonRadio = this.getIntent().getIntExtra("id_bouton_radio", -1);
             }
         }
+
         this.listeImagesProduits = new ArrayList<>();
         for (int i = 0 ; i < this.modele.size() ; i++){
             this.listeImagesProduits.add(null);
             ImageFromURL chargement = new ImageFromURL(this);
             chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
-                    this.modele.get(i).getVisuel() + ".jpg", String.valueOf(i));
+                    this.modele.get(i).getVisuel() , String.valueOf(i));
         }
     }
 
@@ -236,7 +252,15 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     }
 
     public void changement(){
+        this.listeImagesProduits = new ArrayList<>();
+        for (int i = 0 ; i < this.modele.size() ; i++){
+            this.listeImagesProduits.add(null);
+            ImageFromURL chargement = new ImageFromURL(this);
+            chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
+                    this.modele.get(i).getVisuel() , String.valueOf(i));
+        }
         // Changement img
+        System.out.println("NO PULL COURRANT : " + noPullCourant);
         if (this.listeImagesProduits.get(noPullCourant) != null){
             this.image_pull.setImageBitmap((Bitmap) this.listeImagesProduits.get(noPullCourant));
             this.image_pull_grande.setImageBitmap((Bitmap) this.listeImagesProduits.get(noPullCourant));
@@ -407,6 +431,41 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
             if (idx==this.noPullCourant) {
                 changement();
             }
+        }
+    }
+
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.e("Erreur JSON", error + "");
+        Toast.makeText(this, R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onResponse(JSONArray response) {
+
+        try {
+            for (int i = 0 ; i < response.length() ; i++){
+                JSONObject o = response.getJSONObject(i);
+                System.out.println("---------- produit " + i + "------------------");
+                int idProduit = o.getInt("id_produit");
+                String title = o.getString("titre");
+                String desc = o.getString("description");
+                String tarif = String.valueOf(o.getDouble("tarif"));
+                String visuel = o.getString("visuel");
+                int idCat = o.getInt("id_categorie");
+
+                Produit prod = new Produit(idProduit, title, desc, tarif, visuel, idCat);
+                System.out.println("------- Produit : " + prod.getTitre());
+                this.modele.add(prod);
+                this.listeImagesProduits.add(null);
+                ImageFromURL chargement = new ImageFromURL(this);
+                chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
+                        this.modele.get(i).getVisuel() , String.valueOf(i));
+            }
+            changement();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }
