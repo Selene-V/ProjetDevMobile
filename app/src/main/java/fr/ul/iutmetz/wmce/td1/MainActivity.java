@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,15 +28,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import fr.ul.iutmetz.wmce.td1.DAO.ProduitDAO;
+import fr.ul.iutmetz.wmce.td1.DAO.TailleDAO;
 import fr.ul.iutmetz.wmce.td1.modele.Produit;
 import utils.Utils;
 
 public class MainActivity extends AppCompatActivity
     implements DialogInterface.OnClickListener, ActiviteEnAttenteImage,
-        com.android.volley.Response.Listener<JSONArray>,
+        com.android.volley.Response.Listener<JSONObject>,
         com.android.volley.Response.ErrorListener {
 
     private ArrayList<Produit> modele;
+    private ArrayList<Produit> spinnerTaille;
     private int noPullCourant;
     private boolean agrandie;
     private int idCategorie;
@@ -125,9 +128,12 @@ public class MainActivity extends AppCompatActivity
 //            modele.add(b1);
 
             this.modele = new ArrayList<>();
+            this.spinnerTaille = new ArrayList<>();
 
-            ProduitDAO prodDAO= new ProduitDAO();
+            ProduitDAO prodDAO = new ProduitDAO();
             prodDAO.findAll(this);
+
+
 
             this.totalPanier = utils.arrondir(0.00);
 
@@ -251,6 +257,14 @@ public class MainActivity extends AppCompatActivity
         verifbPrecedent();
     }
 
+    public void changementSpinnerTaille(ArrayList listSpinner){
+        ArrayAdapter adaptateur = new ArrayAdapter(getApplicationContext(),
+                android.R.layout.simple_spinner_item, listSpinner
+        );
+        adaptateur.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        staille.setAdapter(adaptateur);
+    }
+
     public void changement(){
         // Changement img
         if (this.listeImagesProduits.get(noPullCourant) != null){
@@ -275,6 +289,9 @@ public class MainActivity extends AppCompatActivity
         this.prix.setText(this.modele.get(noPullCourant).getPrix());
         // Changement error
         this.errorSpinner.setText(this.errorCourante);
+
+        TailleDAO tailleDAO = new TailleDAO();
+        tailleDAO.peuplerSpinnerTaille(this);
     }
 
     public void verifbPrecedent(){
@@ -434,38 +451,60 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onResponse(JSONArray response) {
-
+    public void onResponse(JSONObject response) {
         try {
-            for (int i = 0 ; i < response.length() ; i++){
-                JSONObject o = response.getJSONObject(i);
-                int idCat = o.getInt("id_categorie");
+            System.out.println("REQUETE RESPONSE");
+            System.out.println(response);
+            String requete = response.getString("requete");
+            System.out.println("requete");
+            System.out.println(requete);
+            JSONArray data = response.getJSONArray("data");
+            switch (requete){
+                    case "produits" :
+                        System.out.println("PRODUIT");
+                        for (int i = 0 ; i < data.length() ; i++) {
+                            JSONObject o = response.getJSONArray("data").getJSONObject(i);
 
-                System.out.println("---------- produit " + i + "------------------");
-                if (idCategorie==idCat) {
+                            int idCat = o.getInt("id_categorie");
 
-                    int idProduit = o.getInt("id_produit");
-                    String title = o.getString("titre");
-                    String desc = o.getString("description");
-                    String tarif = String.valueOf(o.getDouble("tarif"));
-                    String visuel = o.getString("visuel");
+                            System.out.println("---------- produit " + i + "------------------");
+                            if (idCategorie == idCat) {
 
-                    Produit prod = new Produit(idProduit, title, desc, tarif, visuel, idCat);
-                    System.out.println("------- Produit : " + prod.getTitre());
-                    this.modele.add(prod);
+                                int idProduit = o.getInt("id_produit");
+                                String title = o.getString("titre");
+                                String desc = o.getString("description");
+                                String tarif = String.valueOf(o.getDouble("tarif"));
+                                String visuel = o.getString("visuel");
 
-                    this.listeImagesProduits.add(null);
-                    ImageFromURL chargement = new ImageFromURL(this);
-                    chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
-                            this.modele.get(i).getVisuel(), String.valueOf(i));
+                                Produit prod = new Produit(idProduit, title, desc, tarif, visuel, idCat);
+                                System.out.println("------- Produit : " + prod.getTitre());
+                                this.modele.add(prod);
+
+                                this.listeImagesProduits.add(null);
+                                ImageFromURL chargement = new ImageFromURL(this);
+                                chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
+                                        this.modele.get(i).getVisuel(), String.valueOf(i));
+                            }
+                        }
+                            // Changements
+                            changement();
+                            verifbPrecedent();
+                            verifbSuivant();
+                        break;
+                    case "taillesProduits" :
+                        System.out.println("TAILLESPRODUITS");
+                        ArrayList<String> listSpinner = new ArrayList<>();
+                        listSpinner.add("Choix de la taille");
+                        for (int i = 0 ; i < data.length() ; i++){
+                            JSONObject o = data.getJSONObject(i);
+                            String libelle = o.getString("libelle");
+                            listSpinner.add(libelle);
+                        }
+                        changementSpinnerTaille(listSpinner);
+                        break;
                 }
-            }
-            // Changements
-            changement();
-            verifbPrecedent();
-            verifbSuivant();
-        } catch (JSONException e) {
-            e.printStackTrace();
+            } catch (JSONException jsonException) {
+            jsonException.printStackTrace();
         }
     }
 }

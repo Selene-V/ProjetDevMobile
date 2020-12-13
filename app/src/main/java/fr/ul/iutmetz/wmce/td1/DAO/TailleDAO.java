@@ -9,12 +9,10 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-public class ProduitDAO {
-
-    public static void findAll(Context activite){
-
+public class TailleDAO {
+    public static void peuplerSpinnerTaille(Context activite){
         RequestQueue queue = Volley.newRequestQueue(activite);
-        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/produits/findallProduit.php";
+        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/produits/peuplerSpinnerTailleProduit.php";
 
         // Request a string response from the provided URL
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
