@@ -31,7 +31,7 @@ import fr.ul.iutmetz.wmce.td1.modele.Categorie;
 import utils.Utils;
 
 public class CategoriesFragments extends Fragment
-    implements AdapterView.OnItemClickListener, ActiviteEnAttenteImage,
+    implements /*AdapterView.OnItemClickListener,*/ ActiviteEnAttenteImage,
                 com.android.volley.Response.Listener<JSONArray>,
                 com.android.volley.Response.ErrorListener {
 
@@ -52,7 +52,7 @@ public class CategoriesFragments extends Fragment
     private View root;
 
     @Override
-    protected void onSaveInstanceState(Bundle outState){
+    public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
 
         outState.putSerializable("listeCategorie", this.listeCategories);
@@ -104,46 +104,46 @@ public class CategoriesFragments extends Fragment
     protected void onStart() {
         super.onStart();
 
-        this.lvCategories = this.findViewById(R.id.ca_liste);
-        this.prixTotal = (TextView) this.findViewById(R.id.total_panier_nombre);
-        this.vente = (RadioButton) this.findViewById(R.id.vente);
+        this.lvCategories = this.root.findViewById(R.id.ca_liste);
+        this.prixTotal = (TextView) this.root.findViewById(R.id.total_panier_nombre);
+        this.vente = (RadioButton) this.root.findViewById(R.id.vente);
 
         this.lvCategories.setAdapter(adaptateur);
-        this.lvCategories.setOnItemClickListener(this);
+        /*this.lvCategories.setOnItemClickListener(this);*/
         this.prixTotal.setText(" " + utils.arrondir(this.totalPanier));
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(CategoriesFragments.this, CategoriesFragment.class);
-        intent.putExtra("id_categ", this.listeCategories.get(position).getId());
-        if (this.vente.isChecked()){
-            intent.putExtra("id_bouton_radio", MAIN_VENTE);
-            startActivityForResult(intent, MAIN_VENTE);
-        } else {
-            intent.putExtra("id_bouton_radio", MAIN_CATALOGUE);
-            startActivityForResult(intent, MAIN_CATALOGUE);
-        }
-        this.adaptateur = new CategoriesAdapter(
-                this,
-                this.listeCategories,
-                this.listeImagesCategories
-        );
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 0){
-            if (requestCode == MAIN_VENTE){
-                Bundle extras = data.getExtras();
-                this.totalPanier += utils.arrondir((double) extras.get("total_panier"));
-                this.prixTotal.setText(" " + utils.arrondir(this.totalPanier));
-            } else if (requestCode == MAIN_CATALOGUE){
-                // on ne fait rien si on revient du mode catalogue
-            }
-        } // on ne fait rien en cas d'annulation
-    }
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Intent intent = new Intent(CategoriesFragments.this, CategoriesFragment.class);
+//        intent.putExtra("id_categ", this.listeCategories.get(position).getId());
+//        if (this.vente.isChecked()){
+//            intent.putExtra("id_bouton_radio", MAIN_VENTE);
+//            startActivityForResult(intent, MAIN_VENTE);
+//        } else {
+//            intent.putExtra("id_bouton_radio", MAIN_CATALOGUE);
+//            startActivityForResult(intent, MAIN_CATALOGUE);
+//        }
+//        this.adaptateur = new CategoriesAdapter(
+//                this.getContext(),
+//                this.listeCategories,
+//                this.listeImagesCategories
+//        );
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == 0){
+//            if (requestCode == MAIN_VENTE){
+//                Bundle extras = data.getExtras();
+//                this.totalPanier += utils.arrondir((double) extras.get("total_panier"));
+//                this.prixTotal.setText(" " + utils.arrondir(this.totalPanier));
+//            } else if (requestCode == MAIN_CATALOGUE){
+//                // on ne fait rien si on revient du mode catalogue
+//            }
+//        } // on ne fait rien en cas d'annulation
+//    }
 
     @Override
     public void receptionnerImage(Object[] resultats) {
@@ -158,7 +158,7 @@ public class CategoriesFragments extends Fragment
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.e("Erreur JSON", error + "");
-        Toast.makeText(this, R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
     }
 
     @Override
