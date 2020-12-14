@@ -1,15 +1,18 @@
 package fr.ul.iutmetz.wmce.td1;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -21,16 +24,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import fr.ul.iutmetz.wmce.td1.DAO.CategorieDAO;
 import fr.ul.iutmetz.wmce.td1.modele.Categorie;
-import fr.ul.iutmetz.wmce.td1.modele.Produit;
 import utils.Utils;
 
-public class CategoriesActivity extends AppCompatActivity
+public class CategoriesFragments extends Fragment
     implements AdapterView.OnItemClickListener, ActiviteEnAttenteImage,
                 com.android.volley.Response.Listener<JSONArray>,
                 com.android.volley.Response.ErrorListener {
@@ -49,6 +49,8 @@ public class CategoriesActivity extends AppCompatActivity
     private TextView prixTotal;
     private RadioButton vente;
 
+    private View root;
+
     @Override
     protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
@@ -58,9 +60,10 @@ public class CategoriesActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                                ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_affichage_categories);
+        this.root = inflater.inflate(R.layout.activity_affichage_categories, container, false);
 
         if (savedInstanceState!=null){
             this.listeCategories = (ArrayList<Categorie>) savedInstanceState.getSerializable("listeCategorie");
@@ -77,7 +80,7 @@ public class CategoriesActivity extends AppCompatActivity
             this.listeCategories = new ArrayList<>();
 
             CategorieDAO catDAO = new CategorieDAO();
-            catDAO.findAll(this);
+            catDAO.findAll(this.getContext());
 
             this.totalPanier = utils.arrondir(0.00);
         }
@@ -90,10 +93,11 @@ public class CategoriesActivity extends AppCompatActivity
                     this.listeCategories.get(i).getVisuel(), String.valueOf(i));
         }
         this.adaptateur = new CategoriesAdapter(
-                this,
+                this.getContext(),
                 this.listeCategories,
                 this.listeImagesCategories
         );
+        return this.root;
     }
 
     @Override
@@ -111,7 +115,7 @@ public class CategoriesActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(CategoriesActivity.this, MainActivity.class);
+        Intent intent = new Intent(CategoriesFragments.this, CategoriesFragment.class);
         intent.putExtra("id_categ", this.listeCategories.get(position).getId());
         if (this.vente.isChecked()){
             intent.putExtra("id_bouton_radio", MAIN_VENTE);
@@ -120,6 +124,11 @@ public class CategoriesActivity extends AppCompatActivity
             intent.putExtra("id_bouton_radio", MAIN_CATALOGUE);
             startActivityForResult(intent, MAIN_CATALOGUE);
         }
+        this.adaptateur = new CategoriesAdapter(
+                this,
+                this.listeCategories,
+                this.listeImagesCategories
+        );
     }
 
     @Override

@@ -54,7 +54,7 @@
             <!-- android:theme="@style/Theme.TD1.NouveauProduit"> -->
 
         </activity>
-        <activity android:name=".CategoriesActivity">
+        <activity android:name=".CategoriesFragments">
 
             <!-- android:theme="@style/Theme.TD1.ListeCategories"> -->
         </activity>
