@@ -258,6 +258,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void changementSpinnerTaille(ArrayList listSpinner){
+
         ArrayAdapter adaptateur = new ArrayAdapter(getApplicationContext(),
                 android.R.layout.simple_spinner_item, listSpinner
         );
@@ -497,8 +498,11 @@ public class MainActivity extends AppCompatActivity
                         listSpinner.add("Choix de la taille");
                         for (int i = 0 ; i < data.length() ; i++){
                             JSONObject o = data.getJSONObject(i);
-                            String libelle = o.getString("libelle");
-                            listSpinner.add(libelle);
+                            int idProduit = o.getInt("id_produit");
+                            if (noPullCourant+1 == idProduit) {
+                                String libelle = o.getString("libelle");
+                                listSpinner.add(libelle);
+                            }
                         }
                         changementSpinnerTaille(listSpinner);
                         break;
