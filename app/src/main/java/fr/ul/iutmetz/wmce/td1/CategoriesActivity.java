@@ -35,8 +35,6 @@ public class CategoriesActivity extends AppCompatActivity
                 com.android.volley.Response.Listener<JSONArray>,
                 com.android.volley.Response.ErrorListener {
 
-    private static final int MAIN_VENTE = 0;
-    private static final int MAIN_CATALOGUE = 1;
 
     private ArrayList<Categorie> listeCategories;
     private double totalPanier;
@@ -47,7 +45,8 @@ public class CategoriesActivity extends AppCompatActivity
 
     private ListView lvCategories;
     private TextView prixTotal;
-    private RadioButton vente;
+
+    private static final int MAIN_VENTE = 0;
 
     @Override
     protected void onSaveInstanceState(Bundle outState){
@@ -102,7 +101,6 @@ public class CategoriesActivity extends AppCompatActivity
 
         this.lvCategories = this.findViewById(R.id.ca_liste);
         this.prixTotal = (TextView) this.findViewById(R.id.total_panier_nombre);
-        this.vente = (RadioButton) this.findViewById(R.id.vente);
 
         this.lvCategories.setAdapter(adaptateur);
         this.lvCategories.setOnItemClickListener(this);
@@ -113,13 +111,7 @@ public class CategoriesActivity extends AppCompatActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(CategoriesActivity.this, MainActivity.class);
         intent.putExtra("id_categ", this.listeCategories.get(position).getId());
-        if (this.vente.isChecked()){
-            intent.putExtra("id_bouton_radio", MAIN_VENTE);
-            startActivityForResult(intent, MAIN_VENTE);
-        } else {
-            intent.putExtra("id_bouton_radio", MAIN_CATALOGUE);
-            startActivityForResult(intent, MAIN_CATALOGUE);
-        }
+        startActivityForResult(intent, MAIN_VENTE);
     }
 
     @Override
@@ -130,9 +122,7 @@ public class CategoriesActivity extends AppCompatActivity
                 Bundle extras = data.getExtras();
                 this.totalPanier += utils.arrondir((double) extras.get("total_panier"));
                 this.prixTotal.setText(" " + utils.arrondir(this.totalPanier));
-            } else if (requestCode == MAIN_CATALOGUE){
-                // on ne fait rien si on revient du mode catalogue
-            }
+            } // on ne fait rien
         } // on ne fait rien en cas d'annulation
     }
 
