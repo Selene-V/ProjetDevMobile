@@ -463,6 +463,7 @@ public class MainActivity extends AppCompatActivity
             switch (requete){
                     case "produits" :
                         System.out.println("PRODUIT");
+                        int cmp = 0;
                         for (int i = 0 ; i < data.length() ; i++) {
                             JSONObject o = response.getJSONArray("data").getJSONObject(i);
 
@@ -484,7 +485,8 @@ public class MainActivity extends AppCompatActivity
                                 this.listeImagesProduits.add(null);
                                 ImageFromURL chargement = new ImageFromURL(this);
                                 chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
-                                        this.modele.get(i).getVisuel(), String.valueOf(i));
+                                        this.modele.get(cmp).getVisuel(), String.valueOf(cmp));
+                                cmp++;
                             }
                         }
                             // Changements
