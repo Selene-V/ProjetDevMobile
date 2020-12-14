@@ -3,7 +3,6 @@ package fr.ul.iutmetz.wmce.td1;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity
         com.android.volley.Response.ErrorListener {
 
     private ArrayList<Produit> modele;
-    private ArrayList<Produit> spinnerTaille;
     private int noPullCourant;
     private boolean agrandie;
     private int idCategorie;
@@ -128,7 +126,6 @@ public class MainActivity extends AppCompatActivity
 //            modele.add(b1);
 
             this.modele = new ArrayList<>();
-            this.spinnerTaille = new ArrayList<>();
 
             ProduitDAO prodDAO = new ProduitDAO();
             prodDAO.findAll(this);
@@ -460,10 +457,10 @@ public class MainActivity extends AppCompatActivity
             System.out.println("requete");
             System.out.println(requete);
             JSONArray data = response.getJSONArray("data");
+            int cmp = 0;
             switch (requete){
                     case "produits" :
                         System.out.println("PRODUIT");
-                        int cmp = 0;
                         for (int i = 0 ; i < data.length() ; i++) {
                             JSONObject o = response.getJSONArray("data").getJSONObject(i);
 
@@ -501,8 +498,10 @@ public class MainActivity extends AppCompatActivity
                         for (int i = 0 ; i < data.length() ; i++){
                             JSONObject o = data.getJSONObject(i);
                             int idProduit = o.getInt("id_produit");
-                            if (noPullCourant+1 == idProduit) {
+                            if (this.modele.get(noPullCourant).getId() == idProduit) {
+                                System.out.println(idProduit);
                                 String libelle = o.getString("libelle");
+                                System.out.println(libelle);
                                 listSpinner.add(libelle);
                             }
                         }
