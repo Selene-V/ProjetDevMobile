@@ -249,6 +249,18 @@
             app:layout_constraintRight_toRightOf="parent"
             />
 
+        <TextView
+            android:id="@+id/footerView"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
     </LinearLayout>
 
 
