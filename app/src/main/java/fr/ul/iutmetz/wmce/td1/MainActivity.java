@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity
     private boolean agrandie;
     private int idCategorie;
     private double totalPanier;
-    private int idBoutonRadio;
     private boolean isError;
     private String errorCourante;
     private ArrayList listeImagesProduits;
@@ -58,13 +57,10 @@ public class MainActivity extends AppCompatActivity
     private Button bPrecedent;
     private Button bSuivant;
     private ImageView image_pull_grande;
-    private Spinner scolor;
     private Spinner staille;
     private TextView euro;
     private ImageButton imageAdd;
     private TextView texteAdd;
-    private TextView texteCancel;
-    private ImageButton imageCancel;
     private TextView errorSpinner;
 
     private static final int MAIN_SAISIE_NOUVEAU_PULL = 2;
@@ -81,7 +77,6 @@ public class MainActivity extends AppCompatActivity
         outState.putBoolean("is_error", this.isError);
         outState.putDouble("total_panier", utils.arrondir(this.totalPanier));
         outState.putString("error_courante", this.errorCourante);
-        outState.putInt("id_bouton_radio", this.idBoutonRadio);
 
     }
 
@@ -99,31 +94,8 @@ public class MainActivity extends AppCompatActivity
             this.isError = savedInstanceState.getBoolean("is_error");
             this.totalPanier = utils.arrondir(savedInstanceState.getDouble("total_panier"));
             this.errorCourante = savedInstanceState.getString("error_courante");
-            this.idBoutonRadio = savedInstanceState.getInt("id_bouton_radio");
 
         }else {
-//            Produit p0 = new Produit(1, "A Noël c\'est moi qui tient les rennes", "Un pull de rennes qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "19.56", "renne", 1);
-//            Produit p1 = new Produit(2, "A Noël c\'est moi qui tient les chiens", "Un pull de chien qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "25", "chien", 1);
-//            Produit p2 = new Produit(3, "A Noël c\'est mon double pull", "Un pull double qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "35", "double_pull", 1);
-//            Produit p3 = new Produit(4, "A Noël c\'est moi qui tient les lamas", "Un pull de lama qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "2", "lama", 1);
-//            Produit p4 = new Produit(5, "A Noël c\'est moi qui tient les sapins", "Un pull de sapin qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.", "10.3", "sapin", 1);
-//
-//            Produit b0 = new Produit(6, "Bonnet en laine", "Ceci est un magnifique bonnet en laine qui tient extrememnt chaud !", "19.5", "bonnet_renne", 2);
-//            Produit b1 = new Produit(7, "Bonnet en laine plus cher", "Ce bonnet est exactement le même que celui vu précédemment mais en plus cher ! ", "25", "bonnet_renne", 2);
-//
-//            Produit c0 = new Produit(8, "Dabsquette", "Voici une casquette très laide et qui ne tient absolument pas chaud mais il y a un père noël dessus.", "19.5", "casquette_dab", 3);
-//            Produit c1 = new Produit(9, "Joli renne", "Grâce à cette casquette vous pourrez vous faire passer pour un magnifique renne et tout le monde n'y verra que du feu !", "25", "casquette_renne", 3);
-//
-//
-//            modele.add(p0);
-//            modele.add(p1);
-//            modele.add(b0);
-//            modele.add(c1);
-//            modele.add(p3);
-//            modele.add(p2);
-//            modele.add(c0);
-//            modele.add(p4);
-//            modele.add(b1);
 
             this.modele = new ArrayList<>();
 
@@ -140,25 +112,11 @@ public class MainActivity extends AppCompatActivity
 
             this.isError = false;
 
-            this.idBoutonRadio = -1;
-
             this.errorCourante = "Erreur";
 
             // Recuperation id categorie
             if (this.getIntent().getIntExtra("id_categ", -1)!=-1){
                 this.idCategorie = this.getIntent().getIntExtra("id_categ", -1);
-//                ArrayList<Produit> temp = new ArrayList<>();
-//
-//                for (int i = 0 ; i < this.modele.size() ; i++) {
-//                    if (this.modele.get(i).getIdCategorie() == idCategorie){
-//                        temp.add(this.modele.get(i));
-//                    }
-//                }
-//                this.modele = temp;
-            }
-
-            if (this.getIntent().getIntExtra("id_bouton_radio", -1)!=-1){
-                this.idBoutonRadio = this.getIntent().getIntExtra("id_bouton_radio", -1);
             }
         }
 
@@ -182,14 +140,11 @@ public class MainActivity extends AppCompatActivity
         this.bPrecedent = (Button) this.findViewById(R.id.bPrecedent);
         this.bSuivant = (Button) this.findViewById(R.id.bSuivant);
         this.image_pull_grande = (ImageView) this.findViewById(R.id.image_pull_grande);
-        this.scolor = (Spinner) this.findViewById(R.id.color_spinner);
         this.staille = (Spinner) this.findViewById(R.id.taille_spinner);
         this.euro = (TextView) this.findViewById(R.id.euro_pull);
         this.panier = (ImageButton) this.findViewById(R.id.image_panier);
         this.imageAdd = (ImageButton) this.findViewById(R.id.image_add);
         this.texteAdd = (TextView) this.findViewById(R.id.texte_add);
-        this.texteCancel = (TextView) this.findViewById(R.id.texte_cancel);
-        this.imageCancel = (ImageButton) this.findViewById(R.id.image_cancel);
         this.errorSpinner = (TextView) this.findViewById(R.id.error_spinner);
 
         if (this.modele.size()>0){
@@ -205,25 +160,9 @@ public class MainActivity extends AppCompatActivity
             this.image_pull_grande.setVisibility(View.VISIBLE);
         }
 
-        if (this.idBoutonRadio==0){
-            System.out.println("------ BOUTON RADIO 0 (VENTE) ------");
-            System.out.println(idBoutonRadio);
-            this.visibilityCatalogue(View.VISIBLE);
-        } else {
-            System.out.println("------ BOUTON RADIO 1 (CATALOGUE) ------");
-            System.out.println(idBoutonRadio);
-            this.visibilityCatalogue(View.INVISIBLE);
-        }
-
         if (this.isError && !this.agrandie){
             this.errorSpinner.setVisibility(View.VISIBLE);
         }
-    }
-
-    public void visibilityCatalogue(int visibility){
-        this.panier.setVisibility(visibility);
-        this.texteCancel.setVisibility(visibility);
-        this.imageCancel.setVisibility(visibility);
     }
 
     /**
@@ -308,20 +247,13 @@ public class MainActivity extends AppCompatActivity
 
     public void onClickPanier(View v){
         if (!(this.staille.getSelectedItem().toString().equals("Choix de la taille"))){
-            if (!(this.scolor.getSelectedItem().toString().equals("Choix du coloris"))) {
-                this.errorSpinner.setVisibility(View.INVISIBLE);
-                this.isError = false;
-                Toast.makeText(this,
-                        String.format(getString(R.string.ajout_panier), this.noPullCourant + 1),
-                        Toast.LENGTH_LONG).show();
-                double prix = Double.parseDouble(this.modele.get(noPullCourant).getPrix());
-                this.totalPanier += utils.arrondir(prix);
-            }else {
-                this.isError = true;
-                this.errorCourante = "Vous devez selectionner un coloris !";
-                this.errorSpinner.setText(this.errorCourante);
-                this.errorSpinner.setVisibility(View.VISIBLE);
-            }
+            this.errorSpinner.setVisibility(View.INVISIBLE);
+            this.isError = false;
+            Toast.makeText(this,
+                    String.format(getString(R.string.ajout_panier), this.noPullCourant + 1),
+                    Toast.LENGTH_LONG).show();
+            double prix = Double.parseDouble(this.modele.get(noPullCourant).getPrix());
+            this.totalPanier += utils.arrondir(prix);
         } else {
             this.isError = true;
             this.errorCourante = "Vous devez selectionner une taille !";
@@ -348,22 +280,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void visibilite(int visibility){
-        if (idBoutonRadio==0){
-            this.panier.setVisibility(visibility);
-            this.texteCancel.setVisibility(visibility);
-            this.imageCancel.setVisibility(visibility);
-        }
         this.image_pull.setVisibility(visibility);
         this.titre.setVisibility(visibility);
         this.description.setVisibility(visibility);
         this.prix.setVisibility(visibility);
         this.bSuivant.setVisibility(visibility);
         this.bPrecedent.setVisibility(visibility);
-        this.scolor.setVisibility(visibility);
         this.staille.setVisibility(visibility);
         this.euro.setVisibility(visibility);
         this.texteAdd.setVisibility(visibility);
         this.imageAdd.setVisibility(visibility);
+        this.panier.setVisibility(visibility);
     }
 
 //    Intent est la classe que vous aurez besoin pour faire le lien entre deux activités,
@@ -393,7 +320,6 @@ public class MainActivity extends AppCompatActivity
 
         if (id ==android.R.id.home){
             Intent intent = new Intent();
-            //intent.putExtra("total_panier", Math.round(this.totalPanier*100.0)/100.0);
             intent.putExtra("total_panier", utils.arrondir(this.totalPanier));
 
             this.setResult(RETOUR, intent);
@@ -404,7 +330,6 @@ public class MainActivity extends AppCompatActivity
 
     public void onClickRetour(View v){
         Intent intent = new Intent();
-        //intent.putExtra("total_panier", Math.round(this.totalPanier*100.0)/100.0);
         intent.putExtra("total_panier", utils.arrondir(this.totalPanier));
 
         this.setResult(RETOUR, intent);
@@ -414,11 +339,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed(){
         this.onClickRetour(null);
-    }
-
-    public void onClickAnnuler(View v){
-        AnnulerAlerte alerte = new AnnulerAlerte();
-        alerte.show(getSupportFragmentManager(), "suppression");
     }
 
     @Override
