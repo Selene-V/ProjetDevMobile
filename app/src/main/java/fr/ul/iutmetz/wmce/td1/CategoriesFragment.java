@@ -1,9 +1,8 @@
 package fr.ul.iutmetz.wmce.td1;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,8 +30,8 @@ import fr.ul.iutmetz.wmce.td1.DAO.CategorieDAO;
 import fr.ul.iutmetz.wmce.td1.modele.Categorie;
 import utils.Utils;
 
-public class CategoriesFragments extends Fragment
-    implements /*AdapterView.OnItemClickListener,*/ ActiviteEnAttenteImage,
+public class CategoriesFragment extends Fragment
+    implements AdapterView.OnItemClickListener, ActiviteEnAttenteImage,
                 com.android.volley.Response.Listener<JSONArray>,
                 com.android.volley.Response.ErrorListener {
 
@@ -63,7 +63,7 @@ public class CategoriesFragments extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater,
                                 ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        this.root = inflater.inflate(R.layout.activity_affichage_categories, container, false);
+        this.root = inflater.inflate(R.layout.fragment_affichage_categories, container, false);
 
         if (savedInstanceState!=null){
             this.listeCategories = (ArrayList<Categorie>) savedInstanceState.getSerializable("listeCategorie");
@@ -101,7 +101,7 @@ public class CategoriesFragments extends Fragment
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
 
         this.lvCategories = this.root.findViewById(R.id.ca_liste);
@@ -109,27 +109,17 @@ public class CategoriesFragments extends Fragment
         this.vente = (RadioButton) this.root.findViewById(R.id.vente);
 
         this.lvCategories.setAdapter(adaptateur);
-        /*this.lvCategories.setOnItemClickListener(this);*/
+        this.lvCategories.setOnItemClickListener(this);
         this.prixTotal.setText(" " + utils.arrondir(this.totalPanier));
     }
 
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Intent intent = new Intent(CategoriesFragments.this, CategoriesFragment.class);
-//        intent.putExtra("id_categ", this.listeCategories.get(position).getId());
-//        if (this.vente.isChecked()){
-//            intent.putExtra("id_bouton_radio", MAIN_VENTE);
-//            startActivityForResult(intent, MAIN_VENTE);
-//        } else {
-//            intent.putExtra("id_bouton_radio", MAIN_CATALOGUE);
-//            startActivityForResult(intent, MAIN_CATALOGUE);
-//        }
-//        this.adaptateur = new CategoriesAdapter(
-//                this.getContext(),
-//                this.listeCategories,
-//                this.listeImagesCategories
-//        );
-//    }
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id_categ", this.listeCategories.get(position).getId());
+
+        Navigation.findNavController(view).navigate(R.id.action_nav_boutique_to_venteCatalogueFragment2,bundle);
+    }
 //
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
