@@ -33,27 +33,29 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" /> <!-- MAIN ACTIVITY -->
-        <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="@string/title_activity_maps" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity">
+            <!-- MAIN ACTIVITY -->
+            <activity android:name=".SplashActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
 
-            <!-- android:theme="@style/Theme.TD1.ListeProduits"> -->
-        </activity>
-        <activity android:name=".SaisieNouveauPullActivity">
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
+            <activity android:name=".MainActivity">
 
-            <!-- android:theme="@style/Theme.TD1.NouveauProduit"> -->
+                <!-- android:theme="@style/Theme.TD1.ListeProduits"> -->
+            </activity>
+            <activity android:name=".SaisieNouveauPullActivity">
 
-        </activity>
-        <activity android:name=".CategoriesActivity">
+                <!-- android:theme="@style/Theme.TD1.NouveauProduit"> -->
 
-            <!-- android:theme="@style/Theme.TD1.ListeCategories"> -->
-        </activity>
-    </application>
+            </activity>
+            <activity android:name=".CategoriesActivity">
+
+                <!-- android:theme="@style/Theme.TD1.ListeCategories"> -->
+            </activity>
+        </application>
 
 </manifest>
