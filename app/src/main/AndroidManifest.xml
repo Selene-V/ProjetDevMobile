@@ -37,27 +37,27 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
 
-        <!-- MAIN ACTIVITY -->
-        <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!-- MAIN ACTIVITY -->
+            <activity android:name=".SplashActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity">
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
+            <activity android:name=".MainActivity">
 
-            <!-- android:theme="@style/Theme.TD1.ListeProduits"> -->
-        </activity>
-        <activity android:name=".SaisieNouveauPullActivity">
+                <!-- android:theme="@style/Theme.TD1.ListeProduits"> -->
+            </activity>
+            <activity android:name=".SaisieNouveauPullActivity">
 
-            <!-- android:theme="@style/Theme.TD1.NouveauProduit"> -->
+                <!-- android:theme="@style/Theme.TD1.NouveauProduit"> -->
 
-        </activity>
-        <activity android:name=".CategoriesActivity">
+            </activity>
+            <activity android:name=".CategoriesActivity">
 
-            <!-- android:theme="@style/Theme.TD1.ListeCategories"> -->
-        </activity>
-    </application>
+                <!-- android:theme="@style/Theme.TD1.ListeCategories"> -->
+            </activity>
+        </application>
 
 </manifest>
