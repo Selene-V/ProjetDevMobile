@@ -80,7 +80,7 @@ public class CategoriesFragment extends Fragment
             this.listeCategories = new ArrayList<>();
 
             CategorieDAO catDAO = new CategorieDAO();
-            catDAO.findAll(this.getContext());
+            catDAO.findAll(this);
 
             this.totalPanier = utils.arrondir(0.00);
         }

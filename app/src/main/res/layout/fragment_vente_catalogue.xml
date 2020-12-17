@@ -13,7 +13,6 @@
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="42dp"
-        android:onClick="onClickAddPull"
         android:scaleType="centerInside"
         android:src="@drawable/ic_baseline_add_circle_outline_24"
         android:background="@null"
@@ -26,7 +25,6 @@
         style="@style/ThemeAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClickAddPull"
         android:text="@string/nouveau_produit"
         app:layout_constraintLeft_toLeftOf="@id/image_add"
         app:layout_constraintRight_toRightOf="@id/image_add"
@@ -42,14 +40,12 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/titre"
-        android:onClick="onClickZoom"
         />
 
     <ImageView
         android:id="@+id/image_pull_grande"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="onClickDezoom"
         android:scaleType="centerInside"
         android:src="@drawable/imgdefaut"
         android:visibility="invisible"
@@ -59,7 +55,6 @@
 
     <Button
         android:id="@+id/bPrecedent"
-        android:onClick="onClickPrecedent"
         android:layout_height="wrap_content"
         android:layout_width="40dp"
         android:text="@string/left"
@@ -71,7 +66,6 @@
 
     <Button
         android:id="@+id/bSuivant"
-        android:onClick="onClickSuivant"
         android:layout_height="wrap_content"
         android:layout_width="40dp"
         android:text="@string/right"
@@ -141,7 +135,6 @@
         android:src="@drawable/ic_baseline_shopping_basket_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:onClick="onClickPanier"
         />
 
     <TextView

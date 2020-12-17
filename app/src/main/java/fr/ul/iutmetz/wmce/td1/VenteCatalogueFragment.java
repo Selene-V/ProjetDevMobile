@@ -107,7 +107,7 @@ public class VenteCatalogueFragment extends Fragment
             this.modele = new ArrayList<>();
 
             ProduitDAO prodDAO = new ProduitDAO();
-            prodDAO.findAll(this.getContext());
+            prodDAO.findAll(this);
 
 
 
@@ -155,6 +155,13 @@ public class VenteCatalogueFragment extends Fragment
         this.imageAdd = (ImageButton) this.root.findViewById(R.id.image_add);
         this.texteAdd = (TextView) this.root.findViewById(R.id.texte_add);
         this.errorSpinner = (TextView) this.root.findViewById(R.id.error_spinner);
+
+        //this.imageAdd.setOnClickListener(this::onClickAddPull);
+        this.image_pull.setOnClickListener(this::onClickZoom);
+        this.image_pull_grande.setOnClickListener(this::onClickDezoom);
+        this.bPrecedent.setOnClickListener(this::onClickPrecedent);
+        this.bSuivant.setOnClickListener(this::onClickSuivant);
+        this.panier.setOnClickListener(this::onClickPanier);
 
         if (this.modele.size()>0){
             // Changements
