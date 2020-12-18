@@ -56,4 +56,15 @@ Enfin, nous pouvons collecter de manière automatique certaines informations vou
 De telles informations sont utilisées exclusivement à des fins de statistiques internes, de manière à améliorer la qualité des services qui vous sont proposés. Les bases de données sont protégées par les dispositions de la loi du 1er juillet 1998 transposant la directive 96/9 du 11 mars 1996 relative à la protection juridique des bases de données.</string>
 
 
+    <!--    Client   -->
+    <string name="nom">Nom</string>
+    <string name="prenom">Prénom</string>
+    <string name="identifiant">Identifiant</string>
+    <string name="adresse_numero">Numéro</string>
+    <string name="adresse_voie">Voie</string>
+    <string name="adresse_code_postal">Code postal</string>
+    <string name="adresse_ville">Ville</string>
+    <string name="adresse_pays">Pays</string>
+
+
 </resources>
