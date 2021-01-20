@@ -65,6 +65,11 @@ De telles informations sont utilisées exclusivement à des fins de statistiques
     <string name="adresse_code_postal">Code postal</string>
     <string name="adresse_ville">Ville</string>
     <string name="adresse_pays">Pays</string>
+    <string name="mes_informations_personnelles">Mes informations personnelles</string>
+    <string name="nom2">Nom :</string>
+    <string name="prenom2">Prénom :</string>
+    <string name="identifiant2">Identifiant :</string>
+    <string name="modifier_mes_informations">Modifier mes informations</string>
 
 
 </resources>
