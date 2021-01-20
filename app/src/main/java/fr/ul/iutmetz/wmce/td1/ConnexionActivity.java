@@ -52,7 +52,8 @@ public class ConnexionActivity extends AppCompatActivity
 
 
     public void onClickInscription(View v){
-        Intent intent = new Intent(ConnexionActivity.this, InscriptionActivity.class);
+        Intent intent = new Intent(ConnexionActivity.this, SaisieInformationsClientActivity.class);
+        intent.putExtra("action", "inscription");
         startActivityForResult(intent, 0);
     }
 
@@ -72,12 +73,12 @@ public class ConnexionActivity extends AppCompatActivity
 
             if (motDePasse.getText().toString().equals(response.getString("mot_de_passe"))){
 
-                Toast.makeText(getApplicationContext(), "Vous allez être redirigé...",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Vous allez être redirigé...",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(ConnexionActivity.this, CategoriesActivity.class);
                 startActivityForResult(intent, 0);
             }else {
                 //wrong password
-                Toast.makeText(getApplicationContext(), "Identifiants incorrectes !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Identifiants incorrectes !", Toast.LENGTH_LONG).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
