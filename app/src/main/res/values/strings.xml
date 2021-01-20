@@ -70,6 +70,10 @@ De telles informations sont utilisées exclusivement à des fins de statistiques
     <string name="prenom2">Prénom :</string>
     <string name="identifiant2">Identifiant :</string>
     <string name="modifier_mes_informations">Modifier mes informations</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="connexion">Connexion</string>
+    <string name="inscrit_toi">Pas encore de compte ? Inscrit toi !</string>
+    <string name="con_erreur_bdd">Identifiants incorrectes !</string>
 
 
 </resources>
