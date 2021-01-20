@@ -23,6 +23,7 @@ public class MonCompteActivity extends AppCompatActivity {
 
     public void onClickModifier(View v){
         Intent intent = new Intent(MonCompteActivity.this, SaisieInformationsClientActivity.class);
+        intent.putExtra("action", "modification");
         startActivityForResult(intent, 0);
     }
 }
