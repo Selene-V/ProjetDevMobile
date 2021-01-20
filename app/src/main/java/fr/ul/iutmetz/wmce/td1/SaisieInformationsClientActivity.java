@@ -91,15 +91,16 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
     public void onClickValider(View v){
         if (validationChamps()){
             if (this.action.equals("inscription")){
-                String n = this.nom.getText().toString();
-                String p = this.prenom.getText().toString();
-                String id_c = this.identifiant.getText().toString();
+                String n = this.toUpperCaseFirst(this.nom.getText().toString().toLowerCase());
+                String p = this.toUpperCaseFirst(this.prenom.getText().toString().toLowerCase());
+                String id_c = this.identifiant.getText().toString().toLowerCase();
+                // A CRYPTER
                 String motdp = this.mdp.getText().toString();
                 String adrN = this.adrNum.getText().toString();
-                String adrVoie = this.adrVoie.getText().toString();
+                String adrVoie = this.toUpperCaseFirst(this.adrVoie.getText().toString().toLowerCase());
                 String adrCP = this.adrCP.getText().toString();
-                String adrVille = this.adrVille.getText().toString();
-                String adrP = this.adrPays.getText().toString();
+                String adrVille = this.adrVille.getText().toString().toUpperCase();
+                String adrP = this.adrPays.getText().toString().toUpperCase();
 
                 Client client = new Client(-1, n, p, id_c, motdp, adrN, adrVoie, adrCP, adrVille, adrP);
 
@@ -162,6 +163,13 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
         this.mdpHelp.setVisibility(View.INVISIBLE);
         this.adrCPHelp.setVisibility(View.INVISIBLE);
         this.adrNumHelp.setVisibility(View.INVISIBLE);
+    }
+
+    public String toUpperCaseFirst(String s){
+        String first = s.substring(0, 1);
+        String rest = s.substring(1);
+        first = first.toUpperCase();
+        return first + rest;
     }
     @Override
     public void onErrorResponse(VolleyError error) {
