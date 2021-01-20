@@ -20,11 +20,14 @@ import java.util.regex.Pattern;
 
 import fr.ul.iutmetz.wmce.td1.DAO.InscriptionDAO;
 import fr.ul.iutmetz.wmce.td1.modele.Client;
+import utils.Utils;
 
 
 public class SaisieInformationsClientActivity extends AppCompatActivity
         implements com.android.volley.Response.Listener<JSONObject>,
         com.android.volley.Response.ErrorListener {
+
+    private Utils utils = new Utils();
 
     private String action;
 
@@ -91,13 +94,13 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
     public void onClickValider(View v){
         if (validationChamps()){
             if (this.action.equals("inscription")){
-                String n = this.toUpperCaseFirst(this.nom.getText().toString().toLowerCase());
-                String p = this.toUpperCaseFirst(this.prenom.getText().toString().toLowerCase());
+                String n = utils.toUpperCaseFirst(this.nom.getText().toString().toLowerCase());
+                String p = utils.toUpperCaseFirst(this.prenom.getText().toString().toLowerCase());
                 String id_c = this.identifiant.getText().toString().toLowerCase();
                 // A CRYPTER
                 String motdp = this.mdp.getText().toString();
                 String adrN = this.adrNum.getText().toString();
-                String adrVoie = this.toUpperCaseFirst(this.adrVoie.getText().toString().toLowerCase());
+                String adrVoie = utils.toUpperCaseFirst(this.adrVoie.getText().toString().toLowerCase());
                 String adrCP = this.adrCP.getText().toString();
                 String adrVille = this.adrVille.getText().toString().toUpperCase();
                 String adrP = this.adrPays.getText().toString().toUpperCase();
@@ -165,12 +168,6 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
         this.adrNumHelp.setVisibility(View.INVISIBLE);
     }
 
-    public String toUpperCaseFirst(String s){
-        String first = s.substring(0, 1);
-        String rest = s.substring(1);
-        first = first.toUpperCase();
-        return first + rest;
-    }
     @Override
     public void onErrorResponse(VolleyError error) {
 
