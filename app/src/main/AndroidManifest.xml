@@ -47,6 +47,9 @@
 
                 <!-- android:theme="@style/Theme.TD1.ListeProduits"> -->
             </activity>
+        <activity android:name=".SignUp">
+
+        </activity>
             <activity android:name=".SaisieNouveauPullActivity">
 
                 <!-- android:theme="@style/Theme.TD1.NouveauProduit"> -->

@@ -25,6 +25,9 @@
     <string name="title_activity_maps">Map</string>
     <string name="ca_erreur_bdd">Attention erreur BDD !</string>
 
+    <string name="splasherDescription">Here\'s the splasher</string>
+
+    <string name="erreurChampVide">Ce champ ne peut pas être vide</string>
 
     <string name="mentions_legales">Mentions légales</string>
     <string name="RCS">La boutique monPullMoche, portant le SIRET 840.489.398.00012, est une société de droit français enregistrée auprès du RCS. Cette société est propriétaire du nom de domaine www.monpullmoche.fr (ci-après, le « site »).</string>
