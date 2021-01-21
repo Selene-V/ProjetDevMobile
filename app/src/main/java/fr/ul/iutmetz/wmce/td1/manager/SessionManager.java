@@ -9,7 +9,7 @@ import fr.ul.iutmetz.wmce.td1.ConnexionActivity;
 
 public class SessionManager {
     private static final String IS_LOGIN = "IS_LOGIN";
-    private static final String EMAIL = "EMAIL";
+    private static final String ID = "ID";
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     Context context;
@@ -20,9 +20,9 @@ public class SessionManager {
         this.editor = sharedPreferences.edit();
     }
 
-    public void createSession (String email){
+    public void createSession (int id){
         editor.putBoolean(IS_LOGIN, true);
-        editor.putString(EMAIL, email);
+        editor.putInt(ID, id);
         editor.apply();
     }
 
@@ -38,8 +38,8 @@ public class SessionManager {
         }
     }
 
-    public String getEmailUser(){
-        return sharedPreferences.getString(EMAIL, "");
+    public int getIdUser(){
+        return sharedPreferences.getInt(ID, -1);
     }
 
     public void closeSession(){

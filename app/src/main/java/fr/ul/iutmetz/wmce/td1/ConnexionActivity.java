@@ -83,7 +83,7 @@ public class ConnexionActivity extends AppCompatActivity
                 if (motDePasse.getText().toString().equals(data.getString("mot_de_passe"))){
 
                     Toast.makeText(getApplicationContext(), "Vous allez être redirigé...",Toast.LENGTH_LONG).show();
-                    sessionManager.createSession(this.identifiant.getText().toString());
+                    sessionManager.createSession(data.getInt("id_client"));
 
                     Intent intent = new Intent(ConnexionActivity.this, CategoriesActivity.class);
                     startActivityForResult(intent, 0);

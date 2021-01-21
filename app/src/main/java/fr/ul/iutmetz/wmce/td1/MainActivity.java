@@ -297,8 +297,10 @@ public class MainActivity extends AppCompatActivity
 //    les paramètres sont  l'actitivé actuelle et l'activité que vous souhaitez appeler,
 //    une fois que le objet est crée, il faut juste appeler au méthode "startActivity"
     public void onClickAddPull(View v){
-        Intent intent = new Intent(MainActivity.this, SaisieNouveauPullActivity.class);
-        intent.putExtra("id_categ", this.idCategorie);
+//        Intent intent = new Intent(MainActivity.this, SaisieNouveauPullActivity.class);
+//        intent.putExtra("id_categ", this.idCategorie);
+//        startActivityForResult(intent, MAIN_SAISIE_NOUVEAU_PULL);
+        Intent intent = new Intent(MainActivity.this, MonCompteActivity.class);
         startActivityForResult(intent, MAIN_SAISIE_NOUVEAU_PULL);
     }
 

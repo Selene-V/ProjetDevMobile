@@ -20,7 +20,9 @@ import org.json.JSONObject;
 import java.util.regex.Pattern;
 
 import fr.ul.iutmetz.wmce.td1.DAO.InscriptionDAO;
+import fr.ul.iutmetz.wmce.td1.DAO.ModificationUserDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
+import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Client;
 import utils.Utils;
 
@@ -28,6 +30,8 @@ import utils.Utils;
 public class SaisieInformationsClientActivity extends AppCompatActivity
         implements com.android.volley.Response.Listener<JSONObject>,
         com.android.volley.Response.ErrorListener {
+
+    SessionManager sessionManager;
 
     private Utils utils = new Utils();
 
@@ -63,6 +67,8 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
         if (savedInstanceState != null) {
 
         } else {
+            sessionManager = new SessionManager(this);
+            sessionManager.checkIsLogin();
             // Action permet de savoir si l'on effectue une inscription ou une modification
             // d'un client
             this.action = this.getIntent().getStringExtra("action");
@@ -97,25 +103,37 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
 
     public void onClickValider(View v) {
         if (validationChamps()) {
-            if (this.action.equals("inscription")) {
-                String n = utils.toUpperCaseFirst(this.nom.getText().toString().toLowerCase());
-                String p = utils.toUpperCaseFirst(this.prenom.getText().toString().toLowerCase());
-                String id_c = this.identifiant.getText().toString().toLowerCase();
-                // A CRYPTER
-                String motdp = this.mdp.getText().toString();
-                String adrN = this.adrNum.getText().toString();
-                String adrVoie = utils.toUpperCaseFirst(this.adrVoie.getText().toString().toLowerCase());
-                String adrCP = this.adrCP.getText().toString();
-                String adrVille = this.adrVille.getText().toString().toUpperCase();
-                String adrP = this.adrPays.getText().toString().toUpperCase();
+            String n = utils.toUpperCaseFirst(this.nom.getText().toString().toLowerCase());
+            String p = utils.toUpperCaseFirst(this.prenom.getText().toString().toLowerCase());
+            String id_c = this.identifiant.getText().toString().toLowerCase();
+            // A CRYPTER
+            String motdp = this.mdp.getText().toString();
+            String adrN = this.adrNum.getText().toString();
+            String adrVoie = utils.toUpperCaseFirst(this.adrVoie.getText().toString().toLowerCase());
+            String adrCP = this.adrCP.getText().toString();
+            String adrVille = this.adrVille.getText().toString().toUpperCase();
+            String adrP = this.adrPays.getText().toString().toUpperCase();
+            System.out.println("ON EST APRES ASSIGNATION !");
+            System.out.println("ACTION : " + this.action);
+            System.out.println("ACTION equals : " + this.action.equals("inscription"));
 
+            if (this.action.equals("inscription")) {
+                System.out.println("ON EST DANS UNE INSCRIPTION !");
                 this.client = new Client(-1, n, p, id_c, motdp, adrN, adrVoie, adrCP, adrVille, adrP);
 
                 this.identifiantExist(this, this.client.getIdentifiant());
             }
             // Sinon c'est une modification
             else {
-                //TODO
+                // Recuperation id Client Connecté :
+                System.out.println("ON EST DANS UNE MODIFICATION !");
+
+                int idUser = sessionManager.getIdUser();
+                System.out.println("id récupéré dans la session : " + idUser);
+                System.out.println("La session est elle connectée : " + sessionManager.isLoggin());
+                this.client = new Client(idUser, n, p, id_c, motdp, adrN, adrVoie, adrCP, adrVille, adrP);
+
+                this.identifiantExist(this, this.client.getIdentifiant());
             }
         }
     }
@@ -185,23 +203,46 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
 
             switch (requete) {
                 case "recherche":
-                    if (!response.getBoolean("res")) {
-                        System.out.println("IL EXISTE PAS !");
-                        Intent intent = new Intent();
+                    if (this.action.equals("inscription")) {
+                        System.out.println("-------------------- INSCRIPTION ---------------------");
+                        if (!response.getBoolean("res")) {
+                            System.out.println("IL EXISTE PAS !");
+                            Intent intent = new Intent();
 
-                        // ADD CLIENT BDD
-                        InscriptionDAO inscDAO = new InscriptionDAO();
-                        inscDAO.insert(this, client);
+                            // ADD CLIENT BDD
+                            InscriptionDAO inscDAO = new InscriptionDAO();
+                            inscDAO.insert(this, client);
 
-                        this.setResult(0, intent);
-                        this.finish();
+                            this.setResult(0, intent);
+                            this.finish();
+                        } else {
+                            System.out.println("IL EXISTE !");
+                            this.identifiantHelp.setText("Cette adresse email est déjà utilisée !");
+                            this.identifiantHelp.setVisibility(View.VISIBLE);
+                        }
                     } else {
-                        System.out.println("IL EXISTE !");
-                        this.identifiantHelp.setText("Cette adresse email est déjà utilisée !");
-                        this.identifiantHelp.setVisibility(View.VISIBLE);
+                        System.out.println("-------------------- MODIFICATION ---------------------");
+                        if (((response.getBoolean("res")) && (response.getJSONObject("data").getInt("id_client") == sessionManager.getIdUser()))
+                        || (!response.getBoolean("res"))) {
+                            System.out.println("IL EXISTE MAIS CEST LUI OU IL EXISTE PAS!");
+                            Intent intent = new Intent();
+
+                            // UPDATE CLIENT BDD
+                            ModificationUserDAO modifDAO = new ModificationUserDAO();
+                            modifDAO.update(this, client);
+
+                            this.setResult(0, intent);
+                            this.finish();
+                        } else {
+                            System.out.println("IL EXISTE ET CEST PAS LUI !");
+                            this.identifiantHelp.setText("Cette adresse email est déjà utilisée !");
+                            this.identifiantHelp.setVisibility(View.VISIBLE);
+                        }
                     }
                     break;
                 case "insert":
+                    break;
+                case "update":
                     break;
             }
         } catch (JSONException e) {

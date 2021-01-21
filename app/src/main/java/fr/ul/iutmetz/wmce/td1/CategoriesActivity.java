@@ -78,11 +78,6 @@ public class CategoriesActivity extends AppCompatActivity
             sessionManager = new SessionManager(this);
             sessionManager.checkIsLogin();
 
-            // Recuperation email :
-            String emailUser = sessionManager.getEmailUser();
-            System.out.println("email récupéré dans la session : " + emailUser);
-            System.out.println("La session est elle connectée : " + sessionManager.isLoggin());
-
             this.listeCategories = new ArrayList<>();
 
             CategorieDAO catDAO = new CategorieDAO();
