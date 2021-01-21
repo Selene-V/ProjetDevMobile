@@ -9,7 +9,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-public class ConnexionDAO {
+public class UserDAO {
 
     public static void findOneById(Context activite, String identifiantClient){
 

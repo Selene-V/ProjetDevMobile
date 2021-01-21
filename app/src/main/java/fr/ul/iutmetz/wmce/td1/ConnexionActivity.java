@@ -11,10 +11,11 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.ul.iutmetz.wmce.td1.DAO.ConnexionDAO;
+import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 
 public class ConnexionActivity extends AppCompatActivity
@@ -49,7 +50,7 @@ public class ConnexionActivity extends AppCompatActivity
     }
 
     public void onClickConnexion(View v){
-        ConnexionDAO conDAO = new ConnexionDAO();
+        UserDAO conDAO = new UserDAO();
         conDAO.findOneById(this, identifiant.getText().toString());
     }
 
@@ -71,19 +72,25 @@ public class ConnexionActivity extends AppCompatActivity
         try {
             //correct id
             // Verification mdp :
-            System.out.println(response.getString("mot_de_passe"));
-            System.out.println(motDePasse.getText().toString());
+            if (!response.getBoolean("res")) {
+                Toast.makeText(this, R.string.con_erreur_bdd, Toast.LENGTH_LONG).show();
+            } else {
+                JSONObject data = response.getJSONObject("data");
 
-            if (motDePasse.getText().toString().equals(response.getString("mot_de_passe"))){
+                System.out.println(data.getString("mot_de_passe"));
+                System.out.println(motDePasse.getText().toString());
 
-                Toast.makeText(getApplicationContext(), "Vous allez être redirigé...",Toast.LENGTH_LONG).show();
-                sessionManager.createSession(this.identifiant.getText().toString());
+                if (motDePasse.getText().toString().equals(data.getString("mot_de_passe"))){
 
-                Intent intent = new Intent(ConnexionActivity.this, CategoriesActivity.class);
-                startActivityForResult(intent, 0);
-            }else {
-                //wrong password
-                Toast.makeText(getApplicationContext(), "Identifiants incorrectes !", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Vous allez être redirigé...",Toast.LENGTH_LONG).show();
+                    sessionManager.createSession(this.identifiant.getText().toString());
+
+                    Intent intent = new Intent(ConnexionActivity.this, CategoriesActivity.class);
+                    startActivityForResult(intent, 0);
+                }else {
+                    //wrong password
+                    Toast.makeText(getApplicationContext(), "Identifiants incorrectes !", Toast.LENGTH_LONG).show();
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

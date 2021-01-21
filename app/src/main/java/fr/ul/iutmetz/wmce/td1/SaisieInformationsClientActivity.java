@@ -2,20 +2,25 @@ package fr.ul.iutmetz.wmce.td1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.regex.Pattern;
 
 import fr.ul.iutmetz.wmce.td1.DAO.InscriptionDAO;
+import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
 import fr.ul.iutmetz.wmce.td1.modele.Client;
 import utils.Utils;
 
@@ -27,6 +32,8 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
     private Utils utils = new Utils();
 
     private String action;
+
+    private Client client;
 
     private EditText nom;
     private EditText prenom;
@@ -53,12 +60,13 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saisie_informations_client);
 
-        if (savedInstanceState!=null){
+        if (savedInstanceState != null) {
 
         } else {
             // Action permet de savoir si l'on effectue une inscription ou une modification
             // d'un client
             this.action = this.getIntent().getStringExtra("action");
+            this.client = null;
         }
     }
 
@@ -85,12 +93,11 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
         this.adrVilleHelp = (TextView) this.findViewById(R.id.adresse_ville_help);
         this.adrPaysHelp = (TextView) this.findViewById(R.id.adresse_pays_help);
         this.mdpHelp = (TextView) this.findViewById(R.id.mot_de_passe_help);
-
     }
 
-    public void onClickValider(View v){
-        if (validationChamps()){
-            if (this.action.equals("inscription")){
+    public void onClickValider(View v) {
+        if (validationChamps()) {
+            if (this.action.equals("inscription")) {
                 String n = utils.toUpperCaseFirst(this.nom.getText().toString().toLowerCase());
                 String p = utils.toUpperCaseFirst(this.prenom.getText().toString().toLowerCase());
                 String id_c = this.identifiant.getText().toString().toLowerCase();
@@ -102,16 +109,9 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
                 String adrVille = this.adrVille.getText().toString().toUpperCase();
                 String adrP = this.adrPays.getText().toString().toUpperCase();
 
-                Client client = new Client(-1, n, p, id_c, motdp, adrN, adrVoie, adrCP, adrVille, adrP);
+                this.client = new Client(-1, n, p, id_c, motdp, adrN, adrVoie, adrCP, adrVille, adrP);
 
-                Intent intent = new Intent();
-
-                // ADD CLIENT BDD
-                InscriptionDAO inscDAO = new InscriptionDAO();
-                inscDAO.insert(this, client);
-
-                this.setResult(0, intent);
-                this.finish();
+                this.identifiantExist(this, this.client.getIdentifiant());
             }
             // Sinon c'est une modification
             else {
@@ -120,25 +120,7 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
         }
     }
 
-    public boolean isValid(String regex, EditText nomChamp, TextView nomChampHelp, String messageErreur){
-        boolean valid = true;
-        if (TextUtils.isEmpty(nomChamp.getText().toString())) {
-            nomChampHelp.setText("Champ obligatoire !");
-            nomChampHelp.setVisibility(View.VISIBLE);
-            valid = false;
-        } else {
-            System.out.println("regex : " + Pattern.matches(regex, nomChamp.getText().toString()));
-            if (!Pattern.matches(regex, nomChamp.getText().toString())){
-                nomChampHelp.setText(messageErreur);
-                nomChampHelp.setVisibility(View.VISIBLE);
-                valid = false;
-            }
-        }
-        System.out.println(nomChamp.getText().toString() + " : " + valid);
-        return valid;
-    }
-
-    public boolean validationChamps(){
+    public boolean validationChamps() {
         clearErrors();
         boolean validNom = isValid("([ \\u00c0-\\u01ffa-zA-Z'\\-])+(?<!('|\\s|-))", this.nom, this.nomHelp, "Caractères acceptés : a-z A-Z , ' - espace");
         boolean validPrenom = isValid("([ \\u00c0-\\u01ffa-zA-Z'\\-])+(?<!('|\\s|-))", this.prenom, this.prenomHelp, "Caractères acceptés : a-z A-Z , ' - espace");
@@ -153,7 +135,32 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
         return (validNom && validPrenom && validAdrVoie && validAdrVille && validAdrPays && validIdentifiant && validMdp && validAdrCP && validAdrNum);
     }
 
-    public void clearErrors(){
+    public boolean isValid(String regex, EditText nomChamp, TextView nomChampHelp, String messageErreur) {
+        boolean valid = true;
+        if (TextUtils.isEmpty(nomChamp.getText().toString())) {
+            nomChampHelp.setText("Champ obligatoire !");
+            nomChampHelp.setVisibility(View.VISIBLE);
+            valid = false;
+        } else {
+            System.out.println("regex : " + Pattern.matches(regex, nomChamp.getText().toString()));
+            if (!Pattern.matches(regex, nomChamp.getText().toString())) {
+                nomChampHelp.setText(messageErreur);
+                nomChampHelp.setVisibility(View.VISIBLE);
+                valid = false;
+//            } else {
+//                // SI cest une adresse mail alors on vérifie qu'elle n'existe pas déjà dans la bdd
+//                if (messageErreur.equals("Veuillez entrez une adresse email valide de la forme exemple@exemple.fr")) {
+//                    System.out.println("valid email exist : " + valid);
+//                    valid = this.identifiantExist(this, nomChamp.getText().toString());
+//                    System.out.println("valid email exist : " + valid);
+//                }
+            }
+        }
+        System.out.println(nomChamp.getText().toString() + " : " + valid);
+        return valid;
+    }
+
+    public void clearErrors() {
         this.nomHelp.setVisibility(View.INVISIBLE);
         this.prenomHelp.setVisibility(View.INVISIBLE);
         this.adrVoieHelp.setVisibility(View.INVISIBLE);
@@ -165,6 +172,11 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
         this.adrNumHelp.setVisibility(View.INVISIBLE);
     }
 
+    public void identifiantExist(Context context, String identifiant) {
+        UserDAO userDAO = new UserDAO();
+        userDAO.findOneById(context, identifiant);
+    }
+
     @Override
     public void onErrorResponse(VolleyError error) {
 
@@ -172,6 +184,33 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
 
     @Override
     public void onResponse(JSONObject response) {
+        try {
+            String requete = response.getString("requete");
 
+            System.out.println("requete");
+            System.out.println(requete);
+
+            switch (requete) {
+                case "recherche":
+                    if (!response.getBoolean("res")) {
+                        System.out.println("IL EXISTE PAS !");
+                        Intent intent = new Intent();
+
+                        // ADD CLIENT BDD
+                        InscriptionDAO inscDAO = new InscriptionDAO();
+                        inscDAO.insert(this, client);
+
+                        this.setResult(0, intent);
+                        this.finish();
+                    } else {
+                        System.out.println("IL EXISTE !");
+                    }
+                    break;
+                case "insert":
+                    break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
