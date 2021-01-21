@@ -18,7 +18,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MonTheme">
-        <activity android:name=".InscriptionActivity"></activity>
         <activity android:name=".ConnexionActivity" />
         <activity android:name=".MonCompteActivity" />
         <activity android:name=".SaisieInformationsClientActivity" />
