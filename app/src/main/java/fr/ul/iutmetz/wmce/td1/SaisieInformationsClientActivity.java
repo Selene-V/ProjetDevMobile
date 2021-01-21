@@ -147,13 +147,6 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
                 nomChampHelp.setText(messageErreur);
                 nomChampHelp.setVisibility(View.VISIBLE);
                 valid = false;
-//            } else {
-//                // SI cest une adresse mail alors on vérifie qu'elle n'existe pas déjà dans la bdd
-//                if (messageErreur.equals("Veuillez entrez une adresse email valide de la forme exemple@exemple.fr")) {
-//                    System.out.println("valid email exist : " + valid);
-//                    valid = this.identifiantExist(this, nomChamp.getText().toString());
-//                    System.out.println("valid email exist : " + valid);
-//                }
             }
         }
         System.out.println(nomChamp.getText().toString() + " : " + valid);
@@ -204,6 +197,8 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
                         this.finish();
                     } else {
                         System.out.println("IL EXISTE !");
+                        this.identifiantHelp.setText("Cette adresse email est déjà utilisée !");
+                        this.identifiantHelp.setVisibility(View.VISIBLE);
                     }
                     break;
                 case "insert":
