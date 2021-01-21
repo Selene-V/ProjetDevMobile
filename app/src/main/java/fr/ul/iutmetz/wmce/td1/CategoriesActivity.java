@@ -26,6 +26,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import fr.ul.iutmetz.wmce.td1.DAO.CategorieDAO;
+import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Categorie;
 import fr.ul.iutmetz.wmce.td1.modele.Produit;
 import utils.Utils;
@@ -35,6 +36,7 @@ public class CategoriesActivity extends AppCompatActivity
                 com.android.volley.Response.Listener<JSONArray>,
                 com.android.volley.Response.ErrorListener {
 
+    SessionManager sessionManager;
 
     private ArrayList<Categorie> listeCategories;
     private double totalPanier;
@@ -72,6 +74,14 @@ public class CategoriesActivity extends AppCompatActivity
 //            listeCategories.add(c0);
 //            listeCategories.add(c1);
 //            listeCategories.add(c2);
+
+            sessionManager = new SessionManager(this);
+            sessionManager.checkIsLogin();
+
+            // Recuperation email :
+            String emailUser = sessionManager.getEmailUser();
+            System.out.println("email récupéré dans la session : " + emailUser);
+            System.out.println("La session est elle connectée : " + sessionManager.isLoggin());
 
             this.listeCategories = new ArrayList<>();
 

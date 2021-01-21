@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.ul.iutmetz.wmce.td1.DAO.ConnexionDAO;
+import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 
 public class ConnexionActivity extends AppCompatActivity
         implements com.android.volley.Response.Listener<JSONObject>,
@@ -22,6 +23,8 @@ public class ConnexionActivity extends AppCompatActivity
 
     private EditText identifiant;
     private EditText motDePasse;
+
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class ConnexionActivity extends AppCompatActivity
         if (savedInstanceState!=null){
 
         } else {
-
+            sessionManager = new SessionManager(this);
         }
     }
 
@@ -74,6 +77,8 @@ public class ConnexionActivity extends AppCompatActivity
             if (motDePasse.getText().toString().equals(response.getString("mot_de_passe"))){
 
                 Toast.makeText(getApplicationContext(), "Vous allez être redirigé...",Toast.LENGTH_LONG).show();
+                sessionManager.createSession(this.identifiant.getText().toString());
+
                 Intent intent = new Intent(ConnexionActivity.this, CategoriesActivity.class);
                 startActivityForResult(intent, 0);
             }else {
