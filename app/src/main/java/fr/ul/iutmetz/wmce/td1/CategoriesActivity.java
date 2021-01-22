@@ -21,14 +21,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import fr.ul.iutmetz.wmce.td1.DAO.CategorieDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Categorie;
-import fr.ul.iutmetz.wmce.td1.modele.Produit;
 import utils.Utils;
 
 public class CategoriesActivity extends AppCompatActivity

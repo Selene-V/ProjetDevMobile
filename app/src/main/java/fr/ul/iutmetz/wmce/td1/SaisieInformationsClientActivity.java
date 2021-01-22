@@ -9,11 +9,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -185,7 +183,7 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
 
     public void identifiantExist(Context context, String identifiant) {
         UserDAO userDAO = new UserDAO();
-        userDAO.findOneById(context, identifiant);
+        userDAO.findOneByIdentifiant(context, identifiant);
     }
 
     @Override

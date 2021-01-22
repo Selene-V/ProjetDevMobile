@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,7 +50,7 @@ public class ConnexionActivity extends AppCompatActivity
 
     public void onClickConnexion(View v){
         UserDAO conDAO = new UserDAO();
-        conDAO.findOneById(this, identifiant.getText().toString());
+        conDAO.findOneByIdentifiant(this, identifiant.getText().toString());
     }
 
 
@@ -81,6 +80,7 @@ public class ConnexionActivity extends AppCompatActivity
                 System.out.println(motDePasse.getText().toString());
 
                 if (motDePasse.getText().toString().equals(data.getString("mot_de_passe"))){
+                    System.out.println(data.getInt("id_client"));
 
                     Toast.makeText(getApplicationContext(), "Vous allez être redirigé...",Toast.LENGTH_LONG).show();
                     sessionManager.createSession(data.getInt("id_client"));
