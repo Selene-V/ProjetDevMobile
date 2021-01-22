@@ -27,56 +27,26 @@
             style="@style/ThemeMentionsLegalesDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/RCS"
             app:layout_constraintTop_toBottomOf="@id/mentionsLegales"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
 
         <TextView
-            android:id="@+id/Adresse"
+            android:id="@+id/coordonnees"
             style="@style/ThemeMentionsLegalesTitre2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/Adresse"
             app:layout_constraintTop_toBottomOf="@id/RCS"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
         <TextView
-            android:id="@+id/adress"
+            android:id="@+id/coord"
             style="@style/ThemeMentionsLegalesDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/adress"
-            app:layout_constraintTop_toBottomOf="@id/Adresse"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/telephone"
-            style="@style/ThemeMentionsLegalesDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/telephone"
-            app:layout_constraintTop_toBottomOf="@id/adress"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/email"
-            style="@style/ThemeMentionsLegalesDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/email"
-            app:layout_constraintTop_toBottomOf="@id/telephone"
+            app:layout_constraintTop_toBottomOf="@id/coordonnees"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
@@ -88,7 +58,7 @@
             android:layout_height="wrap_content"
 
             android:text="@string/Conditions_generales"
-            app:layout_constraintTop_toBottomOf="@id/email"
+            app:layout_constraintTop_toBottomOf="@id/coord"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />

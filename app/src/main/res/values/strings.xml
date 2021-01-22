@@ -27,11 +27,7 @@
 
 
     <string name="mentions_legales">Mentions légales</string>
-    <string name="RCS">La boutique monPullMoche, portant le SIRET 840.489.398.00012, est une société de droit français enregistrée auprès du RCS. Cette société est propriétaire du nom de domaine www.monpullmoche.fr (ci-après, le « site »).</string>
     <string name="Adresse">Adresse :</string>
-    <string name="adress">9, rue du vivier 57000 METZ (FRANCE)</string>
-    <string name="telephone">Téléphone: +33 3 83 85 96 75</string>
-    <string name="email">E-mail: info@monpullmoche.fr</string>
     <string name="Conditions_generales">Conditions générales d\'utilisation</string>
     <string name="CGU">Nous mettons tout en oeuvre pour assurer une mise à jour fiable et constante de l\'application. Toutefois, des erreurs ou omissions peuvent survenir. L\'utilisateur devra donc signaler toutes modifications du site qu\'il jugerait utile.</string>
     <string name="services_fournis">Services fournis : </string>
