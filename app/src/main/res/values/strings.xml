@@ -74,6 +74,9 @@ De telles informations sont utilisées exclusivement à des fins de statistiques
     <string name="connexion">Connexion</string>
     <string name="inscrit_toi">Pas encore de compte ? Inscrit toi !</string>
     <string name="con_erreur_bdd">Identifiants incorrectes !</string>
+    <string name="derniere_commande">Dernière commande</string>
+    <string name="identifiant_de_la_commande">Identifiant de la commande :</string>
+    <string name="date_de_la_commande">Date de la commande :</string>
 
 
 </resources>

@@ -85,7 +85,8 @@ public class ConnexionActivity extends AppCompatActivity
                     Toast.makeText(getApplicationContext(), "Vous allez être redirigé...",Toast.LENGTH_LONG).show();
                     sessionManager.createSession(data.getInt("id_client"));
 
-                    Intent intent = new Intent(ConnexionActivity.this, CategoriesActivity.class);
+//                    Intent intent = new Intent(ConnexionActivity.this, CategoriesActivity.class);
+                    Intent intent = new Intent(ConnexionActivity.this, MonCompteActivity.class);
                     startActivityForResult(intent, 0);
                 }else {
                     //wrong password

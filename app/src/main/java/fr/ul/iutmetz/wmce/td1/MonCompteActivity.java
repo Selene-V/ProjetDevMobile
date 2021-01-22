@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import fr.ul.iutmetz.wmce.td1.DAO.CommandeDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 
@@ -27,6 +28,9 @@ public class MonCompteActivity extends AppCompatActivity
     private TextView monNom;
     private TextView monPrenom;
     private TextView monAdresse;
+
+    private TextView numCom;
+    private TextView dateCom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +55,21 @@ public class MonCompteActivity extends AppCompatActivity
         this.monPrenom = this.findViewById(R.id.mon_prenom);
         this.monAdresse = this.findViewById(R.id.mon_adresse);
 
-        // Recherche des infos du user connecté
+        this.numCom = this.findViewById(R.id.id_commande);
+        this.dateCom = this.findViewById(R.id.date);
+
+        int idClient = this.sessionManager.getIdUser();
+        // Recherche des infos personnelles du user connecté
         UserDAO userDAO = new UserDAO();
-        userDAO.findOneById(this, this.sessionManager.getIdUser());
+        userDAO.findOneById(this, idClient);
+
+        // Recherche de la dernière commande du user connecté
+        CommandeDAO comDAO = new CommandeDAO();
+        comDAO.findLastCommandByClient(this, idClient);
+    }
+
+    public void onClickVoirCommande(View v){
+        //TODO
     }
 
     public void onClickModifier(View v){
@@ -62,14 +78,28 @@ public class MonCompteActivity extends AppCompatActivity
         startActivityForResult(intent, 0);
     }
 
-    public void majVueInfos(JSONObject data) throws JSONException {
-        this.monIdentifiant.setText(data.getString("identifiant"));
-        this.monNom.setText(data.getString("nom"));
-        this.monPrenom.setText(data.getString("prenom"));
-        String adresse = data.getString("adr_numero") + ", " + data.getString("adr_voie") + "\n"
-                + data.getString("adr_code_postal") + " " + data.getString("adr_ville") + "\n"
-                + data.getString("adr_pays");
-        this.monAdresse.setText(adresse);
+    public void majVueInfos(JSONObject response) throws JSONException {
+        JSONObject data = response.getJSONObject("data");
+        String requete = response.getString("requete");
+        switch (requete) {
+            case "rechercheID":
+                this.monIdentifiant.setText(data.getString("identifiant"));
+                this.monNom.setText(data.getString("nom"));
+                this.monPrenom.setText(data.getString("prenom"));
+                String adresse = data.getString("adr_numero") + ", " + data.getString("adr_voie") + "\n"
+                        + data.getString("adr_code_postal") + " " + data.getString("adr_ville") + "\n"
+                        + data.getString("adr_pays");
+                this.monAdresse.setText(adresse);
+                break;
+            case "rechercheCommande":
+                System.out.println("------------------ DATA ---------------");
+                System.out.println(data);
+                this.numCom.setText(data.getString("id_commande"));
+                String[] dateSplit = data.getString("date_commande").split("-");
+                String date = dateSplit[2] + "/" + dateSplit[1] + "/" + dateSplit[0];
+                this.dateCom.setText(date);
+                break;
+        }
     }
 
     @Override
@@ -81,8 +111,7 @@ public class MonCompteActivity extends AppCompatActivity
     @Override
     public void onResponse(JSONObject response) {
         try {
-            JSONObject data = response.getJSONObject("data");
-            majVueInfos(data);
+            majVueInfos(response);
         } catch (JSONException e) {
             e.printStackTrace();
         }
