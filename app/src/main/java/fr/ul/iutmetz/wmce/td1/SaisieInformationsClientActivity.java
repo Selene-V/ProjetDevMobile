@@ -22,6 +22,7 @@ import fr.ul.iutmetz.wmce.td1.DAO.ModificationUserDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Client;
+import fr.ul.iutmetz.wmce.td1.modele.Produit;
 import utils.Utils;
 
 
@@ -70,7 +71,13 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
             // Action permet de savoir si l'on effectue une inscription ou une modification
             // d'un client
             this.action = this.getIntent().getStringExtra("action");
-            this.client = null;
+            if (this.action.equals("modification")){
+                Bundle extras = this.getIntent().getExtras();
+                this.client = (Client) extras.get("client");
+                System.out.println(this.client.getIdentifiant());
+            }else {
+                this.client = null;
+            }
         }
     }
 
@@ -97,6 +104,21 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
         this.adrVilleHelp = (TextView) this.findViewById(R.id.adresse_ville_help);
         this.adrPaysHelp = (TextView) this.findViewById(R.id.adresse_pays_help);
         this.mdpHelp = (TextView) this.findViewById(R.id.mot_de_passe_help);
+
+        if (this.client != null){
+            majVueSaisie();
+        }
+    }
+
+    public void majVueSaisie(){
+        this.nom.setText(this.client.getNom());
+        this.prenom.setText(this.client.getPrenom());
+        this.identifiant.setText(this.client.getIdentifiant());
+        this.adrNum.setText(this.client.getAdrNumero());
+        this.adrCP.setText(this.client.getAdrCP());
+        this.adrVoie.setText(this.client.getAdrVoie());
+        this.adrVille.setText(this.client.getAdrVille());
+        this.adrPays.setText(this.client.getAdrPays());
     }
 
     public void onClickValider(View v) {

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.ClientError;
 import com.android.volley.VolleyError;
 
 import org.json.JSONException;
@@ -17,12 +18,14 @@ import org.json.JSONObject;
 import fr.ul.iutmetz.wmce.td1.DAO.CommandeDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
+import fr.ul.iutmetz.wmce.td1.modele.Client;
 
 public class MonCompteActivity extends AppCompatActivity
     implements com.android.volley.Response.Listener<JSONObject>,
         com.android.volley.Response.ErrorListener {
 
     SessionManager sessionManager;
+    private Client clientCourant;
 
     private TextView monIdentifiant;
     private TextView monNom;
@@ -43,6 +46,7 @@ public class MonCompteActivity extends AppCompatActivity
         } else {
             sessionManager = new SessionManager(this);
             sessionManager.checkIsLogin();
+            clientCourant=null;
         }
     }
 
@@ -75,6 +79,7 @@ public class MonCompteActivity extends AppCompatActivity
     public void onClickModifier(View v){
         Intent intent = new Intent(MonCompteActivity.this, SaisieInformationsClientActivity.class);
         intent.putExtra("action", "modification");
+        intent.putExtra("client", this.clientCourant);
         startActivityForResult(intent, 0);
     }
 
@@ -90,6 +95,7 @@ public class MonCompteActivity extends AppCompatActivity
                         + data.getString("adr_code_postal") + " " + data.getString("adr_ville") + "\n"
                         + data.getString("adr_pays");
                 this.monAdresse.setText(adresse);
+                this.clientCourant = new Client(sessionManager.getIdUser(), data.getString("nom"), data.getString("prenom"), data.getString("identifiant"), "", data.getString("adr_numero"), data.getString("adr_voie"), data.getString("adr_code_postal"), data.getString("adr_ville"), data.getString("adr_pays"));
                 break;
             case "rechercheCommande":
                 System.out.println("------------------ DATA ---------------");
