@@ -1,5 +1,6 @@
 package fr.ul.iutmetz.wmce.td1;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +29,7 @@ public class CommandesAdapter extends ArrayAdapter<Commande> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_liste_commandes, parent, false);
         }
         TextView tv1 = convertView.findViewById(R.id.numero_commande);
-        System.out.println("TV1");
-        System.out.println(tv1);
-        tv1.setText(this.listeCommandes.get(position).getId());
+        tv1.setText(Integer.toString(this.listeCommandes.get(position).getId()));
 
         TextView tv2 = convertView.findViewById(R.id.date_commande);
         tv2.setText((CharSequence) this.listeCommandes.get(position).getDateCommande());
