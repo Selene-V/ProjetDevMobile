@@ -1,6 +1,7 @@
 package fr.ul.iutmetz.wmce.td1;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,13 @@ import fr.ul.iutmetz.wmce.td1.modele.LigneCommandeDetaillee;
 public class DetailCommandeAdapter extends ArrayAdapter<LigneCommandeDetaillee> {
 
     private ArrayList<LigneCommandeDetaillee> listeDetailCommande;
+    private ArrayList<Bitmap> listeImagesCommande;
 
-    public DetailCommandeAdapter(Context context, ArrayList<LigneCommandeDetaillee> liste)
+    public DetailCommandeAdapter(Context context, ArrayList<LigneCommandeDetaillee> liste, ArrayList<Bitmap> listeImages)
     {
         super(context, 0, liste);
         this.listeDetailCommande = liste;
+        this.listeImagesCommande = listeImages;
     }
 
     @Override
@@ -31,12 +34,7 @@ public class DetailCommandeAdapter extends ArrayAdapter<LigneCommandeDetaillee> 
         }
 
         ImageView img = convertView.findViewById(R.id.img_produit);
-        int id = getContext().getResources().getIdentifier(
-                this.listeDetailCommande.get(position).getProduit().getVisuel(),
-                "drawable",
-                getContext().getPackageName()
-        );
-        img.setImageResource(id);
+        img.setImageBitmap(this.listeImagesCommande.get(position));
 
         TextView tv1 = convertView.findViewById(R.id.taille_commande);
         tv1.setText(this.listeDetailCommande.get(position).getTaille());

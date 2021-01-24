@@ -2,6 +2,7 @@ package fr.ul.iutmetz.wmce.td1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -21,11 +22,13 @@ import fr.ul.iutmetz.wmce.td1.modele.LigneCommandeDetaillee;
 import fr.ul.iutmetz.wmce.td1.modele.Produit;
 
 public class DetailCommandeActivity extends AppCompatActivity
-        implements com.android.volley.Response.Listener<JSONObject>,
-                    com.android.volley.Response.ErrorListener {
+        implements ActiviteEnAttenteImage,
+        com.android.volley.Response.Listener<JSONObject>,
+        com.android.volley.Response.ErrorListener {
 
     private int idCommandeCourante;
     private ArrayList<LigneCommandeDetaillee> listeDetailCommande;
+    private ArrayList listeImagesCommande;
 
     SessionManager sessionManager;
 
@@ -48,9 +51,17 @@ public class DetailCommandeActivity extends AppCompatActivity
         CommandeDAO comDAO = new CommandeDAO();
         comDAO.findDetailOneCommand(this, idCommandeCourante);
 
+        this.listeImagesCommande = new ArrayList<>();
+        for (int i = 0 ; i < this.listeDetailCommande.size() ; i++){
+            this.listeImagesCommande.add(null);
+            ImageFromURL chargement = new ImageFromURL(this);
+            chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
+                    this.listeDetailCommande.get(i).getProduit().getVisuel(), String.valueOf(i));
+        }
         this.adapteur = new DetailCommandeAdapter(
                 this,
-                this.listeDetailCommande
+                this.listeDetailCommande,
+                this.listeImagesCommande
         );
         System.out.println("----- FIN ONCREATE ----");
     }
@@ -87,6 +98,7 @@ public class DetailCommandeActivity extends AppCompatActivity
                 String prix = commande.getString("tarif");
                 String visuel = commande.getString("visuel");
                 int idCat = commande.getInt("id_categorie");
+
                 Produit produit = new Produit(idProd, titre, desc, prix, visuel, idCat);
 
                 int quantite = commande.getInt("quantite");
@@ -96,6 +108,11 @@ public class DetailCommandeActivity extends AppCompatActivity
                 LigneCommandeDetaillee lCom = new LigneCommandeDetaillee(i, idCommande, produit, quantite, taille, tarif);
                 System.out.println(lCom.toString());
                 this.listeDetailCommande.add(lCom);
+
+                this.listeImagesCommande.add(null);
+                ImageFromURL chargement = new ImageFromURL(this);
+                chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
+                        this.listeDetailCommande.get(i).getProduit().getVisuel(), String.valueOf(i));
             }
             this.adapteur.notifyDataSetChanged();
         } catch (JSONException e) {
@@ -106,5 +123,15 @@ public class DetailCommandeActivity extends AppCompatActivity
     public void onBackPressed(){
         this.setResult(-1);
         this.finish();
+    }
+
+    @Override
+    public void receptionnerImage(Object[] resultats) {
+        if (resultats[0] != null){
+            int idx = Integer.parseInt(resultats[1].toString());
+            Bitmap img = (Bitmap) resultats[0];
+            this.listeImagesCommande.set(idx, img);
+            this.adapteur.notifyDataSetChanged();
+        }
     }
 }
