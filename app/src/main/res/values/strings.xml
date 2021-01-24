@@ -53,6 +53,7 @@
     <string name="connexion">Connexion</string>
     <string name="inscrit_toi">Pas encore de compte ? Inscrit toi !</string>
     <string name="con_erreur_bdd">Identifiants incorrectes !</string>
+    <string name="quantite">Quantité :</string>
 
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
