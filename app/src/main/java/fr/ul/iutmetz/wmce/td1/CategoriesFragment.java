@@ -1,21 +1,24 @@
 package fr.ul.iutmetz.wmce.td1;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +31,7 @@ import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Categorie;
 import utils.Utils;
 
-public class CategoriesActivity extends AppCompatActivity
+public class CategoriesFragment extends Fragment
     implements AdapterView.OnItemClickListener, ActiviteEnAttenteImage,
                 com.android.volley.Response.Listener<JSONArray>,
                 com.android.volley.Response.ErrorListener {
@@ -44,11 +47,12 @@ public class CategoriesActivity extends AppCompatActivity
 
     private ListView lvCategories;
     private TextView prixTotal;
+    private RadioButton vente;
 
-    private static final int MAIN_VENTE = 0;
+    private View root;
 
     @Override
-    protected void onSaveInstanceState(Bundle outState){
+    public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
 
         outState.putSerializable("listeCategorie", this.listeCategories);
@@ -56,9 +60,10 @@ public class CategoriesActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                                ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_affichage_categories);
+        this.root = inflater.inflate(R.layout.fragment_affichage_categories, container, false);
 
         if (savedInstanceState!=null){
             this.listeCategories = (ArrayList<Categorie>) savedInstanceState.getSerializable("listeCategorie");
@@ -91,18 +96,20 @@ public class CategoriesActivity extends AppCompatActivity
                     this.listeCategories.get(i).getVisuel(), String.valueOf(i));
         }
         this.adaptateur = new CategoriesAdapter(
-                this,
+                this.getContext(),
                 this.listeCategories,
                 this.listeImagesCategories
         );
+        return this.root;
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
 
-        this.lvCategories = this.findViewById(R.id.ca_liste);
-        this.prixTotal = (TextView) this.findViewById(R.id.total_panier_nombre);
+        this.lvCategories = this.root.findViewById(R.id.ca_liste);
+        this.prixTotal = (TextView) this.root.findViewById(R.id.total_panier_nombre);
+        this.vente = (RadioButton) this.root.findViewById(R.id.vente);
 
         this.lvCategories.setAdapter(adaptateur);
         this.lvCategories.setOnItemClickListener(this);
@@ -111,22 +118,25 @@ public class CategoriesActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(CategoriesActivity.this, MainActivity.class);
-        intent.putExtra("id_categ", this.listeCategories.get(position).getId());
-        startActivityForResult(intent, MAIN_VENTE);
-    }
+        Bundle bundle = new Bundle();
+        bundle.putInt("id_categ", this.listeCategories.get(position).getId());
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 0){
-            if (requestCode == MAIN_VENTE){
-                Bundle extras = data.getExtras();
-                this.totalPanier += utils.arrondir((double) extras.get("total_panier"));
-                this.prixTotal.setText(" " + utils.arrondir(this.totalPanier));
-            } // on ne fait rien
-        } // on ne fait rien en cas d'annulation
+        Navigation.findNavController(view).navigate(R.id.action_nav_boutique_to_venteCatalogueFragment2,bundle);
     }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == 0){
+//            if (requestCode == MAIN_VENTE){
+//                Bundle extras = data.getExtras();
+//                this.totalPanier += utils.arrondir((double) extras.get("total_panier"));
+//                this.prixTotal.setText(" " + utils.arrondir(this.totalPanier));
+//            } else if (requestCode == MAIN_CATALOGUE){
+//                // on ne fait rien si on revient du mode catalogue
+//            }
+//        } // on ne fait rien en cas d'annulation
+//    }
 
     @Override
     public void receptionnerImage(Object[] resultats) {
@@ -141,7 +151,7 @@ public class CategoriesActivity extends AppCompatActivity
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.e("Erreur JSON", error + "");
-        Toast.makeText(this, R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
     }
 
     @Override
