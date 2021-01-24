@@ -43,7 +43,7 @@ public class DetailCommandeAdapter extends ArrayAdapter<LigneCommandeDetaillee> 
         tv2.setText(Integer.toString(this.listeDetailCommande.get(position).getQuantite()));
 
         TextView tv3 = convertView.findViewById(R.id.tarif_commande);
-        tv3.setText(this.listeDetailCommande.get(position).getTarifLigne());
+        tv3.setText(this.listeDetailCommande.get(position).getTarifLigne() + " €");
 
         return convertView;
     }

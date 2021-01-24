@@ -63,7 +63,6 @@ public class DetailCommandeActivity extends AppCompatActivity
                 this.listeDetailCommande,
                 this.listeImagesCommande
         );
-        System.out.println("----- FIN ONCREATE ----");
     }
 
     @Override
@@ -106,7 +105,6 @@ public class DetailCommandeActivity extends AppCompatActivity
                 String tarif = commande.getString("tarif");
 
                 LigneCommandeDetaillee lCom = new LigneCommandeDetaillee(i, idCommande, produit, quantite, taille, tarif);
-                System.out.println(lCom.toString());
                 this.listeDetailCommande.add(lCom);
 
                 this.listeImagesCommande.add(null);
