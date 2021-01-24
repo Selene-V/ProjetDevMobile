@@ -6,11 +6,10 @@
     <string name="desc">Un pull qui ravira les petits et les grands. Tricoté par d\'authentiques grand-meres Australiennes, en laine 100% coton naturel issue d\'une filière agriculture durable certifiée ISO-2560.</string>
     <string name="prix">19.5</string>
     <string name="euro">€</string>
-    <string name="ajout_panier">Pull n°%1$d ajouté au panier</string>
+    <string name="ajout_panier">Produit n°%1$d ajouté au panier</string>
     <string name="total_panier_texte">Total panier :  </string>
-    <string name="footer">Réalisé par S. VIOLA, 2020</string>
+    <string name="footer">Réalisé par M. FRANCOIS, R. FRANCOIS, S. VIOLA, 2020</string>
     <string name="nouveau_produit">Nouveau produit</string>
-    <string name="annuler">Annuler</string>
     <string name="retour">Retour</string>
 
     <string name="confirm_titre">Demande de confirmation</string>
@@ -22,8 +21,6 @@
     <string name="description">Description</string>
     <string name="titre">Titre</string>
     <string name="prix_newproduit">Prix</string>
-    <string name="vente">Vente</string>
-    <string name="catalogue">Catalogue</string>
     <string name="categorie_1">Catégorie 1</string>
     <string name="title_activity_maps">Map</string>
     <string name="ca_erreur_bdd">Attention erreur BDD !</string>
@@ -40,4 +37,36 @@
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="mentions_legales">Mentions légales</string>
+    <string name="RCS">La boutique monPullMoche, portant le SIRET 840.489.398.00012, est une société de droit français enregistrée auprès du RCS. Cette société est propriétaire du nom de domaine www.monpullmoche.fr (ci-après, le « site »).</string>
+    <string name="Adresse">Adresse :</string>
+    <string name="adress">9, rue du vivier 57000 METZ (FRANCE)</string>
+    <string name="telephone">Téléphone: +33 3 83 85 96 75</string>
+    <string name="email">E-mail: info@monpullmoche.fr</string>
+    <string name="Conditions_generales">Conditions générales d\'utilisation</string>
+    <string name="CGU">Nous mettons tout en oeuvre pour assurer une mise à jour fiable et constante de l\'application. Toutefois, des erreurs ou omissions peuvent survenir. L\'utilisateur devra donc signaler toutes modifications du site qu\'il jugerait utile.</string>
+    <string name="services_fournis">Services fournis : </string>
+    <string name="sf_desc">L\'ensemble des activité de la société ainsi que ses informations sont présentés sur notre site www.monpullmoche.fr.</string>
+    <string name="sf_desc_2">Nous nous efforçons de fournir des informations aussi précises que possibles. Les renseignements figurant sur le site et l\'application mobile ne sont pas exaustifs et les photos non contractuelles. Ils sont données sous réserve de modifications ayant été apportés depuis leur mise en ligne. Par ailleurs, toutes les informations indiquées sur le site ou l\'application mobile sont données à titre indicatif, et sont susceptibles de changer ou d\'évoluer sans préavis.</string>
+    <string name="lien_hypertextes">Les liens hypertextes mis en place dans le cadre du présent site en direction d\'autres ressources présentes sur le réseau Internet ne sauraient engager la responsabilité de La boutique monpullmoche</string>
+    <string name="propriete_intellectuelle">Propriété intellectuelle :</string>
+    <string name="propriete_intellectuelle_desc">Tout le contenu du présent site www.monpullmoche.fr, incluant, de façon non limitative, les graphismes, images, textes, vidéos, animations, sons, logos, gifs et icônes ainsi que leur mise en forme sont la propriété exclusive de la société à l’exception des marques, logos ou contenus appartenant à d’autres sociétés partenaires ou auteurs. Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l’accord exprès par écrit de La boutique monpullmoche. Cette représentation ou reproduction, par quelque procédé que ce soit, constitue une contrefaçon sanctionnée par les articles L.335–2 et suivants du Code de la propriété intellectuelle. Le non-respect de cette interdiction constitue une contrefaçon pouvant engager la responsabilité civile et pénale du contrefacteur. En outre, les propriétaires des Contenus copiés pourraient intenter une action en justice à votre encontre.</string>
+    <string name="CNIL">Déclaration à la CNIL :</string>
+    <string name="CNIL_desc">Conformément à la loi 78–17 du 6 janvier 1978 (modifiée par la loi 2004–801 du 6 août 2004 relative à la protection des personnes physiques à l’égard des traitements de données à caractère personnel) relative à l’informatique, aux fichiers et aux libertés, ce site a fait l’objet d’une déclaration 1657682 auprès de la Commission nationale de l’informatique et des libertés (www.cnil.fr).</string>
+    <string name="litiges">Litiges :</string>
+    <string name="litiges_desc">Les présentes conditions du site www.monpullmoche.fr sont régies par les lois françaises et toute contestation ou litiges qui pourraient naître de l’interprétation ou de l’exécution de celles-ci seront de la compétence exclusive des tribunaux dont dépend le siège social de la société. La langue de référence, pour le règlement de contentieux éventuels, est le français.</string>
+    <string name="donnees_perso">Données personnelles :</string>
+    <string name="donnees_perso_desc">De manière générale, vous n’êtes pas tenu de nous communiquer vos données personnelles lorsque vous visitez notre site.
+
+Cependant, ce principe comporte certaines exceptions. En effet, pour certains services proposés par notre site, vous pouvez être amenés à nous communiquer certaines données telles que : votre nom, votre fonction, le nom de votre société, votre adresse électronique, et votre numéro de téléphone. Tel est le cas lorsque vous remplissez le formulaire qui vous est proposé en ligne, dans la rubrique « contact ».
+
+Dans tous les cas, vous pouvez refuser de fournir vos données personnelles. Dans ce cas, vous ne pourrez pas utiliser les services du site, notamment celui de solliciter des renseignements sur notre société, ou de recevoir les lettres d’information.
+
+Enfin, nous pouvons collecter de manière automatique certaines informations vous concernant lors d’une simple navigation sur notre site Internet, notamment : des informations concernant l’utilisation de notre site, comme les zones que vous visitez et les services auxquels vous accédez, votre adresse IP, le type de votre navigateur, vos temps d’accès.
+
+De telles informations sont utilisées exclusivement à des fins de statistiques internes, de manière à améliorer la qualité des services qui vous sont proposés. Les bases de données sont protégées par les dispositions de la loi du 1er juillet 1998 transposant la directive 96/9 du 11 mars 1996 relative à la protection juridique des bases de données.</string>
+
+
 </resources>

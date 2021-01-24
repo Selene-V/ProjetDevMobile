@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -47,7 +48,6 @@ public class CategoriesFragment extends Fragment
 
     private ListView lvCategories;
     private TextView prixTotal;
-    private RadioButton vente;
 
     private View root;
 
@@ -69,7 +69,6 @@ public class CategoriesFragment extends Fragment
             this.listeCategories = (ArrayList<Categorie>) savedInstanceState.getSerializable("listeCategorie");
             this.totalPanier = utils.arrondir(savedInstanceState.getDouble("total_panier"));
         } else {
-
             this.listeCategories = new ArrayList<>();
 
             CategorieDAO catDAO = new CategorieDAO();
@@ -99,7 +98,6 @@ public class CategoriesFragment extends Fragment
 
         this.lvCategories = this.root.findViewById(R.id.ca_liste);
         this.prixTotal = (TextView) this.root.findViewById(R.id.total_panier_nombre);
-        this.vente = (RadioButton) this.root.findViewById(R.id.vente);
 
         this.lvCategories.setAdapter(adaptateur);
         this.lvCategories.setOnItemClickListener(this);
