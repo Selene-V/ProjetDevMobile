@@ -18,7 +18,6 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                Intent intent = new Intent(SplashActivity.this, ConnexionActivity.class);
                 Intent intent = new Intent(SplashActivity.this, ConnexionActivity.class);
                 startActivity(intent);
                 finish();
@@ -26,3 +25,6 @@ public class SplashActivity extends AppCompatActivity {
         }, 2*1000);
     }
 }
+// 1 User OK
+// jeandupont@gmail.com
+// Azerty1?
