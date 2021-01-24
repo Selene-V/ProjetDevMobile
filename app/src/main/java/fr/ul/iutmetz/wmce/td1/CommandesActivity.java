@@ -26,7 +26,7 @@ import fr.ul.iutmetz.wmce.td1.modele.Commande;
 public class CommandesActivity extends AppCompatActivity
     implements AdapterView.OnItemClickListener,
         com.android.volley.Response.Listener<JSONObject>,
-        com.android.volley.Response.ErrorListener{
+        com.android.volley.Response.ErrorListener {
 
     private ArrayList<Commande> listeCommandes;
     SessionManager sessionManager;
@@ -67,7 +67,7 @@ public class CommandesActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(CommandesActivity.this, MainActivity.class);
+        Intent intent = new Intent(CommandesActivity.this, DetailCommandeActivity.class);
         intent.putExtra("id_commande", this.listeCommandes.get(position).getId());
         startActivityForResult(intent, 0);
     }
