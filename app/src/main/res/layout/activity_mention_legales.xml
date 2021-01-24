@@ -9,6 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -27,56 +29,26 @@
             style="@style/ThemeMentionsLegalesDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/RCS"
             app:layout_constraintTop_toBottomOf="@id/mentionsLegales"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
 
         <TextView
-            android:id="@+id/Adresse"
+            android:id="@+id/coordonnees"
             style="@style/ThemeMentionsLegalesTitre2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/Adresse"
             app:layout_constraintTop_toBottomOf="@id/RCS"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
         <TextView
-            android:id="@+id/adress"
+            android:id="@+id/coord"
             style="@style/ThemeMentionsLegalesDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/adress"
-            app:layout_constraintTop_toBottomOf="@id/Adresse"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/telephone"
-            style="@style/ThemeMentionsLegalesDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/telephone"
-            app:layout_constraintTop_toBottomOf="@id/adress"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/email"
-            style="@style/ThemeMentionsLegalesDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/email"
-            app:layout_constraintTop_toBottomOf="@id/telephone"
+            app:layout_constraintTop_toBottomOf="@id/coordonnees"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
@@ -86,9 +58,7 @@
             style="@style/ThemeMentionsLegalesTitre2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/Conditions_generales"
-            app:layout_constraintTop_toBottomOf="@id/email"
+            app:layout_constraintTop_toBottomOf="@id/coord"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
@@ -98,8 +68,6 @@
             style="@style/ThemeMentionsLegalesDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/CGU"
             app:layout_constraintTop_toBottomOf="@id/conditions_generales"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -110,8 +78,6 @@
             style="@style/ThemeMentionsLegalesTitre2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/services_fournis"
             app:layout_constraintTop_toBottomOf="@id/CGU"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -122,33 +88,7 @@
             style="@style/ThemeMentionsLegalesDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/sf_desc"
             app:layout_constraintTop_toBottomOf="@id/services_fournis"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/sf_desc2"
-            style="@style/ThemeMentionsLegalesDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/sf_desc_2"
-            app:layout_constraintTop_toBottomOf="@id/sf_desc"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/lien_hypertexte"
-            style="@style/ThemeMentionsLegalesDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/lien_hypertextes"
-            app:layout_constraintTop_toBottomOf="@id/sf_desc2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
@@ -158,9 +98,7 @@
             style="@style/ThemeMentionsLegalesTitre2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/propriete_intellectuelle"
-            app:layout_constraintTop_toBottomOf="@id/lien_hypertexte"
+            app:layout_constraintTop_toBottomOf="@id/sf_desc"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
@@ -170,8 +108,6 @@
             style="@style/ThemeMentionsLegalesDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/propriete_intellectuelle_desc"
             app:layout_constraintTop_toBottomOf="@id/propriete_intellectuelle"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -182,8 +118,6 @@
             style="@style/ThemeMentionsLegalesTitre2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/CNIL"
             app:layout_constraintTop_toBottomOf="@id/propriete_intellectuelle_desc"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -194,8 +128,6 @@
             style="@style/ThemeMentionsLegalesDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/CNIL_desc"
             app:layout_constraintTop_toBottomOf="@id/CNIL"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -206,8 +138,6 @@
             style="@style/ThemeMentionsLegalesTitre2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/litiges"
             app:layout_constraintTop_toBottomOf="@id/CNIL_desc"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -218,8 +148,6 @@
             style="@style/ThemeMentionsLegalesDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/litiges_desc"
             app:layout_constraintTop_toBottomOf="@id/litiges"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -230,8 +158,6 @@
             style="@style/ThemeMentionsLegalesTitre2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/donnees_perso"
             app:layout_constraintTop_toBottomOf="@id/litiges_desc"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -242,8 +168,6 @@
             style="@style/ThemeMentionsLegalesDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/donnees_perso_desc"
             app:layout_constraintTop_toBottomOf="@id/donnees_perso"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -255,13 +179,10 @@
             android:text="@string/footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
-
     </LinearLayout>
-
-
 </ScrollView>

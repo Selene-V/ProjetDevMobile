@@ -1,7 +1,6 @@
 package fr.ul.iutmetz.wmce.td1.modele;
 
 public class Produit extends Rayon {
-    private int id_produit;
     private String description;
     private String prix;
     private int idCategorie;

@@ -11,4 +11,11 @@ public class Utils {
         String s = nf.format(nombre);
         return Double.parseDouble(s.replace(",","."));
     }
+
+    public String toUpperCaseFirst(String s){
+        String first = s.substring(0, 1);
+        String rest = s.substring(1);
+        first = first.toUpperCase();
+        return first + rest;
+    }
 }
