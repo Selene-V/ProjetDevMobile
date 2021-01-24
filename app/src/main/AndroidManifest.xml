@@ -30,9 +30,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".MapsFragment"
-            android:label="@string/title_activity_maps" /> <!-- MAIN ACTIVITY -->
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,9 +37,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:theme="@style/MonTheme.NoActionBar">
-
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/MonTheme.NoActionBar"></activity>
         <activity android:name=".SaisieNouveauPullActivity">
 
             <!-- android:theme="@style/Theme.TD1.NouveauProduit"> -->

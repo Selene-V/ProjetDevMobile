@@ -43,7 +43,7 @@ public class VenteCatalogueFragment extends Fragment
     private int noPullCourant;
     private boolean agrandie;
     private int idCategorie;
-    private double totalPanier;
+    private ArrayList<Produit> listeProduitsPanier;
     private boolean isError;
     private String errorCourante;
     private ArrayList listeImagesProduits;
@@ -80,7 +80,7 @@ public class VenteCatalogueFragment extends Fragment
         outState.putSerializable("listePull", this.modele);
         outState.putBoolean("agrandie", this.agrandie);
         outState.putBoolean("is_error", this.isError);
-        outState.putDouble("total_panier", utils.arrondir(this.totalPanier));
+        outState.putSerializable("listeProduitsPanier", this.listeProduitsPanier);
         outState.putString("error_courante", this.errorCourante);
 
     }
@@ -99,7 +99,7 @@ public class VenteCatalogueFragment extends Fragment
             this.modele = (ArrayList<Produit>) savedInstanceState.getSerializable("listePull");
             this.agrandie = savedInstanceState.getBoolean("agrandie");
             this.isError = savedInstanceState.getBoolean("is_error");
-            this.totalPanier = utils.arrondir(savedInstanceState.getDouble("total_panier"));
+            this.listeProduitsPanier = (ArrayList<Produit>) savedInstanceState.getSerializable("listeProduitsPanier");
             this.errorCourante = savedInstanceState.getString("error_courante");
 
         }else {
@@ -111,7 +111,7 @@ public class VenteCatalogueFragment extends Fragment
 
 
 
-            this.totalPanier = utils.arrondir(0.00);
+            this.listeProduitsPanier = new ArrayList<Produit>();
 
             this.noPullCourant = 0;
 
@@ -268,8 +268,9 @@ public class VenteCatalogueFragment extends Fragment
             Toast.makeText(this.getContext(),
                     String.format(getString(R.string.ajout_panier), this.noPullCourant + 1),
                     Toast.LENGTH_LONG).show();
-            double prix = Double.parseDouble(this.modele.get(noPullCourant).getPrix());
-            this.totalPanier += utils.arrondir(prix);
+            this.listeProduitsPanier.add(modele.get(noPullCourant));
+
+
         } else {
             this.isError = true;
             this.errorCourante = "Vous devez selectionner une taille !";

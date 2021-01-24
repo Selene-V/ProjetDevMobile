@@ -69,13 +69,6 @@ public class CategoriesFragment extends Fragment
             this.listeCategories = (ArrayList<Categorie>) savedInstanceState.getSerializable("listeCategorie");
             this.totalPanier = utils.arrondir(savedInstanceState.getDouble("total_panier"));
         } else {
-//            Categorie c0 = new Categorie(0, "Pulls", "renne");
-//            Categorie c1 = new Categorie(1, "Bonnets", "bonnet_renne");
-//            Categorie c2 = new Categorie(2, "Casquettes", "casquette_dab");
-//
-//            listeCategories.add(c0);
-//            listeCategories.add(c1);
-//            listeCategories.add(c2);
 
             this.listeCategories = new ArrayList<>();
 
@@ -120,20 +113,6 @@ public class CategoriesFragment extends Fragment
 
         Navigation.findNavController(view).navigate(R.id.action_nav_boutique_to_venteCatalogueFragment2,bundle);
     }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == 0){
-//            if (requestCode == MAIN_VENTE){
-//                Bundle extras = data.getExtras();
-//                this.totalPanier += utils.arrondir((double) extras.get("total_panier"));
-//                this.prixTotal.setText(" " + utils.arrondir(this.totalPanier));
-//            } else if (requestCode == MAIN_CATALOGUE){
-//                // on ne fait rien si on revient du mode catalogue
-//            }
-//        } // on ne fait rien en cas d'annulation
-//    }
 
     @Override
     public void receptionnerImage(Object[] resultats) {
