@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_boutique"
+    app:startDestination="@+id/boutique_categories">
+
+    <fragment
+        android:id="@id/boutique_categories"
+        android:name="fr.ul.iutmetz.wmce.td1.BoutiqueFragment"
+        android:label="Catalogue"
+        tools:layout="@layout/fragment_boutique" />
+
+    <fragment
+        android:id="@+id/boutique_favoris"
+        android:label="Favoris"/>
+
+<!--    <fragment-->
+<!--        android:id="@+id/boutique_articles"-->
+<!--        android:label="Articles"/>-->
+</navigation>
