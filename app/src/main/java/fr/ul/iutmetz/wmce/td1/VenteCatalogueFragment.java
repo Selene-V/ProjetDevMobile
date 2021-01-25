@@ -122,7 +122,7 @@ public class VenteCatalogueFragment extends Fragment
             this.errorCourante = "Erreur";
 
             // Recuperation id categorie
-            if (this.getActivity().getIntent().getIntExtra("id_categ", -1)!=-1){
+            if (this.getArguments().getInt("id_categ", -1)!=-1){
                 this.idCategorie = this.getArguments().getInt("id_categ", -1);
             }
         }

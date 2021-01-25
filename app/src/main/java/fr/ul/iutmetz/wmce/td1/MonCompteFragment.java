@@ -1,7 +1,6 @@
 package fr.ul.iutmetz.wmce.td1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.ClientError;
 import com.android.volley.VolleyError;
 
 import org.json.JSONException;
@@ -83,11 +81,14 @@ public class MonCompteFragment extends Fragment
     }
 
     public void onClickVoirCommande(View v){
-        Intent intent = new Intent(MonCompteActivity.this, DetailCommandeActivity.class);
-        System.out.println("--------- NUM COMMANDE -------------");
-        System.out.println(this.numCom.getText());
-        intent.putExtra("id_commande", Integer.valueOf((String) this.numCom.getText()));
-        startActivityForResult(intent, 0);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("id_commande", Integer.valueOf((String) this.numCom.getText()));
+
+        Navigation.findNavController(v).navigate(R.id.action_toDetailCommandeFragment,bundle);
+
+        //System.out.println("--------- NUM COMMANDE -------------");
+        //startActivityForResult(intent, 0);
     }
 
     public void onClickModifier(View v){

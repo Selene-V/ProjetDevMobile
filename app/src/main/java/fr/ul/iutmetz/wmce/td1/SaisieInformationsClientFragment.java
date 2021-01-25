@@ -87,7 +87,7 @@ public class SaisieInformationsClientFragment extends Fragment
             }
         }
 
-        // Recuperation id categorie
+        // Recuperation de action
         if (this.getArguments().getString("action", "default")!="default"){
             this.action = this.getArguments().getString("action", "default");
         }

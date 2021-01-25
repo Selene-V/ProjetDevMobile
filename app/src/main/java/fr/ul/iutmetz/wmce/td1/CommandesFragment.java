@@ -1,11 +1,16 @@
 package fr.ul.iutmetz.wmce.td1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -23,7 +28,7 @@ import fr.ul.iutmetz.wmce.td1.DAO.CommandeDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Commande;
 
-public class CommandesActivity extends AppCompatActivity
+public class CommandesFragment extends Fragment
     implements AdapterView.OnItemClickListener,
         com.android.volley.Response.Listener<JSONObject>,
         com.android.volley.Response.ErrorListener {
@@ -34,14 +39,17 @@ public class CommandesActivity extends AppCompatActivity
     private ListView lvCommandes;
     private CommandesAdapter adapteur;
 
-
+private View root;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_affichage_commandes);
+
+        this.root = inflater.inflate(R.layout.activity_affichage_commandes, container, false);
+
         this.listeCommandes = new ArrayList<>();
-        sessionManager = new SessionManager(this);
+        sessionManager = new SessionManager(this.getContext());
 //        sessionManager.checkIsLogin();
 
         CommandeDAO comDAO = new CommandeDAO();
@@ -49,16 +57,18 @@ public class CommandesActivity extends AppCompatActivity
         comDAO.findAllCommandsByClient(this, 1);
 
         this.adapteur = new CommandesAdapter(
-                this,
+                this.getContext(),
                 this.listeCommandes
         );
 
+        return this.root;
+
     }
 
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
 
-        this.lvCommandes = this.findViewById(R.id.commandes_liste);
+        this.lvCommandes = this.root.findViewById(R.id.commandes_liste);
 
         this.lvCommandes.setAdapter(adapteur);
         this.lvCommandes.setOnItemClickListener(this);
@@ -67,15 +77,16 @@ public class CommandesActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(CommandesActivity.this, DetailCommandeActivity.class);
-        intent.putExtra("id_commande", this.listeCommandes.get(position).getId());
-        startActivityForResult(intent, 0);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id_commande", this.listeCommandes.get(position).getId());
+
+        Navigation.findNavController(view).navigate(R.id.action_toDetailCommandeFragment,bundle);
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.e("Erreur JSON", error + "");
-        Toast.makeText(this, R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
     }
 
     @Override

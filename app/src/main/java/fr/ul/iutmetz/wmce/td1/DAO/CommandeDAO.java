@@ -29,29 +29,29 @@ public class CommandeDAO {
         queue.add(jsonRequest);
     }
 
-    public static void findAllCommandsByClient(Context activite, int idClient){
+    public static void findAllCommandsByClient(Fragment fragment, int idClient){
 
-        RequestQueue queue = Volley.newRequestQueue(activite);
+        RequestQueue queue = Volley.newRequestQueue(fragment.getContext());
         String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/commandes/findAllCommandsByClient.php?id_client="+idClient;
 
         // Request a string response from the provided URL
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                (com.android.volley.Response.Listener<JSONObject>) activite,
-                (com.android.volley.Response.ErrorListener) activite);
+                (com.android.volley.Response.Listener<JSONObject>) fragment,
+                (com.android.volley.Response.ErrorListener) fragment);
 
         // Add the request to the RequestQueue
         queue.add(jsonRequest);
     }
 
-    public static void findDetailOneCommand(Context activite, int idCommande){
+    public static void findDetailOneCommand(Fragment fragment, int idCommande){
 
-        RequestQueue queue = Volley.newRequestQueue(activite);
+        RequestQueue queue = Volley.newRequestQueue(fragment.getContext());
         String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/commandes/findDetailOneCommand.php?id_commande="+idCommande;
 
         // Request a string response from the provided URL
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                (com.android.volley.Response.Listener<JSONObject>) activite,
-                (com.android.volley.Response.ErrorListener) activite);
+                (com.android.volley.Response.Listener<JSONObject>) fragment,
+                (com.android.volley.Response.ErrorListener) fragment);
 
         // Add the request to the RequestQueue
         queue.add(jsonRequest);

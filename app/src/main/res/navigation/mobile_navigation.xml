@@ -61,6 +61,10 @@
         android:name="fr.ul.iutmetz.wmce.td1.SaisieInformationsClientFragment"
         android:label="saisieInformationsClientFragment" />
 
+    <fragment
+        android:id="@+id/DetailCommandeFragment"
+        android:name="fr.ul.iutmetz.wmce.td1.DetailCommandeFragment"
+        android:label="detailCommandeFragment" />
     <action
         android:id="@+id/action_toSaisieInformationsClientFragment"
         app:destination="@id/SaisieInformationsClientFragment" />
@@ -68,5 +72,9 @@
     <action
         android:id="@+id/action_toConnexionFragment"
         app:destination="@id/connexionFragment" />
+
+    <action
+        android:id="@+id/action_toDetailCommandeFragment"
+        app:destination="@id/DetailCommandeFragment" />
 
 </navigation>

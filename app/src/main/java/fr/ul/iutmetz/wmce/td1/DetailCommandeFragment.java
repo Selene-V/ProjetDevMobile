@@ -1,10 +1,15 @@
 package fr.ul.iutmetz.wmce.td1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,7 +26,7 @@ import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.LigneCommandeDetaillee;
 import fr.ul.iutmetz.wmce.td1.modele.Produit;
 
-public class DetailCommandeActivity extends AppCompatActivity
+public class DetailCommandeFragment extends Fragment
         implements ActiviteEnAttenteImage,
         com.android.volley.Response.Listener<JSONObject>,
         com.android.volley.Response.ErrorListener {
@@ -35,15 +40,21 @@ public class DetailCommandeActivity extends AppCompatActivity
     private ListView lvDetailCommande;
     private DetailCommandeAdapter adapteur;
 
+    private View root;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_affichage_detail_commande);
+        this.root = inflater.inflate(R.layout.fragment_affichage_detail_commande, container, false);
 
-        sessionManager = new SessionManager(this);
+        sessionManager = new SessionManager(this.getContext());
 
-        this.idCommandeCourante = this.getIntent().getIntExtra("id_commande", -1);
+        // Recuperation id categorie
+        if (this.getArguments().getInt("id_commande", -1)!=-1){
+            this.idCommandeCourante = this.getArguments().getInt("id_commande", -1);
+        }
 
         this.listeDetailCommande = new ArrayList<>();
 //        sessionManager.checkIsLogin();
@@ -59,17 +70,19 @@ public class DetailCommandeActivity extends AppCompatActivity
                     this.listeDetailCommande.get(i).getProduit().getVisuel(), String.valueOf(i));
         }
         this.adapteur = new DetailCommandeAdapter(
-                this,
+                this.getContext(),
                 this.listeDetailCommande,
                 this.listeImagesCommande
         );
+
+        return this.root;
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
 
-        this.lvDetailCommande = this.findViewById(R.id.commande_detaillee_liste);
+        this.lvDetailCommande = this.root.findViewById(R.id.commande_detaillee_liste);
 
         this.lvDetailCommande.setAdapter(adapteur);
     }
@@ -77,7 +90,7 @@ public class DetailCommandeActivity extends AppCompatActivity
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.e("Erreur JSON", error + "");
-        Toast.makeText(this, R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -119,8 +132,8 @@ public class DetailCommandeActivity extends AppCompatActivity
     }
 
     public void onBackPressed(){
-        this.setResult(-1);
-        this.finish();
+        this.getActivity().setResult(-1);
+        this.getActivity().finish();
     }
 
     @Override
