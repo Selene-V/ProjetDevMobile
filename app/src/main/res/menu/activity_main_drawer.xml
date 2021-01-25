@@ -16,5 +16,11 @@
             android:id="@+id/nav_boutique"
             android:icon="@drawable/ic_menu_camera"
             android:title="Boutique"/>
+        <item
+            android:id="@+id/nav_mentionsLegales"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Mentions légales"/>
+
+
     </group>
 </menu>

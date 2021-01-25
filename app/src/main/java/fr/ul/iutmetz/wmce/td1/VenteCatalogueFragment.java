@@ -142,19 +142,19 @@ public class VenteCatalogueFragment extends Fragment
     public void onStart(){
         super.onStart();
 
-        this.image_pull = (ImageView) this.root.findViewById(R.id.image_pull);
-        this.titre = (TextView) this.root.findViewById(R.id.titre);
-        this.description = (TextView) this.root.findViewById(R.id.desc);
-        this.prix = (TextView) this.root.findViewById(R.id.prix_pull);
-        this.bPrecedent = (Button) this.root.findViewById(R.id.bPrecedent);
-        this.bSuivant = (Button) this.root.findViewById(R.id.bSuivant);
-        this.image_pull_grande = (ImageView) this.root.findViewById(R.id.image_pull_grande);
-        this.staille = (Spinner) this.root.findViewById(R.id.taille_spinner);
-        this.euro = (TextView) this.root.findViewById(R.id.euro_pull);
-        this.panier = (ImageButton) this.root.findViewById(R.id.image_panier);
-        this.imageAdd = (ImageButton) this.root.findViewById(R.id.image_add);
-        this.texteAdd = (TextView) this.root.findViewById(R.id.texte_add);
-        this.errorSpinner = (TextView) this.root.findViewById(R.id.error_spinner);
+        this.image_pull = this.root.findViewById(R.id.image_pull);
+        this.titre = this.root.findViewById(R.id.titre);
+        this.description = this.root.findViewById(R.id.desc);
+        this.prix = this.root.findViewById(R.id.prix_pull);
+        this.bPrecedent = this.root.findViewById(R.id.bPrecedent);
+        this.bSuivant = this.root.findViewById(R.id.bSuivant);
+        this.image_pull_grande = this.root.findViewById(R.id.image_pull_grande);
+        this.staille = this.root.findViewById(R.id.taille_spinner);
+        this.euro = this.root.findViewById(R.id.euro_pull);
+        this.panier = this.root.findViewById(R.id.image_panier);
+        this.imageAdd = this.root.findViewById(R.id.image_add);
+        this.texteAdd = this.root.findViewById(R.id.texte_add);
+        this.errorSpinner = this.root.findViewById(R.id.error_spinner);
 
         //this.imageAdd.setOnClickListener(this::onClickAddPull);
         this.image_pull.setOnClickListener(this::onClickZoom);
@@ -244,7 +244,7 @@ public class VenteCatalogueFragment extends Fragment
         this.errorSpinner.setText(this.errorCourante);
 
         TailleDAO tailleDAO = new TailleDAO();
-        tailleDAO.peuplerSpinnerTaille(this.getContext());
+        tailleDAO.peuplerSpinnerTaille(this);
     }
 
     public void verifbPrecedent(){

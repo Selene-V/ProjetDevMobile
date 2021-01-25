@@ -3,9 +3,12 @@ package fr.ul.iutmetz.wmce.td1.manager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
 
-import fr.ul.iutmetz.wmce.td1.CategoriesActivity;
-import fr.ul.iutmetz.wmce.td1.ConnexionActivity;
+import androidx.navigation.Navigation;
+
+import fr.ul.iutmetz.wmce.td1.R;
 
 public class SessionManager {
     private static final String IS_LOGIN = "IS_LOGIN";
@@ -30,11 +33,10 @@ public class SessionManager {
         return sharedPreferences.getBoolean(IS_LOGIN, false);
     }
 
-    public void checkIsLogin(){
+    public void checkIsLogin(View view){
         if (!this.isLoggin()){
-            Intent intent = new Intent(context, ConnexionActivity.class);
-            context.startActivity(intent);
-            ((CategoriesActivity)context).finish();
+            Bundle bundle = new Bundle();
+            Navigation.findNavController(view).navigate(R.id.action_toConnexionFragment,bundle);
         }
     }
 
@@ -42,11 +44,10 @@ public class SessionManager {
         return sharedPreferences.getInt(ID, -1);
     }
 
-    public void closeSession(){
+    public void closeSession(View view){
         editor.clear();
         editor.commit();
-        Intent intent = new Intent(context, ConnexionActivity.class);
-        context.startActivity(intent);
-        ((CategoriesActivity)context).finish();
+        Bundle bundle = new Bundle();
+        Navigation.findNavController(view).navigate(R.id.action_toConnexionFragment,bundle);
     }
 }

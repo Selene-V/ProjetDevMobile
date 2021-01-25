@@ -21,14 +21,52 @@
         android:id="@+id/nav_boutique"
         android:name="fr.ul.iutmetz.wmce.td1.CategoriesFragment"
         android:label="Boutique"
-        tools:layout="@layout/fragment_categories">
+        tools:layout="@layout/categories_fragment">
         <action
             android:id="@+id/action_nav_boutique_to_venteCatalogueFragment2"
             app:destination="@id/venteCatalogueFragment2" />
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_mentionsLegales"
+        android:name="fr.ul.iutmetz.wmce.td1.MentionLegalesFragment"
+        android:label="Mentions légales"
+        tools:layout="@layout/fragment_mention_legales">
+    </fragment>
+
     <fragment
         android:id="@+id/venteCatalogueFragment2"
         android:name="fr.ul.iutmetz.wmce.td1.VenteCatalogueFragment"
         android:label="VenteCatalogueFragment" />
+
+    <fragment
+        android:id="@+id/connexionFragment"
+        android:name="fr.ul.iutmetz.wmce.td1.ConnexionFragment"
+        android:label="connexionFragment">
+        <action
+            android:id="@+id/action_toMonCompteFragment"
+            app:destination="@id/MonCompteFragment" />
+        <action
+            android:id="@+id/action_nav_boutique_to_venteCatalogueFragment2"
+            app:destination="@id/venteCatalogueFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/MonCompteFragment"
+        android:name="fr.ul.iutmetz.wmce.td1.MonCompteFragment"
+        android:label="MonCompteFragment" />
+
+    <fragment
+        android:id="@+id/SaisieInformationsClientFragment"
+        android:name="fr.ul.iutmetz.wmce.td1.SaisieInformationsClientFragment"
+        android:label="saisieInformationsClientFragment" />
+
+    <action
+        android:id="@+id/action_toSaisieInformationsClientFragment"
+        app:destination="@id/SaisieInformationsClientFragment" />
+
+    <action
+        android:id="@+id/action_toConnexionFragment"
+        app:destination="@id/connexionFragment" />
 
 </navigation>

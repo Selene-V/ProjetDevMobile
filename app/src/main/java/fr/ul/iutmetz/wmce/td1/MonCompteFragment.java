@@ -1,11 +1,16 @@
 package fr.ul.iutmetz.wmce.td1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +25,7 @@ import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Client;
 
-public class MonCompteActivity extends AppCompatActivity
+public class MonCompteFragment extends Fragment
     implements com.android.volley.Response.Listener<JSONObject>,
         com.android.volley.Response.ErrorListener {
 
@@ -35,32 +40,37 @@ public class MonCompteActivity extends AppCompatActivity
     private TextView numCom;
     private TextView dateCom;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mon_compte);
+    private View root;
 
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        this.root = inflater.inflate(R.layout.activity_mon_compte, container, false);
 
         if (savedInstanceState!=null){
 
         } else {
-            sessionManager = new SessionManager(this);
-            sessionManager.checkIsLogin();
+            sessionManager = new SessionManager(this.getContext());
+            sessionManager.checkIsLogin(getView());
             clientCourant=null;
         }
+
+        return this.root;
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
 
-        this.monIdentifiant = this.findViewById(R.id.mon_identifiant);
-        this.monNom = this.findViewById(R.id.mon_nom);
-        this.monPrenom = this.findViewById(R.id.mon_prenom);
-        this.monAdresse = this.findViewById(R.id.mon_adresse);
+        this.monIdentifiant = this.root.findViewById(R.id.mon_identifiant);
+        this.monNom = this.root.findViewById(R.id.mon_nom);
+        this.monPrenom = this.root.findViewById(R.id.mon_prenom);
+        this.monAdresse = this.root.findViewById(R.id.mon_adresse);
 
-        this.numCom = this.findViewById(R.id.id_commande);
-        this.dateCom = this.findViewById(R.id.date);
+        this.numCom = this.root.findViewById(R.id.id_commande);
+        this.dateCom = this.root.findViewById(R.id.date);
 
         int idClient = this.sessionManager.getIdUser();
         // Recherche des infos personnelles du user connecté
@@ -77,10 +87,10 @@ public class MonCompteActivity extends AppCompatActivity
     }
 
     public void onClickModifier(View v){
-        Intent intent = new Intent(MonCompteActivity.this, SaisieInformationsClientActivity.class);
-        intent.putExtra("action", "modification");
-        intent.putExtra("client", this.clientCourant);
-        startActivityForResult(intent, 0);
+        Bundle bundle = new Bundle();
+        bundle.putString("action", "modification");
+        bundle.putSerializable("client", this.clientCourant);
+        Navigation.findNavController(v).navigate(R.id.action_toSaisieInformationsClientFragment,bundle);
     }
 
     public void majVueInfos(JSONObject response) throws JSONException {
@@ -111,7 +121,7 @@ public class MonCompteActivity extends AppCompatActivity
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.e("Erreur JSON", error + "");
-        Toast.makeText(this, R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -1,12 +1,16 @@
 package fr.ul.iutmetz.wmce.td1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,7 +30,7 @@ import fr.ul.iutmetz.wmce.td1.modele.Produit;
 import utils.Utils;
 
 
-public class SaisieInformationsClientActivity extends AppCompatActivity
+public class SaisieInformationsClientFragment extends Fragment
         implements com.android.volley.Response.Listener<JSONObject>,
         com.android.volley.Response.ErrorListener {
 
@@ -58,52 +62,62 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
     private TextView adrPaysHelp;
     private TextView mdpHelp;
 
+    private View root;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saisie_informations_client);
+        this.root = inflater.inflate(R.layout.activity_saisie_informations_client, container, false);
+
 
         if (savedInstanceState != null) {
 
         } else {
-            sessionManager = new SessionManager(this);
-            sessionManager.checkIsLogin();
+            sessionManager = new SessionManager(this.getContext());
+            sessionManager.checkIsLogin(getView());
             // Action permet de savoir si l'on effectue une inscription ou une modification
             // d'un client
-            this.action = this.getIntent().getStringExtra("action");
             if (this.action.equals("modification")){
-                Bundle extras = this.getIntent().getExtras();
+                Bundle extras = this.getActivity().getIntent().getExtras();
                 this.client = (Client) extras.get("client");
                 System.out.println(this.client.getIdentifiant());
             }else {
                 this.client = null;
             }
         }
+
+        // Recuperation id categorie
+        if (this.getArguments().getString("action", "default")!="default"){
+            this.action = this.getArguments().getString("action", "default");
+        }
+
+        return this.root;
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        this.nom = (EditText) this.findViewById(R.id.nom);
-        this.prenom = (EditText) this.findViewById(R.id.prenom);
-        this.identifiant = (EditText) this.findViewById(R.id.identifiant);
-        this.adrNum = (EditText) this.findViewById(R.id.adresse_numero);
-        this.adrCP = (EditText) this.findViewById(R.id.adresse_code_postal);
-        this.adrVoie = (EditText) this.findViewById(R.id.adresse_voie);
-        this.adrVille = (EditText) this.findViewById(R.id.adresse_ville);
-        this.adrPays = (EditText) this.findViewById(R.id.adresse_pays);
-        this.mdp = (EditText) this.findViewById(R.id.mot_de_passe);
+        this.nom = this.root.findViewById(R.id.nom);
+        this.prenom = this.root.findViewById(R.id.prenom);
+        this.identifiant = this.root.findViewById(R.id.identifiant);
+        this.adrNum = this.root.findViewById(R.id.adresse_numero);
+        this.adrCP = this.root.findViewById(R.id.adresse_code_postal);
+        this.adrVoie = this.root.findViewById(R.id.adresse_voie);
+        this.adrVille = this.root.findViewById(R.id.adresse_ville);
+        this.adrPays = this.root.findViewById(R.id.adresse_pays);
+        this.mdp = this.root.findViewById(R.id.mot_de_passe);
 
-        this.nomHelp = (TextView) this.findViewById(R.id.nom_help);
-        this.prenomHelp = (TextView) this.findViewById(R.id.prenom_help);
-        this.identifiantHelp = (TextView) this.findViewById(R.id.identifiant_help);
-        this.adrNumHelp = (TextView) this.findViewById(R.id.adresse_numero_help);
-        this.adrCPHelp = (TextView) this.findViewById(R.id.adresse_code_postal_help);
-        this.adrVoieHelp = (TextView) this.findViewById(R.id.adresse_voie_help);
-        this.adrVilleHelp = (TextView) this.findViewById(R.id.adresse_ville_help);
-        this.adrPaysHelp = (TextView) this.findViewById(R.id.adresse_pays_help);
-        this.mdpHelp = (TextView) this.findViewById(R.id.mot_de_passe_help);
+        this.nomHelp = this.root.findViewById(R.id.nom_help);
+        this.prenomHelp = this.root.findViewById(R.id.prenom_help);
+        this.identifiantHelp = this.root.findViewById(R.id.identifiant_help);
+        this.adrNumHelp = this.root.findViewById(R.id.adresse_numero_help);
+        this.adrCPHelp = this.root.findViewById(R.id.adresse_code_postal_help);
+        this.adrVoieHelp = this.root.findViewById(R.id.adresse_voie_help);
+        this.adrVilleHelp = this.root.findViewById(R.id.adresse_ville_help);
+        this.adrPaysHelp = this.root.findViewById(R.id.adresse_pays_help);
+        this.mdpHelp = this.root.findViewById(R.id.mot_de_passe_help);
 
         if (this.client != null){
             majVueSaisie();
@@ -141,7 +155,7 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
                 System.out.println("ON EST DANS UNE INSCRIPTION !");
                 this.client = new Client(-1, n, p, id_c, motdp, adrN, adrVoie, adrCP, adrVille, adrP);
 
-                this.identifiantExist(this, this.client.getIdentifiant());
+                this.identifiantExist(this.client.getIdentifiant());
             }
             // Sinon c'est une modification
             else {
@@ -153,7 +167,7 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
                 System.out.println("La session est elle connectée : " + sessionManager.isLoggin());
                 this.client = new Client(idUser, n, p, id_c, motdp, adrN, adrVoie, adrCP, adrVille, adrP);
 
-                this.identifiantExist(this, this.client.getIdentifiant());
+                this.identifiantExist(this.client.getIdentifiant());
             }
         }
     }
@@ -203,9 +217,9 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
         this.adrNumHelp.setVisibility(View.INVISIBLE);
     }
 
-    public void identifiantExist(Context context, String identifiant) {
+    public void identifiantExist(String identifiant) {
         UserDAO userDAO = new UserDAO();
-        userDAO.findOneByIdentifiant(context, identifiant);
+        userDAO.findOneByIdentifiant(this, identifiant);
     }
 
     @Override
@@ -233,8 +247,8 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
                             InscriptionDAO inscDAO = new InscriptionDAO();
                             inscDAO.insert(this, client);
 
-                            this.setResult(0, intent);
-                            this.finish();
+                            this.getActivity().setResult(0, intent);
+                            this.getActivity().finish();
                         } else {
                             System.out.println("IL EXISTE !");
                             this.identifiantHelp.setText("Cette adresse email est déjà utilisée !");
@@ -251,8 +265,8 @@ public class SaisieInformationsClientActivity extends AppCompatActivity
                             ModificationUserDAO modifDAO = new ModificationUserDAO();
                             modifDAO.update(this, client);
 
-                            this.setResult(0, intent);
-                            this.finish();
+                            this.getActivity().setResult(0, intent);
+                            this.getActivity().finish();
                         } else {
                             System.out.println("IL EXISTE ET CEST PAS LUI !");
                             this.identifiantHelp.setText("Cette adresse email est déjà utilisée !");

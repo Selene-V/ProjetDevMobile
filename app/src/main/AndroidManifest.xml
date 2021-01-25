@@ -18,9 +18,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MonTheme">
-        <activity android:name=".ConnexionActivity" />
-        <activity android:name=".MonCompteActivity" />
-        <activity android:name=".SaisieInformationsClientActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -33,11 +30,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" /> <!-- MAIN ACTIVITY -->
-            android:name=".MapsFragment"
-            android:label="@string/title_activity_maps" /> <!-- MAIN ACTIVITY -->
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,7 +45,6 @@
             <!-- android:theme="@style/Theme.TD1.NouveauProduit"> -->
 
         </activity>
-        <activity android:name=".MentionLegalesActivity" />
     </application>
 
 </manifest>

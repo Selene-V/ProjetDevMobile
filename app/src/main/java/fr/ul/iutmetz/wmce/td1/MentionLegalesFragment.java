@@ -1,10 +1,15 @@
 package fr.ul.iutmetz.wmce.td1;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,11 +19,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
-
 import fr.ul.iutmetz.wmce.td1.DAO.MentionsLegalesDAO;
 
-public class MentionLegalesActivity extends AppCompatActivity
+public class MentionLegalesFragment extends Fragment
         implements com.android.volley.Response.Listener<JSONObject>,
         com.android.volley.Response.ErrorListener {
 
@@ -40,31 +43,37 @@ public class MentionLegalesActivity extends AppCompatActivity
 
     private TextView[] lChampsARemplir;
 
+    private View root;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mention_legales);
+
+        this.root = inflater.inflate(R.layout.fragment_mention_legales, container, false);
+
+        return this.root;
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        this.RCS = this.findViewById(R.id.RCS);
-        this.coordonnees = this.findViewById(R.id.coordonnees);
-        this.coord = this.findViewById(R.id.coord);
-        this.conditionsGenerales = this.findViewById(R.id.conditions_generales);
-        this.CGU = this.findViewById(R.id.CGU);
-        this.servicesFournis = this.findViewById(R.id.services_fournis);
-        this.sfDesc = this.findViewById(R.id.sf_desc);
-        this.proprieteIntellectuelle = this.findViewById(R.id.propriete_intellectuelle);
-        this.proprieteIntellectuelleDesc = this.findViewById(R.id.propriete_intellectuelle_desc);
-        this.CNIL = this.findViewById(R.id.CNIL);
-        this.CNILDesc = this.findViewById(R.id.CNIL_desc);
-        this.litiges = this.findViewById(R.id.litiges);
-        this.litigesDesc = this.findViewById(R.id.litiges_desc);
-        this.donneesPerso = this.findViewById(R.id.donnees_perso);
-        this.donneesPersoDesc = this.findViewById(R.id.donnees_perso_desc);
+        this.RCS = this.root.findViewById(R.id.RCS);
+        this.coordonnees = this.root.findViewById(R.id.coordonnees);
+        this.coord = this.root.findViewById(R.id.coord);
+        this.conditionsGenerales = this.root.findViewById(R.id.conditions_generales);
+        this.CGU = this.root.findViewById(R.id.CGU);
+        this.servicesFournis = this.root.findViewById(R.id.services_fournis);
+        this.sfDesc = this.root.findViewById(R.id.sf_desc);
+        this.proprieteIntellectuelle = this.root.findViewById(R.id.propriete_intellectuelle);
+        this.proprieteIntellectuelleDesc = this.root.findViewById(R.id.propriete_intellectuelle_desc);
+        this.CNIL = this.root.findViewById(R.id.CNIL);
+        this.CNILDesc = this.root.findViewById(R.id.CNIL_desc);
+        this.litiges = this.root.findViewById(R.id.litiges);
+        this.litigesDesc = this.root.findViewById(R.id.litiges_desc);
+        this.donneesPerso = this.root.findViewById(R.id.donnees_perso);
+        this.donneesPersoDesc = this.root.findViewById(R.id.donnees_perso_desc);
 
         this.lChampsARemplir = new TextView[]{
                 this.RCS,
@@ -111,7 +120,7 @@ public class MentionLegalesActivity extends AppCompatActivity
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.e("Erreur JSON", error + "");
-        Toast.makeText(this, R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
     }
 
     @Override
