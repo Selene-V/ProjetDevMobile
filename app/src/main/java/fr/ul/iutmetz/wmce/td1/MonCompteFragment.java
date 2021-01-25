@@ -83,7 +83,11 @@ public class MonCompteFragment extends Fragment
     }
 
     public void onClickVoirCommande(View v){
-        //TODO
+        Intent intent = new Intent(MonCompteActivity.this, DetailCommandeActivity.class);
+        System.out.println("--------- NUM COMMANDE -------------");
+        System.out.println(this.numCom.getText());
+        intent.putExtra("id_commande", Integer.valueOf((String) this.numCom.getText()));
+        startActivityForResult(intent, 0);
     }
 
     public void onClickModifier(View v){

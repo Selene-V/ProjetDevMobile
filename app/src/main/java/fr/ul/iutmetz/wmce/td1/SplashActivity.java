@@ -26,3 +26,6 @@ public class SplashActivity extends AppCompatActivity {
         }, 2*1000);
     }
 }
+// 1 User OK
+// jeandupont@gmail.com
+// Azerty1?
