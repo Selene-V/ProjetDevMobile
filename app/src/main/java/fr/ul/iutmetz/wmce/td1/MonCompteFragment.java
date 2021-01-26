@@ -103,7 +103,7 @@ public class MonCompteFragment extends Fragment
         Bundle bundle = new Bundle();
         bundle.putString("action", "modification");
         bundle.putSerializable("client", this.clientCourant);
-        Navigation.findNavController(v).navigate(R.id.action_toSaisieInformationsClientFragment,bundle);
+        Navigation.findNavController(v).navigate(R.id.action_mon_compte_to_modification,bundle);
     }
 
     public void majVueInfos(JSONObject response) throws JSONException {

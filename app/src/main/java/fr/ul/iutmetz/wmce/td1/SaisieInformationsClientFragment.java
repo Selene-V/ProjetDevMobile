@@ -75,9 +75,10 @@ public class SaisieInformationsClientFragment extends Fragment
             sessionManager.checkIsLogin(getView());
             // Action permet de savoir si l'on effectue une inscription ou une modification
             // d'un client
+            this.action = this.getArguments().getString("action");
+
             if (this.action.equals("modification")){
-                Bundle extras = this.getActivity().getIntent().getExtras();
-                this.client = (Client) extras.get("client");
+                this.client = (Client)this.getArguments().get("client");
                 System.out.println(this.client.getIdentifiant());
             }else {
                 this.client = null;

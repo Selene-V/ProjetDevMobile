@@ -75,7 +75,7 @@ public class ConnexionFragment extends Fragment
     public void onClickInscription(View v){
         Bundle bundle = new Bundle();
         bundle.putString("action", "inscription");
-        Navigation.findNavController(v).navigate(R.id.action_toSaisieInformationsClientFragment,bundle);
+        Navigation.findNavController(v).navigate(R.id.action_nav_connexion_to_inscription,bundle);
     }
 
     @Override
