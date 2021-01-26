@@ -16,7 +16,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_mentionsLegales"
+        android:id="@+id/nav_mentions_legales"
         android:name="fr.ul.iutmetz.wmce.td1.MentionLegalesFragment"
         android:label="Mentions légales"
         tools:layout="@layout/fragment_mention_legales">
@@ -35,21 +35,23 @@
         android:label="VenteCatalogueFragment" />
 
     <fragment
-        android:id="@+id/connexionFragment"
+        android:id="@+id/nav_connexion"
         android:name="fr.ul.iutmetz.wmce.td1.ConnexionFragment"
-        android:label="connexionFragment">
-        <action
+        android:label="Connexion"
+        tools:layout="@layout/fragment_connexion">
+    <action
             android:id="@+id/action_toMonCompteFragment"
-            app:destination="@id/MonCompteFragment" />
+            app:destination="@id/nav_mon_compte" />
         <action
             android:id="@+id/action_nav_boutique_to_venteCatalogueFragment2"
             app:destination="@id/venteCatalogueFragment2" />
     </fragment>
 
     <fragment
-        android:id="@+id/MonCompteFragment"
+        android:id="@+id/nav_mon_compte"
         android:name="fr.ul.iutmetz.wmce.td1.MonCompteFragment"
-        android:label="MonCompteFragment" />
+        android:label="Mon Compte"
+        tools:layout="@layout/fragment_connexion"/>
 
     <fragment
         android:id="@+id/SaisieInformationsClientFragment"
@@ -66,7 +68,7 @@
 
     <action
         android:id="@+id/action_toConnexionFragment"
-        app:destination="@id/connexionFragment" />
+        app:destination="@id/nav_connexion" />
 
     <action
         android:id="@+id/action_toDetailCommandeFragment"

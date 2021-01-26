@@ -1,18 +1,15 @@
 package fr.ul.iutmetz.wmce.td1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -22,7 +19,6 @@ import org.json.JSONObject;
 
 import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
-import fr.ul.iutmetz.wmce.td1.modele.Client;
 
 public class ConnexionFragment extends Fragment
         implements com.android.volley.Response.Listener<JSONObject>,
@@ -39,14 +35,16 @@ public class ConnexionFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.root = inflater.inflate(R.layout.activity_connexion, container, false);
+        this.root = inflater.inflate(R.layout.fragment_connexion, container, false);
 
 
         if (savedInstanceState!=null){
 
         } else {
-            sessionManager = new SessionManager(this.getContext());
         }
+
+        sessionManager = new SessionManager(this.getContext());
+
 
         return this.root;
     }
