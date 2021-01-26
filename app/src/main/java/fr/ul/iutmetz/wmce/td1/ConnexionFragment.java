@@ -59,8 +59,10 @@ public class ConnexionFragment extends Fragment
     public void onStart() {
         super.onStart();
         this.identifiant = this.root.findViewById(R.id.identifiant);
+        this.connexion = this.root.findViewById(R.id.connexion);
         this.connexion.setOnClickListener(this::onClickConnexion);
         this.motDePasse = this.root.findViewById(R.id.mot_de_passe);
+        this.inscription = this.root.findViewById(R.id.inscription);
         this.inscription.setOnClickListener(this::onClickInscription);
     }
 
@@ -103,7 +105,7 @@ public class ConnexionFragment extends Fragment
 
                     Bundle bundle = new Bundle();
 
-                    Navigation.findNavController(this.root).navigate(R.id.action_nav_boutique_to_venteCatalogueFragment2, bundle);
+                    Navigation.findNavController(this.root).navigate(R.id.action_nav_connexion_to_boutique, bundle);
 
 //                    Intent intent = new Intent(ConnexionActivity.this, CategoriesActivity.class);
 //                    startActivityForResult(intent, 0);
