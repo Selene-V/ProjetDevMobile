@@ -3,19 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
-
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="fr.ul.iutmetz.wmce.td1.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="fr.ul.iutmetz.wmce.td1.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+    app:startDestination="@+id/nav_boutique">
 
     <fragment
         android:id="@+id/nav_boutique"
@@ -32,6 +20,13 @@
         android:name="fr.ul.iutmetz.wmce.td1.MentionLegalesFragment"
         android:label="Mentions légales"
         tools:layout="@layout/fragment_mention_legales">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_nous_trouver"
+        android:name="fr.ul.iutmetz.wmce.td1.MapsFragment"
+        android:label="Nous trouver"
+        tools:layout="@layout/fragment_maps">
     </fragment>
 
     <fragment
