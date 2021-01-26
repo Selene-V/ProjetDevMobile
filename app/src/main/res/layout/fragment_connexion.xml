@@ -45,7 +45,6 @@
             app:layout_constraintTop_toBottomOf="@id/mot_de_passe"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:onClick="onClickConnexion"
             />
 
         <TextView
@@ -57,7 +56,6 @@
             app:layout_constraintTop_toBottomOf="@id/connexion"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:onClick="onClickInscription"
             />
         
     </androidx.constraintlayout.widget.ConstraintLayout>

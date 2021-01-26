@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -26,6 +28,10 @@ public class ConnexionFragment extends Fragment
 
     private EditText identifiant;
     private EditText motDePasse;
+
+    private Button connexion;
+
+    private TextView inscription;
 
     SessionManager sessionManager;
 
@@ -53,7 +59,9 @@ public class ConnexionFragment extends Fragment
     public void onStart() {
         super.onStart();
         this.identifiant = this.root.findViewById(R.id.identifiant);
+        this.connexion.setOnClickListener(this::onClickConnexion);
         this.motDePasse = this.root.findViewById(R.id.mot_de_passe);
+        this.inscription.setOnClickListener(this::onClickInscription);
     }
 
     public void onClickConnexion(View v){

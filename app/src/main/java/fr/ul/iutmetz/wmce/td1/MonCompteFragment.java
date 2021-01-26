@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,9 @@ public class MonCompteFragment extends Fragment
 
     private TextView numCom;
     private TextView dateCom;
+
+    private Button modif;
+    private Button commande;
 
     private View root;
 
@@ -68,6 +72,11 @@ public class MonCompteFragment extends Fragment
 
         this.numCom = this.root.findViewById(R.id.id_commande);
         this.dateCom = this.root.findViewById(R.id.date);
+
+        this.modif = this.root.findViewById(R.id.btn_modifier_infos);
+        this.modif.setOnClickListener(this::onClickModifier);
+        this.commande = this.root.findViewById(R.id.btn_voir_commande);
+        this.commande.setOnClickListener(this::onClickVoirCommande);
 
         int idClient = this.sessionManager.getIdUser();
         // Recherche des infos personnelles du user connecté

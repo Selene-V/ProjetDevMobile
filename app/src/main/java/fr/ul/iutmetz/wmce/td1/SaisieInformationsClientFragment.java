@@ -1,10 +1,8 @@
 package fr.ul.iutmetz.wmce.td1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,7 +24,6 @@ import fr.ul.iutmetz.wmce.td1.DAO.ModificationUserDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Client;
-import fr.ul.iutmetz.wmce.td1.modele.Produit;
 import utils.Utils;
 
 
@@ -68,7 +65,7 @@ public class SaisieInformationsClientFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.root = inflater.inflate(R.layout.activity_saisie_informations_client, container, false);
+        this.root = inflater.inflate(R.layout.fragment_saisie_informations_client, container, false);
 
 
         if (savedInstanceState != null) {
