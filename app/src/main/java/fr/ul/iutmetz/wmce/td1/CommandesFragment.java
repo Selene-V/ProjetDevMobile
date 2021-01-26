@@ -80,7 +80,7 @@ private View root;
         Bundle bundle = new Bundle();
         bundle.putInt("id_commande", this.listeCommandes.get(position).getId());
 
-        Navigation.findNavController(view).navigate(R.id.action_toDetailCommandeFragment,bundle);
+        Navigation.findNavController(view).navigate(R.id.action_to_DetailCommandeFragment,bundle);
     }
 
     @Override

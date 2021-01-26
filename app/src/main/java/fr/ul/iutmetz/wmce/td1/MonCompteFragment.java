@@ -93,7 +93,7 @@ public class MonCompteFragment extends Fragment
         Bundle bundle = new Bundle();
         bundle.putInt("id_commande", Integer.valueOf((String) this.numCom.getText()));
 
-        Navigation.findNavController(v).navigate(R.id.action_toDetailCommandeFragment,bundle);
+        Navigation.findNavController(v).navigate(R.id.action_to_DetailCommandeFragment,bundle);
 
         //System.out.println("--------- NUM COMMANDE -------------");
         //startActivityForResult(intent, 0);
@@ -103,7 +103,7 @@ public class MonCompteFragment extends Fragment
         Bundle bundle = new Bundle();
         bundle.putString("action", "modification");
         bundle.putSerializable("client", this.clientCourant);
-        Navigation.findNavController(v).navigate(R.id.action_mon_compte_to_modification,bundle);
+        Navigation.findNavController(v).navigate(R.id.action_to_SaisieInformationsClientFragment,bundle);
     }
 
     public void majVueInfos(JSONObject response) throws JSONException {

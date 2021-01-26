@@ -36,7 +36,7 @@ public class SessionManager {
     public void checkIsLogin(View view){
         if (!this.isLoggin()){
             Bundle bundle = new Bundle();
-            Navigation.findNavController(view).navigate(R.id.action_toConnexionFragment,bundle);
+            Navigation.findNavController(view).navigate(R.id.action_to_ConnexionFragment,bundle);
         }
     }
 
@@ -48,6 +48,6 @@ public class SessionManager {
         editor.clear();
         editor.commit();
         Bundle bundle = new Bundle();
-        Navigation.findNavController(view).navigate(R.id.action_toConnexionFragment,bundle);
+        Navigation.findNavController(view).navigate(R.id.action_to_ConnexionFragment,bundle);
     }
 }

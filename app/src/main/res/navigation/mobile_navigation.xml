@@ -5,6 +5,7 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_boutique">
 
+    <!-- Fragments menu lateral -->
     <fragment
         android:id="@+id/nav_boutique"
         android:name="fr.ul.iutmetz.wmce.td1.CategoriesFragment"
@@ -20,15 +21,6 @@
         android:name="fr.ul.iutmetz.wmce.td1.ConnexionFragment"
         android:label="Connexion"
         tools:layout="@layout/fragment_connexion">
-        <action
-            android:id="@+id/action_toMonCompteFragment"
-            app:destination="@id/nav_mon_compte" />
-        <action
-            android:id="@+id/action_nav_connexion_to_boutique"
-            app:destination="@id/nav_boutique" />
-        <action
-            android:id="@+id/action_nav_connexion_to_inscription"
-            app:destination="@id/SaisieInformationsClientFragment" />
     </fragment>
 
     <fragment
@@ -36,9 +28,6 @@
         android:name="fr.ul.iutmetz.wmce.td1.MonCompteFragment"
         android:label="Mon Compte"
         tools:layout="@layout/fragment_connexion">
-    <action
-        android:id="@+id/action_mon_compte_to_modification"
-        app:destination="@id/SaisieInformationsClientFragment"/>
     </fragment>
 
     <fragment
@@ -55,8 +44,7 @@
         tools:layout="@layout/fragment_mention_legales">
     </fragment>
 
-
-
+    <!-- Fragments autres -->
     <fragment
         android:id="@+id/venteCatalogueFragment2"
         android:name="fr.ul.iutmetz.wmce.td1.VenteCatalogueFragment"
@@ -73,12 +61,23 @@
         android:label="Détail de la commande" />
 
 
+    <!-- Actions -->
     <action
-        android:id="@+id/action_toConnexionFragment"
+        android:id="@+id/action_to_MonCompteFragment"
+        app:destination="@id/nav_mon_compte" />
+    <action
+        android:id="@+id/action_to_Boutique"
+        app:destination="@id/nav_boutique" />
+    <action
+        android:id="@+id/action_to_SaisieInformationsClientFragment"
+        app:destination="@id/SaisieInformationsClientFragment" />
+
+    <action
+        android:id="@+id/action_to_ConnexionFragment"
         app:destination="@id/nav_connexion" />
 
     <action
-        android:id="@+id/action_toDetailCommandeFragment"
+        android:id="@+id/action_to_DetailCommandeFragment"
         app:destination="@id/DetailCommandeFragment" />
 
 </navigation>
