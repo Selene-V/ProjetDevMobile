@@ -38,4 +38,9 @@
     <!-- ALERT -->
     <color name="alert_cancel_background">#3F0D12</color>
 
+    <!-- BottomNavView -->
+    <color name="colorSecondaryText">#D5BF86</color>
+    <color name="colorPrimaryText">#BA9330</color>
+
+
 </resources>

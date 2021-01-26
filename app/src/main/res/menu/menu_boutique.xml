@@ -6,6 +6,6 @@
     android:title="Catalogue"/>
     <item
         android:id="@+id/boutique_favoris"
-        android:icon="@drawable/ic_bottom_favorite"
+        android:icon="@drawable/ic_bottom_favoris"
         android:title="Favoris"/>
 </menu>
