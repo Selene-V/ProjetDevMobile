@@ -16,13 +16,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
+    SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sessionManager = new SessionManager(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_boutique, R.id.nav_connexion, R.id.nav_mon_compte, R.id.nav_nous_trouver, R.id.nav_mentions_legales)
                 .setDrawerLayout(drawer)
                 .build();
+        if (sessionManager.isLoggin()){
+            navigationView.getMenu().getItem(1).setVisible(false);
+        } else{
+            navigationView.getMenu().getItem(2).setVisible(false);
+
+        }
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
