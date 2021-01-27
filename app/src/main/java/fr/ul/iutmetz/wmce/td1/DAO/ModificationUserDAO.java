@@ -19,7 +19,7 @@ public class ModificationUserDAO {
 
         RequestQueue queue = Volley.newRequestQueue(fragment.getContext());
         String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/clients/updateClient.php?nom=" + c.getNom() +
-        "&prenom=" + c.getPrenom() + "&identifiant_client=" + c.getIdentifiant() + "&mdp=" + c.getMdp() + "&adrNum=" + c.getAdrNumero() +
+        "&prenom=" + c.getPrenom() + "&identifiant_client=" + c.getIdentifiant() + "&adrNum=" + c.getAdrNumero() +
                 "&adrVoie=" + c.getAdrVoie() + "&adrCP=" + c.getAdrCP() + "&adrVille=" + c.getAdrVille() + "&adrP=" + c.getAdrPays() + "&id=" + c.getId();
 
         // Request a string response from the provided URL

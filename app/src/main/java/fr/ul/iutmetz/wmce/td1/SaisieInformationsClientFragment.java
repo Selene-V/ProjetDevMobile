@@ -2,6 +2,7 @@ package fr.ul.iutmetz.wmce.td1;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -136,6 +137,7 @@ public class SaisieInformationsClientFragment extends Fragment
         this.adrVoie.setText(this.client.getAdrVoie());
         this.adrVille.setText(this.client.getAdrVille());
         this.adrPays.setText(this.client.getAdrPays());
+        this.mdp.setVisibility(View.INVISIBLE);
     }
 
     public void onClickValider(View v) {
@@ -168,7 +170,7 @@ public class SaisieInformationsClientFragment extends Fragment
                 int idUser = sessionManager.getIdUser();
                 System.out.println("id récupéré dans la session : " + idUser);
                 System.out.println("La session est elle connectée : " + sessionManager.isLoggin());
-                this.client = new Client(idUser, n, p, id_c, motdp, adrN, adrVoie, adrCP, adrVille, adrP);
+                this.client = new Client(idUser, n, p, id_c, "", adrN, adrVoie, adrCP, adrVille, adrP);
 
                 this.identifiantExist(this.client.getIdentifiant());
             }
@@ -183,18 +185,21 @@ public class SaisieInformationsClientFragment extends Fragment
         boolean validAdrVille = isValid("([ \\u00c0-\\u01ffa-zA-Z'\\-])+(?<!('|\\s|-))", this.adrVille, this.adrVilleHelp, "Caractères acceptés : a-z A-Z , ' - espace");
         boolean validAdrPays = isValid("([ \\u00c0-\\u01ffa-zA-Z'\\-])+(?<!('|\\s|-))", this.adrPays, this.adrPaysHelp, "Caractères acceptés : a-z A-Z , ' - espace");
         boolean validIdentifiant = isValid(".+@.+\\.[a-zA-Z]{2,}", this.identifiant, this.identifiantHelp, "Veuillez entrez une adresse email valide de la forme exemple@exemple.fr");
-        boolean validMdp = isValid("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&.]{8,}", this.mdp, this.mdpHelp, "Minimum de huit caractères, au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial (@$!%*?&)");
+
         boolean validAdrCP = isValid("((0[1-9])|([1-8][0-9])|(9[0-8]))[0-9]{3}", this.adrCP, this.adrCPHelp, "Ne peut commencer par 00 ou 99 et doit comporter 5 chiffres.");
         boolean validAdrNum = isValid("(([1-9]))[0-9]{0,2}", this.adrNum, this.adrNumHelp, "Ne peut commencer par 0 et doit comporter entre 1 et 3 chiffres.");
-
-        return (validNom && validPrenom && validAdrVoie && validAdrVille && validAdrPays && validIdentifiant && validMdp && validAdrCP && validAdrNum);
+        if (this.action.equals("inscription")) {
+            boolean validMdp = isValid("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&.]{8,}", this.mdp, this.mdpHelp, "Minimum de huit caractères, au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial (@$!%*?&)");
+            return (validNom && validPrenom && validAdrVoie && validAdrVille && validAdrPays && validIdentifiant && validMdp && validAdrCP && validAdrNum);
+        }
+        return (validNom && validPrenom && validAdrVoie && validAdrVille && validAdrPays && validIdentifiant && validAdrCP && validAdrNum);
     }
 
     public boolean isValid(String regex, EditText nomChamp, TextView nomChampHelp, String messageErreur) {
         boolean valid = true;
         if (TextUtils.isEmpty(nomChamp.getText().toString())) {
             nomChampHelp.setText("Champ obligatoire !");
-            nomChampHelp.setVisibility(View.VISIBLE);
+//            nomChampHelp.setVisibility(View.VISIBLE);
             valid = false;
         } else {
             System.out.println("regex : " + Pattern.matches(regex, nomChamp.getText().toString()));
@@ -250,8 +255,9 @@ public class SaisieInformationsClientFragment extends Fragment
                             InscriptionDAO inscDAO = new InscriptionDAO();
                             inscDAO.insert(this, this.client);
 
-                            this.getActivity().setResult(0, intent);
-                            this.getActivity().finish();
+                            Bundle bundle = new Bundle();
+                            Navigation.findNavController(this.getView()).navigate(R.id.action_to_MonCompteFragment,bundle);
+
                         } else {
                             System.out.println("IL EXISTE !");
                             this.identifiantHelp.setText("Cette adresse email est déjà utilisée !");
@@ -262,14 +268,13 @@ public class SaisieInformationsClientFragment extends Fragment
                         if (((response.getBoolean("res")) && (response.getJSONObject("data").getInt("id_client") == sessionManager.getIdUser()))
                         || (!response.getBoolean("res"))) {
                             System.out.println("IL EXISTE MAIS CEST LUI OU IL EXISTE PAS!");
-                            Intent intent = new Intent();
 
                             // UPDATE CLIENT BDD
                             ModificationUserDAO modifDAO = new ModificationUserDAO();
                             modifDAO.update(this, client);
 
-                            this.getActivity().setResult(0, intent);
-                            this.getActivity().finish();
+                            Bundle bundle = new Bundle();
+                            Navigation.findNavController(this.getView()).navigate(R.id.action_to_MonCompteFragment,bundle);
                         } else {
                             System.out.println("IL EXISTE ET CEST PAS LUI !");
                             this.identifiantHelp.setText("Cette adresse email est déjà utilisée !");
