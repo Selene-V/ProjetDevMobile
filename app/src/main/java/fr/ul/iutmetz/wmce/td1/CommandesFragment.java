@@ -50,11 +50,9 @@ private View root;
 
         this.listeCommandes = new ArrayList<>();
         sessionManager = new SessionManager(this.getContext());
-//        sessionManager.checkIsLogin();
 
         CommandeDAO comDAO = new CommandeDAO();
-//        comDAO.findAllCommandsByClient(this, this.sessionManager.getIdUser());
-        comDAO.findAllCommandsByClient(this, 1);
+        comDAO.findAllCommandsByClient(this, this.sessionManager.getIdUser());
 
         this.adapteur = new CommandesAdapter(
                 this.getContext(),

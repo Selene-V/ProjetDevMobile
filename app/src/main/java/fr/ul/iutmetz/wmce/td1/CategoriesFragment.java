@@ -67,8 +67,6 @@ public class CategoriesFragment extends Fragment
             this.listeCategories = (ArrayList<Categorie>) savedInstanceState.getSerializable("listeCategorie");
             this.totalPanier = utils.arrondir(savedInstanceState.getDouble("total_panier"));
         } else {
-            //sessionManager = new SessionManager(this.getContext());
-            //sessionManager.checkIsLogin(getView());
 
             this.listeCategories = new ArrayList<>();
 

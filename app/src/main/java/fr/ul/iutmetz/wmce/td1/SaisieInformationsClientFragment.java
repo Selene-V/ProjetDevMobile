@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -58,6 +59,8 @@ public class SaisieInformationsClientFragment extends Fragment
     private TextView adrVilleHelp;
     private TextView adrPaysHelp;
     private TextView mdpHelp;
+
+    private Button valider;
 
     private View root;
 
@@ -115,6 +118,9 @@ public class SaisieInformationsClientFragment extends Fragment
         this.adrVilleHelp = this.root.findViewById(R.id.adresse_ville_help);
         this.adrPaysHelp = this.root.findViewById(R.id.adresse_pays_help);
         this.mdpHelp = this.root.findViewById(R.id.mot_de_passe_help);
+
+        this.valider = this.root.findViewById(R.id.bouton_valider_modifications);
+        this.valider.setOnClickListener(this::onClickValider);
 
         if (this.client != null){
             majVueSaisie();

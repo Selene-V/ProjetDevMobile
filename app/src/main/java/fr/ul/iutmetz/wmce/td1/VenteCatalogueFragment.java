@@ -164,7 +164,6 @@ public class VenteCatalogueFragment extends Fragment
         this.texteAdd = this.root.findViewById(R.id.texte_add);
         this.errorSpinner = this.root.findViewById(R.id.error_spinner);
 
-        //this.imageAdd.setOnClickListener(this::onClickAddPull);
         this.image_pull.setOnClickListener(this::onClickZoom);
         this.image_pull_grande.setOnClickListener(this::onClickDezoom);
         this.bPrecedent.setOnClickListener(this::onClickPrecedent);
@@ -337,41 +336,6 @@ public class VenteCatalogueFragment extends Fragment
             }
         }
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item){
-//        int id = item.getItemId();
-//
-//        if (id ==android.R.id.home){
-//            Intent intent = new Intent();
-//            intent.putExtra("total_panier", utils.arrondir(this.totalPanier));
-//
-//            this.setResult(RETOUR, intent);
-//            this.finish();
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-//
-//    public void onClickRetour(View v){
-//        Intent intent = new Intent();
-//        intent.putExtra("total_panier", utils.arrondir(this.totalPanier));
-//
-//        this.setResult(RETOUR, intent);
-//        this.finish();
-//    }
-//
-//    @Override
-//    public void onBackPressed(){
-//        this.onClickRetour(null);
-//    }
-//
-//    @Override
-//    public void onClick(DialogInterface dialog, int which) {
-//        if(which==DialogInterface.BUTTON_POSITIVE){
-//            this.setResult(ANNULER);
-//            this.finish();
-//        }
-//    }
 
     @Override
     public void receptionnerImage(Object[] resultats) {

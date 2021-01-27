@@ -106,9 +106,6 @@ public class ConnexionFragment extends Fragment
                     Bundle bundle = new Bundle();
 
                     Navigation.findNavController(this.root).navigate(R.id.action_to_Boutique, bundle);
-
-//                    Intent intent = new Intent(ConnexionActivity.this, CategoriesActivity.class);
-//                    startActivityForResult(intent, 0);
                 } else {
                     //wrong password
                     Toast.makeText(this.getContext(), "Identifiants incorrectes !", Toast.LENGTH_LONG).show();
