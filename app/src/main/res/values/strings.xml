@@ -54,4 +54,7 @@
     <string name="inscrit_toi">Pas encore de compte ? Inscrit toi !</string>
     <string name="con_erreur_bdd">Identifiants incorrectes !</string>
     <string name="quantite">Quantité :</string>
+    <string name="taille">Taille :</string>
+    <string name="commande_n">Commande n° :</string>
+    <string name="commande_effectuee_le">Commande effectuée le :</string>
 </resources>

@@ -51,4 +51,8 @@
     <string name="inscrit_toi">Pas encore de compte? Inscrit toi!</string>
     <string name="con_erreur_bdd">Incorrect identifiers!</string>
     <string name="quantite">Quantity:</string>
+
+    <string name="taille">Size :</string>
+    <string name="commande_n">Order n° :</string>
+    <string name="commande_effectuee_le">Order made on :</string>
 </resources>
