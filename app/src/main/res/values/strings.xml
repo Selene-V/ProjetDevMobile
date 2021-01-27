@@ -26,7 +26,6 @@
     <string name="ca_erreur_bdd">Attention erreur BDD !</string>
 
     <string name="mentions_legales">Mentions légales</string>
-    <string name="Adresse">Adresse :</string>
 
     <!--    Client   -->
     <string name="nom">Nom</string>
@@ -42,6 +41,7 @@
     <string name="nom2">Nom :</string>
     <string name="prenom2">Prénom :</string>
     <string name="identifiant2">Identifiant :</string>
+    <string name="adresse">Adresse :</string>
     <string name="modifier_mes_informations">Modifier mes informations</string>
 
     <string name="derniere_commande">Dernière commande</string>
@@ -54,18 +54,4 @@
     <string name="inscrit_toi">Pas encore de compte ? Inscrit toi !</string>
     <string name="con_erreur_bdd">Identifiants incorrectes !</string>
     <string name="quantite">Quantité :</string>
-
-    <string name="title_activity_main">MainActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="adresse">Adresse :</string>
 </resources>

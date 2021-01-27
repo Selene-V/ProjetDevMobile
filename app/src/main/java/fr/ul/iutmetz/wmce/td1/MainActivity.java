@@ -115,11 +115,11 @@ public class MainActivity extends AppCompatActivity
 
     public void changeMenu(Menu menu){
         if (this.sessionManager.isLoggin()){
-            menu.getItem(0).setIcon(R.drawable.ic_nav_connexion);
+            menu.getItem(0).setIcon(R.drawable.ic_nav_mon_compte);
             menu.getItem(1).setEnabled(true);
             menu.getItem(2).setVisible(true);
         } else {
-            menu.getItem(0).setIcon(R.drawable.ic_nav_mon_compte);
+            menu.getItem(0).setIcon(R.drawable.ic_nav_connexion);
             menu.getItem(1).setEnabled(false);
             menu.getItem(2).setVisible(false);
         }

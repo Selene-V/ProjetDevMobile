@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MonPullMoche Shop</string>
+    <string name="left">&lt;</string>
+    <string name="right">&gt;</string>
+    <string name="euro">€</string>
+    <string name="ajout_panier">Product n°%1$d added to cart</string>
+    <string name="total_panier_texte">Cart total:  </string>
+    <string name="footer">Réalisé par M. FRANCOIS, R. FRANCOIS, S. VIOLA, 2020</string>
+    <string name="retour">Return</string>
+
+    <string name="confirm_titre">Confirmation request</string>
+    <string name="confirm_phrase">Please note, you will cancel all purchases made on this page. Are you sure?</string>
+    <string name="confirm_oui">YES</string>
+    <string name="confirm_non">NO</string>
+
+    <string name="valider">Validate</string>
+    <string name="description">Description</string>
+    <string name="titre">Title</string>
+    <string name="prix_newproduit">Price</string>
+    <string name="categorie_1">Category 1</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="ca_erreur_bdd">Warning database error!</string>
+
+    <string name="mentions_legales">Legals Notices</string>
+
+    <!--    Client   -->
+    <string name="nom">Lastname</string>
+    <string name="prenom">Firstname</string>
+    <string name="identifiant">Username</string>
+    <string name="adresse_numero">Number</string>
+    <string name="adresse_voie">Way</string>
+    <string name="adresse_code_postal">Postal code</string>
+    <string name="adresse_ville">City</string>
+    <string name="adresse_pays">Country</string>
+
+    <string name="mes_informations_personnelles">My personals informations</string>
+    <string name="nom2">Lastname:</string>
+    <string name="prenom2">Firstname:</string>
+    <string name="identifiant2">Username:</string>
+    <string name="adresse">Address:</string>
+    <string name="modifier_mes_informations">Edit my informations</string>
+
+    <string name="derniere_commande">Last order</string>
+    <string name="identifiant_de_la_commande">Order ID:</string>
+    <string name="date_de_la_commande">Date of the order:</string>
+
+    <!--    Connexion-->
+    <string name="mot_de_passe">Password</string>
+    <string name="connexion">Connection</string>
+    <string name="inscrit_toi">Pas encore de compte? Inscrit toi!</string>
+    <string name="con_erreur_bdd">Incorrect identifiers!</string>
+    <string name="quantite">Quantity:</string>
+</resources>
