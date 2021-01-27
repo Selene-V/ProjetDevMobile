@@ -1,15 +1,16 @@
 package fr.ul.iutmetz.wmce.td1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -17,12 +18,23 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsFragment extends Fragment implements OnMapReadyCallback {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import fr.ul.iutmetz.wmce.td1.DAO.MagasinDAO;
+import fr.ul.iutmetz.wmce.td1.modele.Magasin;
+
+
+
+public class MapsFragment extends Fragment implements OnMapReadyCallback,
+        com.android.volley.Response.Listener<JSONObject>,
+        com.android.volley.Response.ErrorListener {
 
     private GoogleMap mMap;
-
     private View root;
-
+    private ArrayList<Magasin> listeMagasins;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -34,25 +46,52 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        this.listeMagasins = new ArrayList<Magasin>();
+        MagasinDAO magDAO = new MagasinDAO();
+        magDAO.findAll(this);
+
         return this.root;
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+    public void onResponse(JSONObject response){
+        try {
+            for (int i = 0 ; i < response.length() ; i++){
+
+                int idMag = response.getInt("id_magasin");
+                String name = response.getString("name_magasin");
+                String latitude = response.getString("latitude");
+                String longitude = response.getString("longitude");
+
+                Magasin mag = new Magasin(idMag, name, latitude, longitude);
+                this.listeMagasins.add(mag);
+            }
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng metz = new LatLng(49.119309, 6.175716);
-        mMap.addMarker(new MarkerOptions().position(metz).title("Marker in metz"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(metz));
+        Toast.makeText(this.getContext(), R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
+        LatLng magasin = new LatLng(Double.parseDouble(this.listeMagasins.get(this.listeMagasins.size()-1).getLatitude()), Double.parseDouble(this.listeMagasins.get(this.listeMagasins.size()-1).getLongitude()));
+        mMap.addMarker(new MarkerOptions().position(magasin).title("marker"));
+
+
+        /*for (int i = 0 ; i < this.listeMagasins.size() ; i++){
+
+            String message = this.listeMagasins.get(1).getLatitude();
+            mMap.addMarker(new MarkerOptions().position(magasin).title("marker"+ i));
+        }*/
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(0, 0)));
+
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.e("Erreur JSON", error + "");
+//        Toast.makeText(this.getContext(), R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
     }
 }

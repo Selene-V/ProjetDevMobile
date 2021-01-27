@@ -126,7 +126,7 @@ public class CategoriesFragment extends Fragment
     }
 
     @Override
-    public void onErrorResponse(VolleyError error) {
+        public void onErrorResponse(VolleyError error) {
         Log.e("Erreur JSON", error + "");
         Toast.makeText(this.getContext(), R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
     }
