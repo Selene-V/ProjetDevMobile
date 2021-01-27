@@ -33,21 +33,13 @@ public class SessionManager {
         return sharedPreferences.getBoolean(IS_LOGIN, false);
     }
 
-    public void checkIsLogin(View view){
-        if (!this.isLoggin()){
-            Bundle bundle = new Bundle();
-            Navigation.findNavController(view).navigate(R.id.action_to_ConnexionFragment,bundle);
-        }
-    }
-
     public int getIdUser(){
         return sharedPreferences.getInt(ID, -1);
     }
 
-    public void closeSession(View view){
+    public void closeSession(){
+        editor.putBoolean(IS_LOGIN, false);
         editor.clear();
         editor.commit();
-        Bundle bundle = new Bundle();
-        Navigation.findNavController(view).navigate(R.id.action_to_ConnexionFragment,bundle);
     }
 }

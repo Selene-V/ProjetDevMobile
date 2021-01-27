@@ -1,14 +1,13 @@
 package fr.ul.iutmetz.wmce.td1;
 
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 import android.view.Menu;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -18,11 +17,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+    implements ActiviteConnexion {
 
     private AppBarConfiguration mAppBarConfiguration;
 
     SessionManager sessionManager;
+    private Menu menu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,24 +38,25 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_boutique, R.id.nav_connexion, R.id.nav_mon_compte, R.id.nav_nous_trouver, R.id.nav_mentions_legales)
+                R.id.nav_boutique, R.id.nav_nous_trouver, R.id.nav_mentions_legales)
                 .setDrawerLayout(drawer)
                 .build();
-        if (sessionManager.isLoggin()){
-            navigationView.getMenu().getItem(1).setVisible(false);
-        } else{
-            navigationView.getMenu().getItem(2).setVisible(false);
-
-        }
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        this.changeMenu(menu);
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        this.menu = menu;
         return true;
     }
 
@@ -63,4 +66,75 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavDestination destinationCourante = navController.getCurrentDestination();
+
+        int idMenu = item.getItemId();
+        System.out.println("---- item ----");
+        System.out.println(idMenu);
+        // A CHANGER QUAND PANIER OK
+        if (idMenu == R.id.nav_panier){
+//            if (destinationCourante != null && destinationCourante.getId() != R.id.nav_panier){
+//                navController.navigate((R.id.nav_panier));
+//            }
+            if (destinationCourante != null && destinationCourante.getId() != R.id.nav_mon_compte) {
+                if (sessionManager.isLoggin()){
+                    navController.navigate((R.id.nav_mon_compte));
+                } else {
+                    if (destinationCourante != null && destinationCourante.getId() != R.id.nav_connexion) {
+                        navController.navigate((R.id.nav_connexion));
+                    }
+                }
+            }
+            return true;
+        } else if (idMenu == R.id.nav_deconnexion) {
+            if (destinationCourante != null && destinationCourante.getId() != R.id.nav_deconnexion) {
+                deconnexion();
+                navController.popBackStack(R.id.nav_boutique, true);
+                navController.navigate((R.id.nav_boutique));
+            }
+            return true;
+        } else if (idMenu == R.id.nav_mon_compte) {
+            if (destinationCourante != null && destinationCourante.getId() != R.id.nav_mon_compte) {
+                if (sessionManager.isLoggin()){
+                    navController.navigate((R.id.nav_mon_compte));
+                } else {
+                    if (destinationCourante != null && destinationCourante.getId() != R.id.nav_connexion) {
+                        navController.navigate((R.id.nav_connexion));
+                    }
+                }
+            }
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void changeMenu(Menu menu){
+        if (this.sessionManager.isLoggin()){
+            menu.getItem(0).setIcon(R.drawable.ic_nav_connexion);
+            menu.getItem(1).setEnabled(true);
+            menu.getItem(2).setVisible(true);
+        } else {
+            menu.getItem(0).setIcon(R.drawable.ic_nav_mon_compte);
+            menu.getItem(1).setEnabled(false);
+            menu.getItem(2).setVisible(false);
+        }
+    }
+
+    @Override
+    public void connexion(int id) {
+        this.sessionManager.createSession(id);
+        this.changeMenu(this.menu);
+    }
+
+    @Override
+    public void deconnexion() {
+        sessionManager.closeSession();
+        this.changeMenu(this.menu);
+    }
+
 }

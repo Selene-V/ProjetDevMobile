@@ -2,8 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/nav_mon_compte"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:icon="@drawable/ic_nav_connexion"
+        android:title="Connexion"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/nav_panier"
+        android:orderInCategory="100"
+        android:title="Mon panier"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/nav_deconnexion"
+        android:orderInCategory="100"
+        android:title="Déconnexion"
         app:showAsAction="never" />
 </menu>

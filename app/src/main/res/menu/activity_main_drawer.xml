@@ -10,16 +10,6 @@
             android:title="Boutique"/>
 
         <item
-            android:id="@+id/nav_connexion"
-            android:icon="@drawable/ic_nav_connexion"
-            android:title="Connexion"/>
-
-        <item
-            android:id="@+id/nav_mon_compte"
-            android:icon="@drawable/ic_nav_mon_compte"
-            android:title="Mon compte"/>
-
-        <item
             android:id="@+id/nav_nous_trouver"
             android:icon="@drawable/ic_nav_nous_trouver"
             android:title="Nous trouver"/>

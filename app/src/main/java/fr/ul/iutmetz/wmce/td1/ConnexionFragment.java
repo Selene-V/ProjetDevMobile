@@ -101,7 +101,7 @@ public class ConnexionFragment extends Fragment
                     System.out.println(data.getInt("id_client"));
 
                     Toast.makeText(this.getContext(), "Vous allez être redirigé...", Toast.LENGTH_LONG).show();
-                    sessionManager.createSession(data.getInt("id_client"));
+                    ((ActiviteConnexion) this.getActivity()).connexion(data.getInt("id_client"));
 
                     Bundle bundle = new Bundle();
 

@@ -53,8 +53,6 @@ public class MonCompteFragment extends Fragment
         if (savedInstanceState!=null){
 
         } else {
-            sessionManager = new SessionManager(this.getContext());
-            sessionManager.checkIsLogin(getView());
             clientCourant=null;
         }
 
@@ -77,7 +75,7 @@ public class MonCompteFragment extends Fragment
         this.modif.setOnClickListener(this::onClickModifier);
         this.commande = this.root.findViewById(R.id.btn_voir_commande);
         this.commande.setOnClickListener(this::onClickVoirCommande);
-
+        this.sessionManager = new SessionManager(this.getContext());
         int idClient = this.sessionManager.getIdUser();
         // Recherche des infos personnelles du user connecté
         UserDAO userDAO = new UserDAO();

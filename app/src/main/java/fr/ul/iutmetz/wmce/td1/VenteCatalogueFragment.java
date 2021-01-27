@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -90,7 +92,7 @@ public class VenteCatalogueFragment extends Fragment
                          ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.root = inflater.inflate(R.layout.fragment_vente_catalogue, container, false);
-
+        setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -136,6 +138,12 @@ public class VenteCatalogueFragment extends Fragment
         }
 
         return this.root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override

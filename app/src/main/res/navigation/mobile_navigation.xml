@@ -10,7 +10,7 @@
         android:id="@+id/nav_boutique"
         android:name="fr.ul.iutmetz.wmce.td1.CategoriesFragment"
         android:label="Boutique"
-        tools:layout="@layout/categories_fragment">
+        tools:layout="@layout/fragment_categories">
         <action
             android:id="@+id/action_nav_boutique_to_venteCatalogueFragment2"
             app:destination="@id/venteCatalogueFragment2" />

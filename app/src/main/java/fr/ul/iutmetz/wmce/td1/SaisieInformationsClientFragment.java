@@ -72,7 +72,6 @@ public class SaisieInformationsClientFragment extends Fragment
 
         } else {
             sessionManager = new SessionManager(this.getContext());
-            sessionManager.checkIsLogin(getView());
             // Action permet de savoir si l'on effectue une inscription ou une modification
             // d'un client
             this.action = this.getArguments().getString("action");
