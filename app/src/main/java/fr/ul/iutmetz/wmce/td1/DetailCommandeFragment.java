@@ -57,7 +57,6 @@ public class DetailCommandeFragment extends Fragment
         }
 
         this.listeDetailCommande = new ArrayList<>();
-//        sessionManager.checkIsLogin();
 
         CommandeDAO comDAO = new CommandeDAO();
         comDAO.findDetailOneCommand(this, idCommandeCourante);

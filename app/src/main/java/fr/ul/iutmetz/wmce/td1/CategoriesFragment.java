@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,14 +61,12 @@ public class CategoriesFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater,
                                 ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        this.root = inflater.inflate(R.layout.categories_fragment, container, false);
+        this.root = inflater.inflate(R.layout.fragment_categories, container, false);
 
         if (savedInstanceState!=null){
             this.listeCategories = (ArrayList<Categorie>) savedInstanceState.getSerializable("listeCategorie");
             this.totalPanier = utils.arrondir(savedInstanceState.getDouble("total_panier"));
         } else {
-            //sessionManager = new SessionManager(this.getContext());
-            //sessionManager.checkIsLogin(getView());
 
             this.listeCategories = new ArrayList<>();
 

@@ -50,11 +50,9 @@ private View root;
 
         this.listeCommandes = new ArrayList<>();
         sessionManager = new SessionManager(this.getContext());
-//        sessionManager.checkIsLogin();
 
         CommandeDAO comDAO = new CommandeDAO();
-//        comDAO.findAllCommandsByClient(this, this.sessionManager.getIdUser());
-        comDAO.findAllCommandsByClient(this, 1);
+        comDAO.findAllCommandsByClient(this, this.sessionManager.getIdUser());
 
         this.adapteur = new CommandesAdapter(
                 this.getContext(),
@@ -80,7 +78,7 @@ private View root;
         Bundle bundle = new Bundle();
         bundle.putInt("id_commande", this.listeCommandes.get(position).getId());
 
-        Navigation.findNavController(view).navigate(R.id.action_toDetailCommandeFragment,bundle);
+        Navigation.findNavController(view).navigate(R.id.action_to_DetailCommandeFragment,bundle);
     }
 
     @Override

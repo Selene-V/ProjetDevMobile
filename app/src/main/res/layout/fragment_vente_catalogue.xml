@@ -6,31 +6,6 @@
     android:layout_height="match_parent"
     >
 
-
-    <ImageButton
-        android:id="@+id/image_add"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="42dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_baseline_add_circle_outline_24"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/texte_add"
-        style="@style/ThemeAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nouveau_produit"
-        app:layout_constraintLeft_toLeftOf="@id/image_add"
-        app:layout_constraintRight_toRightOf="@id/image_add"
-        app:layout_constraintTop_toBottomOf="@id/image_add"
-        />
-
     <ImageView
         android:id="@+id/image_pull"
         android:layout_width="150dp"

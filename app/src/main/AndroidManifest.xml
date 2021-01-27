@@ -40,11 +40,6 @@
         <activity android:name=".MainActivity" android:theme="@style/MonTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".SaisieNouveauPullActivity">
-
-            <!-- android:theme="@style/Theme.TD1.NouveauProduit"> -->
-
-        </activity>
     </application>
 
 </manifest>

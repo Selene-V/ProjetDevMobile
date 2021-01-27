@@ -4,12 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +38,9 @@ public class MonCompteFragment extends Fragment
     private TextView numCom;
     private TextView dateCom;
 
+    private Button modif;
+    private Button commande;
+
     private View root;
 
     @Override
@@ -45,13 +48,11 @@ public class MonCompteFragment extends Fragment
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.root = inflater.inflate(R.layout.activity_mon_compte, container, false);
+        this.root = inflater.inflate(R.layout.fragment_mon_compte, container, false);
 
         if (savedInstanceState!=null){
 
         } else {
-            sessionManager = new SessionManager(this.getContext());
-            sessionManager.checkIsLogin(getView());
             clientCourant=null;
         }
 
@@ -70,6 +71,11 @@ public class MonCompteFragment extends Fragment
         this.numCom = this.root.findViewById(R.id.id_commande);
         this.dateCom = this.root.findViewById(R.id.date);
 
+        this.modif = this.root.findViewById(R.id.btn_modifier_infos);
+        this.modif.setOnClickListener(this::onClickModifier);
+        this.commande = this.root.findViewById(R.id.btn_voir_commande);
+        this.commande.setOnClickListener(this::onClickVoirCommande);
+        this.sessionManager = new SessionManager(this.getContext());
         int idClient = this.sessionManager.getIdUser();
         // Recherche des infos personnelles du user connecté
         UserDAO userDAO = new UserDAO();
@@ -85,17 +91,14 @@ public class MonCompteFragment extends Fragment
         Bundle bundle = new Bundle();
         bundle.putInt("id_commande", Integer.valueOf((String) this.numCom.getText()));
 
-        Navigation.findNavController(v).navigate(R.id.action_toDetailCommandeFragment,bundle);
-
-        //System.out.println("--------- NUM COMMANDE -------------");
-        //startActivityForResult(intent, 0);
+        Navigation.findNavController(v).navigate(R.id.action_to_DetailCommandeFragment,bundle);
     }
 
     public void onClickModifier(View v){
         Bundle bundle = new Bundle();
         bundle.putString("action", "modification");
         bundle.putSerializable("client", this.clientCourant);
-        Navigation.findNavController(v).navigate(R.id.action_toSaisieInformationsClientFragment,bundle);
+        Navigation.findNavController(v).navigate(R.id.action_to_SaisieInformationsClientFragment,bundle);
     }
 
     public void majVueInfos(JSONObject response) throws JSONException {

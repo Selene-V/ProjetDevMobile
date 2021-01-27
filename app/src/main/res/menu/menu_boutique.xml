@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item
+    <item
     android:id="@+id/boutique_categories"
     android:icon="@drawable/ic_bottom_catalogue"
     android:title="Catalogue"/>
+
     <item
         android:id="@+id/boutique_favoris"
-        android:icon="@drawable/ic_bottom_favorite"
+        android:icon="@drawable/ic_bottom_favoris"
         android:title="Favoris"/>
+
+    <item
+        android:id="@+id/boutique_panier"
+        android:icon="@drawable/ic_baseline_more_horiz_24"
+        android:title=""/>
 </menu>

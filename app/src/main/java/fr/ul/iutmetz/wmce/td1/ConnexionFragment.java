@@ -1,16 +1,15 @@
 package fr.ul.iutmetz.wmce.td1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +21,6 @@ import org.json.JSONObject;
 
 import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
-import fr.ul.iutmetz.wmce.td1.modele.Client;
 
 public class ConnexionFragment extends Fragment
         implements com.android.volley.Response.Listener<JSONObject>,
@@ -30,6 +28,10 @@ public class ConnexionFragment extends Fragment
 
     private EditText identifiant;
     private EditText motDePasse;
+
+    private Button connexion;
+
+    private TextView inscription;
 
     SessionManager sessionManager;
 
@@ -39,14 +41,16 @@ public class ConnexionFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.root = inflater.inflate(R.layout.activity_connexion, container, false);
+        this.root = inflater.inflate(R.layout.fragment_connexion, container, false);
 
 
         if (savedInstanceState!=null){
 
         } else {
-            sessionManager = new SessionManager(this.getContext());
         }
+
+        sessionManager = new SessionManager(this.getContext());
+
 
         return this.root;
     }
@@ -55,7 +59,11 @@ public class ConnexionFragment extends Fragment
     public void onStart() {
         super.onStart();
         this.identifiant = this.root.findViewById(R.id.identifiant);
+        this.connexion = this.root.findViewById(R.id.connexion);
+        this.connexion.setOnClickListener(this::onClickConnexion);
         this.motDePasse = this.root.findViewById(R.id.mot_de_passe);
+        this.inscription = this.root.findViewById(R.id.inscription);
+        this.inscription.setOnClickListener(this::onClickInscription);
     }
 
     public void onClickConnexion(View v){
@@ -67,7 +75,7 @@ public class ConnexionFragment extends Fragment
     public void onClickInscription(View v){
         Bundle bundle = new Bundle();
         bundle.putString("action", "inscription");
-        Navigation.findNavController(v).navigate(R.id.action_toSaisieInformationsClientFragment,bundle);
+        Navigation.findNavController(v).navigate(R.id.action_to_SaisieInformationsClientFragment,bundle);
     }
 
     @Override
@@ -93,14 +101,11 @@ public class ConnexionFragment extends Fragment
                     System.out.println(data.getInt("id_client"));
 
                     Toast.makeText(this.getContext(), "Vous allez être redirigé...", Toast.LENGTH_LONG).show();
-                    sessionManager.createSession(data.getInt("id_client"));
+                    ((ActiviteConnexion) this.getActivity()).connexion(data.getInt("id_client"));
 
                     Bundle bundle = new Bundle();
 
-                    Navigation.findNavController(this.root).navigate(R.id.action_nav_boutique_to_venteCatalogueFragment2, bundle);
-
-//                    Intent intent = new Intent(ConnexionActivity.this, CategoriesActivity.class);
-//                    startActivityForResult(intent, 0);
+                    Navigation.findNavController(this.root).navigate(R.id.action_to_Boutique, bundle);
                 } else {
                     //wrong password
                     Toast.makeText(this.getContext(), "Identifiants incorrectes !", Toast.LENGTH_LONG).show();
