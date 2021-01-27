@@ -248,7 +248,7 @@ public class SaisieInformationsClientFragment extends Fragment
 
                             // ADD CLIENT BDD
                             InscriptionDAO inscDAO = new InscriptionDAO();
-                            inscDAO.insert(this, client);
+                            inscDAO.insert(this, this.client);
 
                             this.getActivity().setResult(0, intent);
                             this.getActivity().finish();
