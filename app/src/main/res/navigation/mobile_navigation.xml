@@ -62,7 +62,7 @@
     <fragment
         android:id="@+id/MapsFragment"
         android:name="fr.ul.iutmetz.wmce.td1.MapsFragment"
-        android:label="Map d'un magasin" />
+        android:label="Magasin sur la carte" />
 
 
     <!-- Actions -->

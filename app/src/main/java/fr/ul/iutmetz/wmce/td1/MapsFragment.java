@@ -43,12 +43,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
                          ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.root = inflater.inflate(R.layout.fragment_maps, container, false);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
         // Recuperation id categorie
-        if (this.getArguments().getInt("id_categ", -1)!=-1){
+        if (this.getArguments().getInt("id_magasin", -1)!=-1){
             this.idMagasin = this.getArguments().getInt("id_magasin", -1);
         }
 
@@ -66,7 +62,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         String titre = this.magasin.getNom();
         LatLng positionMagasin = new LatLng(latitude, longitude);
         this.mMap.addMarker(new MarkerOptions().position(positionMagasin).title(titre));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(positionMagasin));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(positionMagasin, 8));
     }
 
     @Override
@@ -83,6 +79,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
             double latitude = data.getDouble("latitude");
             double longitude = data.getDouble("longitude");
             this.magasin = new Magasin(id, nom, latitude, longitude);
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
         } catch (JSONException e) {
             e.printStackTrace();
         }

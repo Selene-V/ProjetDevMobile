@@ -28,6 +28,7 @@ public class MagasinsAdapter extends ArrayAdapter<Magasin> {
         if (convertView==null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_liste_magasins, parent, false);
         }
+
         TextView tv1 = convertView.findViewById(R.id.nom_magasin);
         tv1.setText(this.listeMagasins.get(position).getNom());
 

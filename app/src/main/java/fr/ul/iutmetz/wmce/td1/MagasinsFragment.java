@@ -19,13 +19,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
-import fr.ul.iutmetz.wmce.td1.DAO.CommandeDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.MagasinDAO;
-import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
-import fr.ul.iutmetz.wmce.td1.modele.Commande;
 import fr.ul.iutmetz.wmce.td1.modele.Magasin;
 
 public class MagasinsFragment extends Fragment
@@ -98,8 +94,9 @@ private View root;
 
                 Magasin mag = new Magasin(idMag, name, latitude, longitude);
                 this.listeMagasins.add(mag);
+                System.out.println(listeMagasins.get(i).getNom());
             }
-
+            this.adapteur.notifyDataSetChanged();
         }catch (JSONException e){
             e.printStackTrace();
         }
