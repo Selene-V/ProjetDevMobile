@@ -78,7 +78,7 @@ private View root;
     public void onStart() {
         super.onStart();
 
-        this.lvFavoris = this.root.findViewById(R.id.commandes_liste);
+        this.lvFavoris = this.root.findViewById(R.id.favoris_liste);
 
         this.lvFavoris.setAdapter(adapteur);
         this.lvFavoris.setOnItemClickListener(this);
@@ -106,7 +106,7 @@ private View root;
             JSONArray data = response.getJSONArray("data");
             System.out.println("-------------- DATA --------------");
             System.out.println(data);
-            for (int i = 0 ; i < response.length() ; i++){
+            for (int i = 0 ; i < data.length() ; i++){
                 JSONObject pFavoris = data.getJSONObject(i);
 
                 int idClient = pFavoris.getInt("id_client");
