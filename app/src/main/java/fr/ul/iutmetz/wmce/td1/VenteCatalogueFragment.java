@@ -65,8 +65,6 @@ public class VenteCatalogueFragment extends Fragment
     private ImageView image_pull_grande;
     private Spinner staille;
     private TextView euro;
-    private ImageButton imageAdd;
-    private TextView texteAdd;
     private TextView errorSpinner;
 
     SessionManager sessionManager;
@@ -155,8 +153,6 @@ public class VenteCatalogueFragment extends Fragment
         this.staille = this.root.findViewById(R.id.taille_spinner);
         this.euro = this.root.findViewById(R.id.euro_pull);
         this.panier = this.root.findViewById(R.id.image_panier);
-        this.imageAdd = this.root.findViewById(R.id.image_add);
-        this.texteAdd = this.root.findViewById(R.id.texte_add);
         this.errorSpinner = this.root.findViewById(R.id.error_spinner);
 
         this.image_pull.setOnClickListener(this::onClickZoom);
@@ -306,8 +302,6 @@ public class VenteCatalogueFragment extends Fragment
         this.bPrecedent.setVisibility(visibility);
         this.staille.setVisibility(visibility);
         this.euro.setVisibility(visibility);
-        this.texteAdd.setVisibility(visibility);
-        this.imageAdd.setVisibility(visibility);
         this.panier.setVisibility(visibility);
     }
 
