@@ -9,9 +9,4 @@
         android:id="@+id/boutique_favoris"
         android:icon="@drawable/ic_bottom_favoris"
         android:title="Favoris"/>
-
-    <item
-        android:id="@+id/boutique_panier"
-        android:icon="@drawable/ic_baseline_more_horiz_24"
-        android:title=""/>
 </menu>
