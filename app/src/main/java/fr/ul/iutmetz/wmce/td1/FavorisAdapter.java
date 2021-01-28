@@ -12,15 +12,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fr.ul.iutmetz.wmce.td1.modele.Commande;
+import fr.ul.iutmetz.wmce.td1.modele.FavoriProduit;
 import fr.ul.iutmetz.wmce.td1.modele.Favoris;
 
-public class FavorisAdapter extends ArrayAdapter<Favoris> {
+public class FavorisAdapter extends ArrayAdapter<FavoriProduit> {
 
-    private ArrayList<Favoris> listeFavoris;
+    private ArrayList<FavoriProduit> listeFavoris;
     private ArrayList<Bitmap> listeImagesFavoris;
 
 
-    public FavorisAdapter(Context context, ArrayList<Favoris> liste, ArrayList<Bitmap> listeImages)
+    public FavorisAdapter(Context context, ArrayList<FavoriProduit> liste, ArrayList<Bitmap> listeImages)
     {
         super(context, 0, liste);
         this.listeFavoris = liste;

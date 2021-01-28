@@ -57,4 +57,7 @@
     <string name="taille">Taille :</string>
     <string name="commande_n">Commande n° :</string>
     <string name="commande_effectuee_le">Commande effectuée le :</string>
+
+    <string name="delete_favori">Produit retiré des favoris</string>
+    <string name="insert_favori">Produit ajouté aux favoris</string>
 </resources>

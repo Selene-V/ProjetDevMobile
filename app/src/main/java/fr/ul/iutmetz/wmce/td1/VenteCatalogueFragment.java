@@ -33,10 +33,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import fr.ul.iutmetz.wmce.td1.DAO.AjoutFavoriDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.FavorisDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.ProduitDAO;
+import fr.ul.iutmetz.wmce.td1.DAO.SuppressionFavoriDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.TailleDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
+import fr.ul.iutmetz.wmce.td1.modele.Favoris;
 import fr.ul.iutmetz.wmce.td1.modele.Produit;
 import utils.Utils;
 
@@ -54,7 +57,6 @@ public class VenteCatalogueFragment extends Fragment
     private boolean isError;
     private String errorCourante;
     private ArrayList<Bitmap> listeImagesProduits;
-//    private ArrayList<Boolean> listeFavorisProduit;
     private ArrayMap<Integer, Boolean> listeFavorisProduit;
 
 
@@ -192,7 +194,22 @@ public class VenteCatalogueFragment extends Fragment
     }
 
     public void onClickFavoris(View v){
-        //TODO
+        if (sessionManager.isLoggin()){
+            int idClient = sessionManager.getIdUser();
+            Favoris f = new Favoris(idClient, this.modele.get(noPullCourant).getId());
+            if (this.listeFavorisProduit.containsKey(this.modele.get(noPullCourant).getId())){
+                // SUPPRESSION
+                SuppressionFavoriDAO delFavDAO = new SuppressionFavoriDAO();
+                delFavDAO.delete(this, f);
+                Toast.makeText(this.getContext(), R.string.delete_favori, Toast.LENGTH_LONG).show();
+            } else {
+                // AJOUT
+                AjoutFavoriDAO newFavDAO = new AjoutFavoriDAO();
+                newFavDAO.insert(this, f);
+                Toast.makeText(this.getContext(), R.string.insert_favori, Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 
     /**
@@ -429,6 +446,13 @@ public class VenteCatalogueFragment extends Fragment
                         System.out.println(isFavori);
                         this.listeFavorisProduit.put(-1, isFavori);
                     }
+                    // Changements
+                    changement();
+                    verifbPrecedent();
+                    verifbSuivant();
+                    break;
+                case "insertFavori" :
+                case "deleteFavori" :
                     // Changements
                     changement();
                     verifbPrecedent();

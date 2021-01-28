@@ -27,6 +27,7 @@ import fr.ul.iutmetz.wmce.td1.DAO.CommandeDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.FavorisDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Commande;
+import fr.ul.iutmetz.wmce.td1.modele.FavoriProduit;
 import fr.ul.iutmetz.wmce.td1.modele.Favoris;
 import fr.ul.iutmetz.wmce.td1.modele.Produit;
 
@@ -35,7 +36,7 @@ public class FavorisFragment extends Fragment
         com.android.volley.Response.Listener<JSONObject>,
         com.android.volley.Response.ErrorListener {
 
-    private ArrayList<Favoris> listeFavoris;
+    private ArrayList<FavoriProduit> listeFavoris;
     SessionManager sessionManager;
 
     private ListView lvFavoris;
@@ -118,7 +119,7 @@ private View root;
                 String visuel = pFavoris.getString("visuel");
 
                 Produit prod = new Produit(idProduit, title, desc, tarif, visuel, idCat);
-                Favoris fav = new Favoris(idClient, prod);
+                FavoriProduit fav = new FavoriProduit(idClient, prod);
                 this.listeFavoris.add(fav);
 
                 this.listeImagesFavoris.add(null);

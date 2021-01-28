@@ -3,18 +3,18 @@ package fr.ul.iutmetz.wmce.td1.modele;
 public class Favoris {
 
     private int idClient;
-    private Produit produit;
+    private int idProduit;
 
-    public Favoris(int idClient, Produit Produit) {
+    public Favoris(int idClient, int idProduit) {
         this.idClient = idClient;
-        this.produit = Produit;
+        this.idProduit = idProduit;
     }
 
     public int getIdClient() {
         return idClient;
     }
 
-    public Produit getProduit() {
-        return produit;
+    public int getIdProduit() {
+        return idProduit;
     }
 }

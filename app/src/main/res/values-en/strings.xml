@@ -55,4 +55,7 @@
     <string name="taille">Size :</string>
     <string name="commande_n">Order n° :</string>
     <string name="commande_effectuee_le">Order made on :</string>
+
+    <string name="delete_favori">Product removed from favorites</string>
+    <string name="insert_favori">Product added to favorites</string>
 </resources>
