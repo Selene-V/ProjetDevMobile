@@ -1,7 +1,6 @@
 package fr.ul.iutmetz.wmce.td1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.graphics.Bitmap;
@@ -47,7 +46,7 @@ public class DetailCommandeFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.root = inflater.inflate(R.layout.fragment_affichage_detail_commande, container, false);
+        this.root = inflater.inflate(R.layout.fragment_detail_commande, container, false);
 
         sessionManager = new SessionManager(this.getContext());
 

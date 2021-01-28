@@ -4,27 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailCommandeFragment">
+    tools:context=".FavorisFragment">
 
 
     <ListView
-        android:id="@+id/commande_detaillee_liste"
-        android:layout_width="match_parent"
+        android:id="@+id/favoris_liste"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent">
 
     </ListView>
-
-    <TextView
-        android:id="@+id/footerView"
-        android:background="@color/colorPrimaryDark"
-        android:text="@string/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

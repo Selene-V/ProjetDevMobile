@@ -28,7 +28,7 @@ public class FavorisDAO {
     public static void findAllFavorisByClient(Fragment fragment, int idClient){
 
         RequestQueue queue = Volley.newRequestQueue(fragment.getContext());
-        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/clients/findOneById.php?id_client="+idClient;
+        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/favoris/findAllFavorisByClient.php?id_client="+idClient;
 
         // Request a string response from the provided URL
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
