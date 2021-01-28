@@ -1,7 +1,5 @@
 package fr.ul.iutmetz.wmce.td1.DAO;
 
-import android.content.Context;
-
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -11,12 +9,14 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-public class ProduitDAO {
+import fr.ul.iutmetz.wmce.td1.modele.Favoris;
 
-    public static void findAllByCategorie(Fragment fragment, int idCategorie){
+public class SuppressionFavoriDAO {
+
+    public static void delete(Fragment fragment, Favoris f){
 
         RequestQueue queue = Volley.newRequestQueue(fragment.getContext());
-        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/produits/findAllByCategorie.php?id_categorie=" + idCategorie;
+        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/favoris/deleteFavori.php?id_client=" + f.getIdClient() + "&id_produit=" + f.getIdProduit();
 
         // Request a string response from the provided URL
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,

@@ -11,7 +11,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-public class UserDAO {
+public class ClientDAO {
 
     public static void findOneByIdentifiant(Fragment fragment, String identifiantClient){
 

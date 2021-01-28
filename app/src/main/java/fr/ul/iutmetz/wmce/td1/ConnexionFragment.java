@@ -19,7 +19,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
+import fr.ul.iutmetz.wmce.td1.DAO.ClientDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 
 public class ConnexionFragment extends Fragment
@@ -67,7 +67,7 @@ public class ConnexionFragment extends Fragment
     }
 
     public void onClickConnexion(View v){
-        UserDAO conDAO = new UserDAO();
+        ClientDAO conDAO = new ClientDAO();
         conDAO.findOneByIdentifiant(this, identifiant.getText().toString());
     }
 

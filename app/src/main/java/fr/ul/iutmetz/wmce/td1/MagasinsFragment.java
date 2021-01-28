@@ -41,7 +41,7 @@ private View root;
                              ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        this.root = inflater.inflate(R.layout.fragment_affichage_magasins, container, false);
+        this.root = inflater.inflate(R.layout.fragment_magasins, container, false);
 
         this.listeMagasins = new ArrayList<>();
 

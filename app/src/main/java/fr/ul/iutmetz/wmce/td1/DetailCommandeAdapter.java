@@ -36,6 +36,9 @@ public class DetailCommandeAdapter extends ArrayAdapter<LigneCommandeDetaillee> 
         ImageView img = convertView.findViewById(R.id.img_produit);
         img.setImageBitmap(this.listeImagesCommande.get(position));
 
+        TextView tv0 = convertView.findViewById(R.id.titre_produit);
+        tv0.setText(this.listeDetailCommande.get(position).getProduit().getTitre());
+
         TextView tv1 = convertView.findViewById(R.id.taille_commande);
         tv1.setText(this.listeDetailCommande.get(position).getTaille());
 

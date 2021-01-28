@@ -6,16 +6,23 @@
     app:startDestination="@+id/boutique_categories">
 
     <fragment
-        android:id="@id/boutique_categories"
-        android:name="fr.ul.iutmetz.wmce.td1.BoutiqueFragment"
-        android:label="Catalogue"
-        tools:layout="@layout/fragment_boutique" />
+        android:id="@+id/boutique_categories"
+        android:name="fr.ul.iutmetz.wmce.td1.CategoriesFragment"
+        android:label="Boutique"
+        tools:layout="@layout/fragment_categories">
+        <action
+            android:id="@+id/action_nav_boutique_to_venteCatalogueFragment2"
+            app:destination="@id/venteCatalogueFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/venteCatalogueFragment"
+        android:label="Produit"
+        android:name="fr.ul.iutmetz.wmce.td1.VenteCatalogueFragment" />
 
     <fragment
         android:id="@+id/boutique_favoris"
-        android:label="Favoris"/>
+        android:label="Mes favoris"
+        android:name="fr.ul.iutmetz.wmce.td1.FavorisFragment" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/boutique_articles"-->
-<!--        android:label="Articles"/>-->
 </navigation>

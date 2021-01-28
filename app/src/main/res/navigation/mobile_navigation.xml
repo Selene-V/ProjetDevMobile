@@ -6,15 +6,6 @@
     app:startDestination="@+id/nav_boutique">
 
     <!-- Fragments menu lateral -->
-    <fragment
-        android:id="@+id/nav_boutique"
-        android:name="fr.ul.iutmetz.wmce.td1.CategoriesFragment"
-        android:label="Boutique"
-        tools:layout="@layout/fragment_categories">
-        <action
-            android:id="@+id/action_nav_boutique_to_venteCatalogueFragment2"
-            app:destination="@id/venteCatalogueFragment2" />
-    </fragment>
 
     <fragment
         android:id="@+id/nav_connexion"
@@ -43,11 +34,15 @@
         tools:layout="@layout/fragment_mention_legales">
     </fragment>
 
-    <!-- Fragments autres -->
+    <!-- fragments BottomNavigationView -->
     <fragment
-        android:id="@+id/venteCatalogueFragment2"
-        android:name="fr.ul.iutmetz.wmce.td1.VenteCatalogueFragment"
-        />
+        android:id="@+id/nav_boutique"
+        android:name="fr.ul.iutmetz.wmce.td1.BoutiqueFragment"
+        android:label="Boutique"
+        tools:layout="@layout/fragment_boutique">
+    </fragment>
+
+    <!-- Fragments autres -->
 
     <fragment
         android:id="@+id/SaisieInformationsClientFragment"

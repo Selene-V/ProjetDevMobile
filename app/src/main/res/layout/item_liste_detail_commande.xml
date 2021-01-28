@@ -3,20 +3,33 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="90dp"
     >
+
+    <TextView
+        android:id="@+id/titre_produit"
+        style="@style/TextCategoriesListe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/img_produit" />
 
     <ImageView
         android:id="@+id/img_produit"
         style="@style/TextCategoriesListe"
-        android:layout_margin="15dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_margin="10dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/imgdefaut"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/tail_commande"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/titre_produit" />
 
     <TextView
         android:id="@+id/tail_commande"
@@ -29,7 +42,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@id/img_produit"
         app:layout_constraintRight_toLeftOf="@id/taille_commande"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_produit"
         app:layout_constraintBottom_toTopOf="@id/taille_commande" />
 
     <TextView
@@ -54,7 +67,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@id/tail_commande"
         app:layout_constraintRight_toLeftOf="@id/tarif_commande"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_produit"
         app:layout_constraintBottom_toTopOf="@id/quantite_commande" />
 
     <TextView

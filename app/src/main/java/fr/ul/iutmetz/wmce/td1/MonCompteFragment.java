@@ -19,7 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.ul.iutmetz.wmce.td1.DAO.CommandeDAO;
-import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
+import fr.ul.iutmetz.wmce.td1.DAO.ClientDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Client;
 
@@ -78,8 +78,8 @@ public class MonCompteFragment extends Fragment
         this.sessionManager = new SessionManager(this.getContext());
         int idClient = this.sessionManager.getIdUser();
         // Recherche des infos personnelles du user connecté
-        UserDAO userDAO = new UserDAO();
-        userDAO.findOneById(this, idClient);
+        ClientDAO clientDAO = new ClientDAO();
+        clientDAO.findOneById(this, idClient);
 
         // Recherche de la dernière commande du user connecté
         CommandeDAO comDAO = new CommandeDAO();

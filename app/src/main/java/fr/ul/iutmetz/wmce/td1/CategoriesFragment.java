@@ -34,8 +34,6 @@ public class CategoriesFragment extends Fragment
                 com.android.volley.Response.Listener<JSONArray>,
                 com.android.volley.Response.ErrorListener {
 
-    SessionManager sessionManager;
-
     private ArrayList<Categorie> listeCategories;
     private double totalPanier;
     private Utils utils = new Utils();
@@ -45,7 +43,6 @@ public class CategoriesFragment extends Fragment
 
     private ListView lvCategories;
     private TextView prixTotal;
-    private RadioButton vente;
 
     private View root;
 
