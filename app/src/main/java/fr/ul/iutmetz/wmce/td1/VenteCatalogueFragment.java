@@ -188,6 +188,10 @@ public class VenteCatalogueFragment extends Fragment
             this.image_pull_grande.setVisibility(View.VISIBLE);
         }
 
+        if (!sessionManager.isLoggin()){
+            this.favoris.setVisibility(View.INVISIBLE);
+        }
+
         if (this.isError && !this.agrandie){
             this.errorSpinner.setVisibility(View.VISIBLE);
         }
@@ -284,10 +288,8 @@ public class VenteCatalogueFragment extends Fragment
             System.out.println("nopulCourant : " + noPullCourant);
             System.out.println("idPull : " + this.modele.get(noPullCourant).getId());
             if (this.listeFavorisProduit.containsKey(this.modele.get(noPullCourant).getId())) {
-                System.out.println("------- FAVORIS --------");
                 this.favoris.setImageResource(R.drawable.ic_favoris);
             } else {
-                System.out.println("------- PAS FAVORIS --------");
                 this.favoris.setImageResource(R.drawable.ic_pas_favoris);
             }
         }
@@ -351,7 +353,11 @@ public class VenteCatalogueFragment extends Fragment
         this.staille.setVisibility(visibility);
         this.euro.setVisibility(visibility);
         this.panier.setVisibility(visibility);
-        this.favoris.setVisibility(visibility);
+        if (sessionManager.isLoggin()){
+            this.favoris.setVisibility(visibility);
+        } else {
+            this.favoris.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
