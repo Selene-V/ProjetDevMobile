@@ -88,11 +88,7 @@ private View root;
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("id_produit", this.listeFavoris.get(position).getProduit().getId());
-        bundle.putInt("id_categorie", this.listeFavoris.get(position).getProduit().getIdCategorie());
 
-        Navigation.findNavController(view).navigate(R.id.action_to_DetailCommandeFragment,bundle);
     }
 
     @Override

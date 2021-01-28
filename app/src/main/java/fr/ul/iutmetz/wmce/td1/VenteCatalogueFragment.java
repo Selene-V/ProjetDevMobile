@@ -272,6 +272,13 @@ public class VenteCatalogueFragment extends Fragment
         // Changement error
         this.errorSpinner.setText(this.errorCourante);
 
+        this.changementVueFavoris();
+
+        TailleDAO tailleDAO = new TailleDAO();
+        tailleDAO.peuplerSpinnerTaille(this);
+    }
+
+    public void changementVueFavoris(){
         if(this.listeFavorisProduit.size() >0) {
             System.out.println(listeFavorisProduit);
             System.out.println("nopulCourant : " + noPullCourant);
@@ -284,9 +291,6 @@ public class VenteCatalogueFragment extends Fragment
                 this.favoris.setImageResource(R.drawable.ic_pas_favoris);
             }
         }
-
-        TailleDAO tailleDAO = new TailleDAO();
-        tailleDAO.peuplerSpinnerTaille(this);
     }
 
     public void verifbPrecedent(){
@@ -452,11 +456,16 @@ public class VenteCatalogueFragment extends Fragment
                     verifbSuivant();
                     break;
                 case "insertFavori" :
+                    int idProduitInsert = response.getInt("id_produit");
+                    this.listeFavorisProduit.put(idProduitInsert, true);
+
+                    changementVueFavoris();
+                    break;
                 case "deleteFavori" :
-                    // Changements
-                    changement();
-                    verifbPrecedent();
-                    verifbSuivant();
+                    int idProduitDelete = response.getInt("id_produit");
+                    this.listeFavorisProduit.remove(idProduitDelete);
+
+                    changementVueFavoris();
                     break;
             }
         } catch (JSONException jsonException) {
