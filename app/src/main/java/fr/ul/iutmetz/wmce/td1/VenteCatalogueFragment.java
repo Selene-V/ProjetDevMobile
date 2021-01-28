@@ -32,6 +32,7 @@ import java.util.ArrayList;
 
 import fr.ul.iutmetz.wmce.td1.DAO.ProduitDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.TailleDAO;
+import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Produit;
 import utils.Utils;
 
@@ -68,9 +69,9 @@ public class VenteCatalogueFragment extends Fragment
     private TextView texteAdd;
     private TextView errorSpinner;
 
+    SessionManager sessionManager;
+
     private static final int MAIN_SAISIE_NOUVEAU_PULL = 2;
-    public static final int RETOUR = 0;
-    public static final int ANNULER = -1;
 
     private View root;
 
@@ -105,11 +106,16 @@ public class VenteCatalogueFragment extends Fragment
             this.errorCourante = savedInstanceState.getString("error_courante");
 
         }else {
-
+            this.sessionManager = new SessionManager(this.getContext());
             this.modele = new ArrayList<>();
 
+            // Recuperation id categorie
+            if (this.getArguments().getInt("id_categ", -1)!=-1){
+                this.idCategorie = this.getArguments().getInt("id_categ", -1);
+            }
+
             ProduitDAO prodDAO = new ProduitDAO();
-            prodDAO.findAll(this);
+            prodDAO.findAllByCategorie(this, this.idCategorie);
 
 
 
@@ -122,11 +128,6 @@ public class VenteCatalogueFragment extends Fragment
             this.isError = false;
 
             this.errorCourante = "Erreur";
-
-            // Recuperation id categorie
-            if (this.getArguments().getInt("id_categ", -1)!=-1){
-                this.idCategorie = this.getArguments().getInt("id_categ", -1);
-            }
         }
 
         this.listeImagesProduits = new ArrayList<>();
@@ -310,15 +311,6 @@ public class VenteCatalogueFragment extends Fragment
         this.panier.setVisibility(visibility);
     }
 
-    //    Intent est la classe que vous aurez besoin pour faire le lien entre deux activités,
-//    les paramètres sont  l'actitivé actuelle et l'activité que vous souhaitez appeler,
-//    une fois que le objet est crée, il faut juste appeler au méthode "startActivity"
-//    public void onClickAddPull(View v){
-//        Intent intent = new Intent(afficheProduit.this, SaisieNouveauPullFragment.class);
-//        intent.putExtra("id_categ", this.idCategorie);
-//        startActivityForResult(intent, MAIN_SAISIE_NOUVEAU_PULL);
-//    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -359,7 +351,6 @@ public class VenteCatalogueFragment extends Fragment
             System.out.println("requete");
             System.out.println(requete);
             JSONArray data = response.getJSONArray("data");
-            int cmp = 0;
             switch (requete){
                 case "produits" :
                     System.out.println("PRODUIT");
@@ -369,8 +360,6 @@ public class VenteCatalogueFragment extends Fragment
                         int idCat = o.getInt("id_categorie");
 
                         System.out.println("---------- produit " + i + "------------------");
-                        if (idCategorie == idCat) {
-
                             int idProduit = o.getInt("id_produit");
                             String title = o.getString("titre");
                             String desc = o.getString("description");
@@ -384,9 +373,7 @@ public class VenteCatalogueFragment extends Fragment
                             this.listeImagesProduits.add(null);
                             ImageFromURL chargement = new ImageFromURL(this);
                             chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
-                                    this.modele.get(cmp).getVisuel(), String.valueOf(cmp));
-                            cmp++;
-                        }
+                                    this.modele.get(i).getVisuel(), String.valueOf(i));
                     }
                     // Changements
                     changement();
