@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 import fr.ul.iutmetz.wmce.td1.DAO.InscriptionDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.ModificationUserDAO;
-import fr.ul.iutmetz.wmce.td1.DAO.UserDAO;
+import fr.ul.iutmetz.wmce.td1.DAO.ClientDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Client;
 import utils.Utils;
@@ -226,8 +226,8 @@ public class SaisieInformationsClientFragment extends Fragment
     }
 
     public void identifiantExist(String identifiant) {
-        UserDAO userDAO = new UserDAO();
-        userDAO.findOneByIdentifiant(this, identifiant);
+        ClientDAO clientDAO = new ClientDAO();
+        clientDAO.findOneByIdentifiant(this, identifiant);
     }
 
     @Override

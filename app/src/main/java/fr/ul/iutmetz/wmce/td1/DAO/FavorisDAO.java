@@ -1,7 +1,5 @@
 package fr.ul.iutmetz.wmce.td1.DAO;
 
-import android.content.Context;
-
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -11,12 +9,12 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-public class UserDAO {
+public class FavorisDAO {
 
-    public static void findOneByIdentifiant(Fragment fragment, String identifiantClient){
+    public static void findOneByIds(Fragment fragment, int idClient, int idProduit){
 
         RequestQueue queue = Volley.newRequestQueue(fragment.getContext());
-        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/clients/findOneByIdentifiant.php?identifiant_client="+identifiantClient;
+        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/favoris/findOneByIds.php?id_client="+idClient+ "&id_produit=" + idProduit;
 
         // Request a string response from the provided URL
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -27,7 +25,7 @@ public class UserDAO {
         queue.add(jsonRequest);
     }
 
-    public static void findOneById(Fragment fragment, int idClient){
+    public static void findAllFavorisByClient(Fragment fragment, int idClient){
 
         RequestQueue queue = Volley.newRequestQueue(fragment.getContext());
         String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/clients/findOneById.php?id_client="+idClient;
