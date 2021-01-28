@@ -3,11 +3,14 @@ package fr.ul.iutmetz.wmce.td1;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,6 +33,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import fr.ul.iutmetz.wmce.td1.DAO.FavorisDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.ProduitDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.TailleDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
@@ -49,7 +53,9 @@ public class VenteCatalogueFragment extends Fragment
     private double totalPanier;
     private boolean isError;
     private String errorCourante;
-    private ArrayList listeImagesProduits;
+    private ArrayList<Bitmap> listeImagesProduits;
+//    private ArrayList<Boolean> listeFavorisProduit;
+    private ArrayMap<Integer, Boolean> listeFavorisProduit;
 
 
     private Utils utils = new Utils();
@@ -66,6 +72,8 @@ public class VenteCatalogueFragment extends Fragment
     private Spinner staille;
     private TextView euro;
     private TextView errorSpinner;
+    private ImageButton favoris;
+
 
     SessionManager sessionManager;
 
@@ -128,6 +136,9 @@ public class VenteCatalogueFragment extends Fragment
             this.errorCourante = "Erreur";
         }
 
+//        this.listeFavorisProduit = new ArrayList<>();
+        this.listeFavorisProduit = new ArrayMap<>();
+
         this.listeImagesProduits = new ArrayList<>();
         for (int i = 0 ; i < this.modele.size() ; i++){
             this.listeImagesProduits.add(null);
@@ -154,12 +165,14 @@ public class VenteCatalogueFragment extends Fragment
         this.euro = this.root.findViewById(R.id.euro_pull);
         this.panier = this.root.findViewById(R.id.image_panier);
         this.errorSpinner = this.root.findViewById(R.id.error_spinner);
+        this.favoris = this.root.findViewById(R.id.image_favori);
 
         this.image_pull.setOnClickListener(this::onClickZoom);
         this.image_pull_grande.setOnClickListener(this::onClickDezoom);
         this.bPrecedent.setOnClickListener(this::onClickPrecedent);
         this.bSuivant.setOnClickListener(this::onClickSuivant);
         this.panier.setOnClickListener(this::onClickPanier);
+        this.favoris.setOnClickListener(this::onClickFavoris);
 
         if (this.modele.size()>0){
             // Changements
@@ -177,6 +190,10 @@ public class VenteCatalogueFragment extends Fragment
         if (this.isError && !this.agrandie){
             this.errorSpinner.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void onClickFavoris(View v){
+        //TODO
     }
 
     /**
@@ -221,8 +238,6 @@ public class VenteCatalogueFragment extends Fragment
         if (this.listeImagesProduits.get(noPullCourant) != null){
             this.image_pull.setImageBitmap((Bitmap)this.listeImagesProduits.get(noPullCourant));
             this.image_pull_grande.setImageBitmap((Bitmap) this.listeImagesProduits.get(noPullCourant));
-            System.out.println("--------- liste IMG Produits ---------");
-            System.out.println(this.listeImagesProduits);
         } else {
             int id = this.getResources().getIdentifier(
                     this.modele.get(noPullCourant).getVisuel(),
@@ -240,6 +255,37 @@ public class VenteCatalogueFragment extends Fragment
         this.prix.setText(this.modele.get(noPullCourant).getPrix());
         // Changement error
         this.errorSpinner.setText(this.errorCourante);
+
+//        if(this.listeFavorisProduit.size() >0) {
+//            System.out.println(listeFavorisProduit);
+//            System.out.println("nopulCourant : " + noPullCourant);
+//            if (this.listeFavorisProduit.get(noPullCourant)) {
+//                System.out.println("------- FAVORIS --------");
+//                this.favoris.setImageResource(R.drawable.ic_favoris);
+//            } else {
+//                System.out.println("------- PAS FAVORIS --------");
+//                this.favoris.setImageResource(R.drawable.ic_pas_favoris);
+//        //
+//        //        this.favoris.setImageDrawable(
+//        //                ContextCompat.getDrawable(this.getContext(), R.drawable.ic_pas_favoris));
+//            }
+//        }
+
+        if(this.listeFavorisProduit.size() >0) {
+            System.out.println(listeFavorisProduit);
+            System.out.println("nopulCourant : " + noPullCourant);
+            System.out.println("idPull : " + this.modele.get(noPullCourant).getId());
+            if (this.listeFavorisProduit.containsKey(this.modele.get(noPullCourant).getId())) {
+                System.out.println("------- FAVORIS --------");
+                this.favoris.setImageResource(R.drawable.ic_favoris);
+            } else {
+                System.out.println("------- PAS FAVORIS --------");
+                this.favoris.setImageResource(R.drawable.ic_pas_favoris);
+                //
+                //        this.favoris.setImageDrawable(
+                //                ContextCompat.getDrawable(this.getContext(), R.drawable.ic_pas_favoris));
+            }
+        }
 
         TailleDAO tailleDAO = new TailleDAO();
         tailleDAO.peuplerSpinnerTaille(this);
@@ -303,6 +349,7 @@ public class VenteCatalogueFragment extends Fragment
         this.staille.setVisibility(visibility);
         this.euro.setVisibility(visibility);
         this.panier.setVisibility(visibility);
+        this.favoris.setVisibility(visibility);
     }
 
     @Override
@@ -339,56 +386,78 @@ public class VenteCatalogueFragment extends Fragment
     @Override
     public void onResponse(JSONObject response) {
         try {
-            System.out.println("REQUETE RESPONSE");
-            System.out.println(response);
             String requete = response.getString("requete");
-            System.out.println("requete");
-            System.out.println(requete);
-            JSONArray data = response.getJSONArray("data");
             switch (requete){
                 case "produits" :
-                    System.out.println("PRODUIT");
+                    JSONArray data = response.getJSONArray("data");
                     for (int i = 0 ; i < data.length() ; i++) {
                         JSONObject o = response.getJSONArray("data").getJSONObject(i);
 
+                        int idProduit = o.getInt("id_produit");
+
+                        if (sessionManager.isLoggin()){
+                            int idClient = sessionManager.getIdUser();
+                            FavorisDAO favDAO = new FavorisDAO();
+                            favDAO.findOneByIds(this, idClient, idProduit);
+                        }
+
                         int idCat = o.getInt("id_categorie");
+                        String title = o.getString("titre");
+                        String desc = o.getString("description");
+                        String tarif = String.valueOf(o.getDouble("tarif"));
+                        String visuel = o.getString("visuel");
 
-                        System.out.println("---------- produit " + i + "------------------");
-                            int idProduit = o.getInt("id_produit");
-                            String title = o.getString("titre");
-                            String desc = o.getString("description");
-                            String tarif = String.valueOf(o.getDouble("tarif"));
-                            String visuel = o.getString("visuel");
+                        Produit prod = new Produit(idProduit, title, desc, tarif, visuel, idCat);
+                        this.modele.add(prod);
 
-                            Produit prod = new Produit(idProduit, title, desc, tarif, visuel, idCat);
-                            System.out.println("------- Produit : " + prod.getTitre());
-                            this.modele.add(prod);
+                        this.listeImagesProduits.add(null);
+                        ImageFromURL chargement = new ImageFromURL(this);
+                        chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
+                                this.modele.get(i).getVisuel(), String.valueOf(i));
+                    }
+//                    // Changements
+//                    changement();
+//                    verifbPrecedent();
+//                    verifbSuivant();
+//                    break;
+                case "taillesProduits" :
+                    JSONArray taille = response.getJSONArray("data");
+                    ArrayList<String> listSpinner = new ArrayList<>();
+                    listSpinner.add("Choix de la taille");
+                    for (int i = 0 ; i < taille.length() ; i++){
+                        JSONObject o = taille.getJSONObject(i);
+                        int idProduit = o.getInt("id_produit");
+                        if (this.modele.get(noPullCourant).getId() == idProduit) {
+                            String libelle = o.getString("libelle");
+                            listSpinner.add(libelle);
+                        }
+                    }
+                    changementSpinnerTaille(listSpinner);
+                    break;
+                case "favorisProduit" :
+//                    boolean isFavori = response.getBoolean("res");
+//                    System.out.println("isFavori de " + this.listeFavorisProduit.size()+1);
+//                    System.out.println(isFavori);
+//                    this.listeFavorisProduit.add(isFavori);
+//                    break;
 
-                            this.listeImagesProduits.add(null);
-                            ImageFromURL chargement = new ImageFromURL(this);
-                            chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
-                                    this.modele.get(i).getVisuel(), String.valueOf(i));
+                    boolean isFavori = response.getBoolean("res");
+                    if (isFavori){
+                        JSONObject fav = response.getJSONObject("data");
+                        System.out.println("isFavori de " + this.listeFavorisProduit.size()+1);
+                        System.out.println(isFavori);
+                        System.out.println("id produit");
+                        System.out.println(fav.getInt("id_produit"));
+                        this.listeFavorisProduit.put(fav.getInt("id_produit"), isFavori);
+                    } else {
+                        System.out.println("isFavori de " + this.listeFavorisProduit.size()+1);
+                        System.out.println(isFavori);
+                        this.listeFavorisProduit.put(-1, isFavori);
                     }
                     // Changements
                     changement();
                     verifbPrecedent();
                     verifbSuivant();
-                    break;
-                case "taillesProduits" :
-                    System.out.println("TAILLESPRODUITS");
-                    ArrayList<String> listSpinner = new ArrayList<>();
-                    listSpinner.add("Choix de la taille");
-                    for (int i = 0 ; i < data.length() ; i++){
-                        JSONObject o = data.getJSONObject(i);
-                        int idProduit = o.getInt("id_produit");
-                        if (this.modele.get(noPullCourant).getId() == idProduit) {
-                            System.out.println(idProduit);
-                            String libelle = o.getString("libelle");
-                            System.out.println(libelle);
-                            listSpinner.add(libelle);
-                        }
-                    }
-                    changementSpinnerTaille(listSpinner);
                     break;
             }
         } catch (JSONException jsonException) {
