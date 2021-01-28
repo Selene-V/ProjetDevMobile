@@ -136,7 +136,6 @@ public class VenteCatalogueFragment extends Fragment
             this.errorCourante = "Erreur";
         }
 
-//        this.listeFavorisProduit = new ArrayList<>();
         this.listeFavorisProduit = new ArrayMap<>();
 
         this.listeImagesProduits = new ArrayList<>();
@@ -256,21 +255,6 @@ public class VenteCatalogueFragment extends Fragment
         // Changement error
         this.errorSpinner.setText(this.errorCourante);
 
-//        if(this.listeFavorisProduit.size() >0) {
-//            System.out.println(listeFavorisProduit);
-//            System.out.println("nopulCourant : " + noPullCourant);
-//            if (this.listeFavorisProduit.get(noPullCourant)) {
-//                System.out.println("------- FAVORIS --------");
-//                this.favoris.setImageResource(R.drawable.ic_favoris);
-//            } else {
-//                System.out.println("------- PAS FAVORIS --------");
-//                this.favoris.setImageResource(R.drawable.ic_pas_favoris);
-//        //
-//        //        this.favoris.setImageDrawable(
-//        //                ContextCompat.getDrawable(this.getContext(), R.drawable.ic_pas_favoris));
-//            }
-//        }
-
         if(this.listeFavorisProduit.size() >0) {
             System.out.println(listeFavorisProduit);
             System.out.println("nopulCourant : " + noPullCourant);
@@ -281,9 +265,6 @@ public class VenteCatalogueFragment extends Fragment
             } else {
                 System.out.println("------- PAS FAVORIS --------");
                 this.favoris.setImageResource(R.drawable.ic_pas_favoris);
-                //
-                //        this.favoris.setImageDrawable(
-                //                ContextCompat.getDrawable(this.getContext(), R.drawable.ic_pas_favoris));
             }
         }
 
@@ -419,7 +400,7 @@ public class VenteCatalogueFragment extends Fragment
 //                    changement();
 //                    verifbPrecedent();
 //                    verifbSuivant();
-//                    break;
+                    break;
                 case "taillesProduits" :
                     JSONArray taille = response.getJSONArray("data");
                     ArrayList<String> listSpinner = new ArrayList<>();
@@ -435,12 +416,6 @@ public class VenteCatalogueFragment extends Fragment
                     changementSpinnerTaille(listSpinner);
                     break;
                 case "favorisProduit" :
-//                    boolean isFavori = response.getBoolean("res");
-//                    System.out.println("isFavori de " + this.listeFavorisProduit.size()+1);
-//                    System.out.println(isFavori);
-//                    this.listeFavorisProduit.add(isFavori);
-//                    break;
-
                     boolean isFavori = response.getBoolean("res");
                     if (isFavori){
                         JSONObject fav = response.getJSONObject("data");
