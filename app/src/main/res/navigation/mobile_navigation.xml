@@ -32,9 +32,8 @@
 
     <fragment
         android:id="@+id/nav_nous_trouver"
-        android:name="fr.ul.iutmetz.wmce.td1.MapsFragment"
-        android:label="Nous trouver"
-        tools:layout="@layout/fragment_maps">
+        android:name="fr.ul.iutmetz.wmce.td1.MagasinsFragment"
+        android:label="Nous trouver">
     </fragment>
 
     <fragment
@@ -60,6 +59,11 @@
         android:name="fr.ul.iutmetz.wmce.td1.DetailCommandeFragment"
         android:label="Détail de la commande" />
 
+    <fragment
+        android:id="@+id/MapsFragment"
+        android:name="fr.ul.iutmetz.wmce.td1.MapsFragment"
+        android:label="Magasin sur la carte" />
+
 
     <!-- Actions -->
     <action
@@ -79,5 +83,9 @@
     <action
         android:id="@+id/action_to_DetailCommandeFragment"
         app:destination="@id/DetailCommandeFragment" />
+
+    <action
+        android:id="@+id/action_to_MapsFragment"
+        app:destination="@id/MapsFragment" />
 
 </navigation>

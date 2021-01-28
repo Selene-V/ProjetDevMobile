@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailCommandeFragment">
+    tools:context=".MagasinsFragment">
 
 
     <ListView
-        android:id="@+id/commande_detaillee_liste"
+        android:id="@+id/magasins_liste"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
