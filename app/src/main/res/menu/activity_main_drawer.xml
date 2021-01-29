@@ -7,17 +7,17 @@
         <item
             android:id="@+id/nav_boutique"
             android:icon="@drawable/ic_nav_boutique"
-            android:title="Boutique"/>
+            android:title="@string/boutique"/>
 
         <item
             android:id="@+id/nav_nous_trouver"
             android:icon="@drawable/ic_nav_nous_trouver"
-            android:title="Nous trouver"/>
+            android:title="@string/nous_trouver"/>
 
         <item
             android:id="@+id/nav_mentions_legales"
             android:icon="@drawable/ic_nav_mentions_legales"
-            android:title="Mentions légales"/>
+            android:title="@string/mentions_legales"/>
 
     </group>
 </menu>

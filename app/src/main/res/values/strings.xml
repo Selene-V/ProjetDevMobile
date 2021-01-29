@@ -9,7 +9,6 @@
     <string name="ajout_panier">Produit n°%1$d ajouté au panier</string>
     <string name="total_panier_texte">Total panier :  </string>
     <string name="footer">Réalisé par M. FRANCOIS, R. FRANCOIS, S. VIOLA, 2020</string>
-    <string name="nouveau_produit">Nouveau produit</string>
     <string name="retour">Retour</string>
 
     <string name="confirm_titre">Demande de confirmation</string>
@@ -48,7 +47,7 @@
     <string name="identifiant_de_la_commande">Identifiant de la commande :</string>
     <string name="date_de_la_commande">Date de la commande :</string>
 
-    <!--    Connexion-->
+    <!-- Connexion -->
     <string name="mot_de_passe">Mot de passe</string>
     <string name="connexion">Connexion</string>
     <string name="inscrit_toi">Pas encore de compte ? Inscrit toi !</string>
@@ -60,4 +59,17 @@
 
     <string name="delete_favori">Produit retiré des favoris</string>
     <string name="insert_favori">Produit ajouté aux favoris</string>
+
+    <!-- Menus et Navigation -->
+    <string name="boutique">Boutique</string>
+    <string name="nous_trouver">Nous trouver</string>
+    <string name="mon_panier">Mon panier</string>
+    <string name="deconnexion">Déconnexion</string>
+    <string name="catalogue">Catalogue</string>
+    <string name="favoris">Favoris</string>
+    <string name="saisie_informations">Saisie Informations</string>
+    <string name="detail_commande">Détail de la commande</string>
+    <string name="magasin_carte">Magasin sur la carte</string>
+    <string name="produit">Produit</string>
+    <string name="mes_favoris">Mes favoris</string>
 </resources>

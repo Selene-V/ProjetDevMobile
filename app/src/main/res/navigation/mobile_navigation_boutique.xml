@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/boutique_categories"
         android:name="fr.ul.iutmetz.wmce.td1.CategoriesFragment"
-        android:label="Boutique"
+        android:label="@string/boutique"
         tools:layout="@layout/fragment_categories">
         <action
             android:id="@+id/action_nav_boutique_to_venteCatalogueFragment2"
@@ -17,12 +17,12 @@
 
     <fragment
         android:id="@+id/venteCatalogueFragment"
-        android:label="Produit"
+        android:label="@string/produit"
         android:name="fr.ul.iutmetz.wmce.td1.VenteCatalogueFragment" />
 
     <fragment
         android:id="@+id/boutique_favoris"
-        android:label="Mes favoris"
+        android:label="@string/mes_favoris"
         android:name="fr.ul.iutmetz.wmce.td1.FavorisFragment" />
 
 </navigation>

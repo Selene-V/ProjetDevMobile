@@ -47,7 +47,7 @@
 
     <!--    Connexion-->
     <string name="mot_de_passe">Password</string>
-    <string name="connexion">Connection</string>
+    <string name="connexion">Login</string>
     <string name="inscrit_toi">Pas encore de compte? Inscrit toi!</string>
     <string name="con_erreur_bdd">Incorrect identifiers!</string>
     <string name="quantite">Quantity:</string>
@@ -58,4 +58,17 @@
 
     <string name="delete_favori">Product removed from favorites</string>
     <string name="insert_favori">Product added to favorites</string>
+
+    <!-- Menus et Navigation -->
+    <string name="boutique">Shop</string>
+    <string name="nous_trouver">Find us</string>
+    <string name="mon_panier">My cart</string>
+    <string name="deconnexion">Logout</string>
+    <string name="catalogue">Catalog</string>
+    <string name="favoris">Favorites</string>
+    <string name="saisie_informations">Entering informations</string>
+    <string name="detail_commande">Order detail</string>
+    <string name="magasin_carte">Shop on the map</string>
+    <string name="produit">Product</string>
+    <string name="mes_favoris">My favorites</string>
 </resources>

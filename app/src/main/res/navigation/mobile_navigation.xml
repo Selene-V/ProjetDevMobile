@@ -10,27 +10,27 @@
     <fragment
         android:id="@+id/nav_connexion"
         android:name="fr.ul.iutmetz.wmce.td1.ConnexionFragment"
-        android:label="Connexion"
+        android:label="@string/connexion"
         tools:layout="@layout/fragment_connexion">
     </fragment>
 
     <fragment
         android:id="@+id/nav_mon_compte"
         android:name="fr.ul.iutmetz.wmce.td1.MonCompteFragment"
-        android:label="Mon Compte"
+        android:label="@string/mon_panier"
         tools:layout="@layout/fragment_connexion">
     </fragment>
 
     <fragment
         android:id="@+id/nav_nous_trouver"
         android:name="fr.ul.iutmetz.wmce.td1.MagasinsFragment"
-        android:label="Nous trouver">
+        android:label="@string/nous_trouver">
     </fragment>
 
     <fragment
         android:id="@+id/nav_mentions_legales"
         android:name="fr.ul.iutmetz.wmce.td1.MentionLegalesFragment"
-        android:label="Mentions légales"
+        android:label="@string/mentions_legales"
         tools:layout="@layout/fragment_mention_legales">
     </fragment>
 
@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/nav_boutique"
         android:name="fr.ul.iutmetz.wmce.td1.BoutiqueFragment"
-        android:label="Boutique"
+        android:label="@string/boutique"
         tools:layout="@layout/fragment_boutique">
     </fragment>
 
@@ -47,17 +47,17 @@
     <fragment
         android:id="@+id/SaisieInformationsClientFragment"
         android:name="fr.ul.iutmetz.wmce.td1.SaisieInformationsClientFragment"
-        android:label="Saisie Informations" />
+        android:label="@string/saisie_informations" />
 
     <fragment
         android:id="@+id/DetailCommandeFragment"
         android:name="fr.ul.iutmetz.wmce.td1.DetailCommandeFragment"
-        android:label="Détail de la commande" />
+        android:label="@string/detail_commande" />
 
     <fragment
         android:id="@+id/MapsFragment"
         android:name="fr.ul.iutmetz.wmce.td1.MapsFragment"
-        android:label="Magasin sur la carte" />
+        android:label="@string/magasin_carte" />
 
 
     <!-- Actions -->

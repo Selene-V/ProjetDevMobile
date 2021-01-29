@@ -5,32 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/image_add"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="42dp"
-        android:onClick="onClickAddPull"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_baseline_add_circle_outline_24"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/texte_add"
-        style="@style/ThemeAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClickAddPull"
-        android:text="@string/nouveau_produit"
-        app:layout_constraintLeft_toLeftOf="@id/image_add"
-        app:layout_constraintRight_toRightOf="@id/image_add"
-        app:layout_constraintTop_toBottomOf="@id/image_add"
-        />
-
 
     <ImageView
         android:id="@+id/image_pull"
@@ -39,8 +13,8 @@
         android:scaleType="centerInside"
         android:src="@drawable/imgdefaut"
         app:layout_constraintTop_toBottomOf="@+id/bPrecedent"
-        app:layout_constraintBottom_toTopOf="@id/image_add"
-        app:layout_constraintLeft_toLeftOf="@id/image_add"
+        app:layout_constraintBottom_toTopOf="@id/image_favori"
+        app:layout_constraintLeft_toLeftOf="@id/image_favori"
         app:layout_constraintRight_toLeftOf="@id/desc"
         android:onClick="onClickZoom"
         />
@@ -141,7 +115,6 @@
         android:src="@drawable/ic_baseline_shopping_basket_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:onClick="onClickPanier"
         />
 
     <TextView
@@ -175,6 +148,19 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <ImageButton
+        android:id="@+id/image_favori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:scaleType="centerInside"
+        android:background="@null"
+        android:src="@drawable/ic_pas_favoris"
+        app:layout_constraintBottom_toBottomOf="@+id/image_panier"
+        app:layout_constraintTop_toTopOf="@+id/image_panier"
         app:layout_constraintLeft_toLeftOf="parent"
         />
 
