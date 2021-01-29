@@ -9,10 +9,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,11 +29,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import fr.ul.iutmetz.wmce.td1.DAO.CommandeDAO;
+import fr.ul.iutmetz.wmce.td1.DAO.FavorisDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Commande;
 import fr.ul.iutmetz.wmce.td1.modele.Panier;
+import fr.ul.iutmetz.wmce.td1.modele.Produit;
+import fr.ul.iutmetz.wmce.td1.modele.Taille;
+import utils.Triplet;
 
-public class PanierFragment extends Fragment implements ActiviteEnAttenteImage {
+public class PanierFragment extends Fragment implements ActiviteEnAttenteImage, com.android.volley.Response.Listener<JSONObject>,
+        com.android.volley.Response.ErrorListener {
     private PanierAdapter adaptateur;
     private Panier panier;
     private ArrayList<Bitmap> listeProduitsImages;
@@ -38,7 +50,7 @@ public class PanierFragment extends Fragment implements ActiviteEnAttenteImage {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)  {
 
         this.root = inflater.inflate(R.layout.fragment_panier, container, false);
 
@@ -101,5 +113,36 @@ public class PanierFragment extends Fragment implements ActiviteEnAttenteImage {
 
         Commande c = new Commande(-1,date ,sessionManager.getIdUser());
 
+        CommandeDAO cDAO = new CommandeDAO();
+        CommandeDAO cDAOLigne = new CommandeDAO();
+
+        cDAO.insertCommande(this,c);
+
+        cDAOLigne.insertLigneCommande(this,panier.getBasketContent(),c);
+
+
+
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.e("Erreur JSON", error + "");
+        Toast.makeText(this.getContext(), R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        try {
+            String requete = response.getString("requete");
+            int cmp = 0;
+            switch (requete){
+                case "insertLigneCommande" :
+                    this.panier = new Panier(new ArrayList<Triplet<Produit, Taille, Integer>>());
+                    ((ActiviteEcommerce) this.getActivity()).setPanier(this.panier);
+                    break;
+            }
+        } catch (JSONException jsonException) {
+            jsonException.printStackTrace();
+        }
     }
 }

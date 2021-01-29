@@ -496,6 +496,7 @@ public class VenteCatalogueFragment extends Fragment
 //                    verifbSuivant();
                     break;
                 case "taillesProduits" :
+
                     JSONArray taille = response.getJSONArray("data");
                     ArrayList<Taille> listSpinner = new ArrayList<>();
                     listSpinner.add(new Taille(0, "Choix de la taille"));
