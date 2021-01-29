@@ -13,7 +13,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="35dp"
             app:layout_constraintBottom_toTopOf="@+id/total_panier_texte"
             />
 
@@ -24,7 +23,7 @@
             android:orientation="horizontal"
             android:text="@string/total_panier_texte"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/footerView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             />
 
@@ -34,7 +33,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/footerView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/total_panier_texte" />
 
         <TextView
@@ -44,7 +43,7 @@
             android:orientation="horizontal"
             android:text="@string/euro"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/footerView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/total_panier_nombre"
             />
 
