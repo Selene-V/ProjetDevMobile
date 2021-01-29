@@ -72,4 +72,7 @@
     <string name="magasin_carte">Magasin sur la carte</string>
     <string name="produit">Produit</string>
     <string name="mes_favoris">Mes favoris</string>
+
+    <!-- Loader/ ProgressBarr -->
+    <string name="chargement">Chargement...</string>
 </resources>

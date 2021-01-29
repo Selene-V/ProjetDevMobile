@@ -71,4 +71,8 @@
     <string name="magasin_carte">Shop on the map</string>
     <string name="produit">Product</string>
     <string name="mes_favoris">My favorites</string>
+
+    <!-- Loader/ ProgressBarr -->
+    <string name="chargement">Loading...</string>
+
 </resources>
