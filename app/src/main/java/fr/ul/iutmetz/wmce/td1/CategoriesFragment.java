@@ -40,8 +40,6 @@ public class CategoriesFragment extends Fragment
                 com.android.volley.Response.Listener<JSONArray>,
                 com.android.volley.Response.ErrorListener, LoaderManager.LoaderCallbacks<Cursor> {
 
-    SessionManager sessionManager;
-
     private ArrayList<Categorie> listeCategories;
     private double totalPanier;
     private Utils utils = new Utils();
@@ -49,13 +47,15 @@ public class CategoriesFragment extends Fragment
     private ArrayList listeImagesCategories;
     private CategoriesAdapter adaptateur;
 
-    private ListView lvCategories;
     private TextView prixTotal;
     private RadioButton vente;
 
     private View root;
 
     private boolean firstTimeLoaded;
+
+    private ListView lvCategories;
+
 
     @Override
     public void onSaveInstanceState(Bundle outState){
@@ -173,26 +173,16 @@ public class CategoriesFragment extends Fragment
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
         Uri myUri = Uri.parse("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/categories/findallCategorie.php");
-        if(id==1){
-            return new CursorLoader(getActivity(), myUri, null, null, null, null);
-        }
-        return null;
+        return new CursorLoader(getActivity(), myUri, null, null, null, null);
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-        if(data!=null){
-            StringBuilder stringBuilderQueryResult=new StringBuilder("");
-            /*while(data.moveToNext()){
-                stringBuilderQueryResult.append(data.getString(0) + " " + data.getString(1) + data.getString(2) + "\n");
-            }*/
-            Toast toast = Toast.makeText(getActivity(), "oui", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-        else{
-            Toast toast = Toast.makeText(getActivity(), "no categories", Toast.LENGTH_SHORT);
-            toast.show();
-        }
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
+        adaptateur = new CategoriesAdapter(getActivity(), listeCategories, listeImagesCategories);
+        lvCategories.setAdapter(adaptateur);
+
+        Toast toast = Toast.makeText(getActivity(), "data loaded", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     @Override

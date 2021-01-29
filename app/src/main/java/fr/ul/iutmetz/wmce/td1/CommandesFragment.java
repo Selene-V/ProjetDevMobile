@@ -1,11 +1,14 @@
 package fr.ul.iutmetz.wmce.td1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 import androidx.navigation.Navigation;
 
-import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +34,7 @@ import fr.ul.iutmetz.wmce.td1.modele.Commande;
 public class CommandesFragment extends Fragment
     implements AdapterView.OnItemClickListener,
         com.android.volley.Response.Listener<JSONObject>,
-        com.android.volley.Response.ErrorListener {
+        com.android.volley.Response.ErrorListener, LoaderManager.LoaderCallbacks {
 
     private ArrayList<Commande> listeCommandes;
     SessionManager sessionManager;
@@ -110,5 +113,29 @@ private View root;
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @NonNull
+    @Override
+    public Loader onCreateLoader(int id, @Nullable Bundle args) {
+        for(int i = 0; i <= listeCommandes.size(); i++){
+            Uri myUri = Uri.parse("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/commandes/findAllCommandsByClient.php?id_client="+this.sessionManager.getIdUser());
+            return new CursorLoader(getActivity(), myUri, null, null, null, null);
+        }
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader loader, Object data) {
+        adapteur = new CommandesAdapter(getActivity(), listeCommandes);
+        lvCommandes.setAdapter(adapteur);
+
+        Toast toast = Toast.makeText(getActivity(), "data loaded", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader loader) {
+
     }
 }
