@@ -42,12 +42,12 @@
         tools:layout="@layout/fragment_boutique">
         <action
             android:id="@+id/action_toPanierFragment"
-            app:destination="@id/PanierFragment" />
+            app:destination="@id/panierFragment" />
     </fragment>
 
     <!-- Fragments autres -->
     <fragment
-        android:id="@+id/PanierFragment"
+        android:id="@+id/panierFragment"
         android:name="fr.ul.iutmetz.wmce.td1.PanierFragment"
         android:label="panierFragment" />
 

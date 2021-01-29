@@ -126,7 +126,7 @@ public class CategoriesFragment extends Fragment
         Bundle bundle = new Bundle();
         //bundle.putInt("id_categ", this.listeCategories.get(position).getId());
 
-        Navigation.findNavController(view).navigate(R.id.action_toPanierFragment,bundle);
+        Navigation.findNavController(view).navigate(R.id.action_to_PanierFragment,bundle);
     }
 
     @Override
