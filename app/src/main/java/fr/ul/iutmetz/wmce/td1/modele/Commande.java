@@ -1,14 +1,15 @@
 package fr.ul.iutmetz.wmce.td1.modele;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class Commande implements Serializable {
     private int id;
-    private Date dateCommande;
+    private String dateCommande;
     private int idClient;
 
-    public Commande(int id, Date dateCommande, int idClient) {
+    public Commande(int id, String dateCommande, int idClient) {
         this.id = id;
         this.dateCommande = dateCommande;
         this.idClient = idClient;
@@ -26,8 +27,10 @@ public class Commande implements Serializable {
         return dateCommande.toString();
     }
 
-    public void setDateCommande(String dateCommande) {
-        this.dateCommande = Date.valueOf(dateCommande);
+    public void setDateCommande(String dateCommande) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-dd-mm");
+        String date = "";
+        this.dateCommande = date;
     }
 
     public int getIdClient() {

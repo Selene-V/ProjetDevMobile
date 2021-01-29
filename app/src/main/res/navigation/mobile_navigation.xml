@@ -40,9 +40,21 @@
         android:name="fr.ul.iutmetz.wmce.td1.BoutiqueFragment"
         android:label="@string/boutique"
         tools:layout="@layout/fragment_boutique">
+        <action
+            android:id="@+id/action_toPanierFragment"
+            app:destination="@id/PanierFragment" />
     </fragment>
 
     <!-- Fragments autres -->
+    <fragment
+        android:id="@+id/PanierFragment"
+        android:name="fr.ul.iutmetz.wmce.td1.PanierFragment"
+        android:label="panierFragment" />
+
+    <fragment
+        android:id="@+id/MonCompteFragment"
+        android:name="fr.ul.iutmetz.wmce.td1.MonCompteFragment"
+        android:label="MonCompteFragment" />
 
     <fragment
         android:id="@+id/SaisieInformationsClientFragment"

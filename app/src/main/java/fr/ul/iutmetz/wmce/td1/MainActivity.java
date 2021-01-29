@@ -17,10 +17,17 @@ import androidx.appcompat.widget.Toolbar;
 
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 
-public class MainActivity extends AppCompatActivity
-    implements ActiviteConnexion {
+import java.util.ArrayList;
+
+import fr.ul.iutmetz.wmce.td1.modele.Panier;
+import fr.ul.iutmetz.wmce.td1.modele.Produit;
+import fr.ul.iutmetz.wmce.td1.modele.Taille;
+import utils.Triplet;
+
+public class MainActivity extends AppCompatActivity implements ActiviteEcommerce, ActiviteConnexion {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private fr.ul.iutmetz.wmce.td1.modele.Panier Panier;
 
     SessionManager sessionManager;
     private Menu menu;
@@ -44,6 +51,8 @@ public class MainActivity extends AppCompatActivity
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        this.Panier = new Panier(new ArrayList<Triplet<Produit, String, Integer>>());
     }
 
     @Override
@@ -137,4 +146,14 @@ public class MainActivity extends AppCompatActivity
         this.changeMenu(this.menu);
     }
 
+
+    @Override
+    public Panier getPanier() {
+        return this.Panier;
+    }
+
+    @Override
+    public void setPanier(Panier panier) {
+        this.Panier = panier;
+    }
 }

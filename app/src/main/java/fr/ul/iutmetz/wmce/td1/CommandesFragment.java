@@ -99,7 +99,7 @@ private View root;
                 String date = commande.getString("date_commande");
                 int idClient = commande.getInt("id_client");
 
-                Commande com = new Commande(idCommande, Date.valueOf(date), idClient);
+                Commande com = new Commande(idCommande, date, idClient);
                 this.listeCommandes.add(com);
             }
             this.adapteur.notifyDataSetChanged();

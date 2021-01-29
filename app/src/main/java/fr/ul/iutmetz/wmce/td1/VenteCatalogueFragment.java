@@ -2,9 +2,11 @@ package fr.ul.iutmetz.wmce.td1;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -38,9 +41,14 @@ import fr.ul.iutmetz.wmce.td1.DAO.FavorisDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.ProduitDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.SuppressionFavoriDAO;
 import fr.ul.iutmetz.wmce.td1.DAO.TailleDAO;
+import fr.ul.iutmetz.wmce.td1.modele.Panier;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Favoris;
 import fr.ul.iutmetz.wmce.td1.modele.Produit;
+import fr.ul.iutmetz.wmce.td1.ActiviteEcommerce;
+
+import fr.ul.iutmetz.wmce.td1.modele.Taille;
+import utils.Triplet;
 import utils.Utils;
 
 
@@ -53,7 +61,9 @@ public class VenteCatalogueFragment extends Fragment
     private int noPullCourant;
     private boolean agrandie;
     private int idCategorie;
-    private double totalPanier;
+
+    private Panier panier;
+
     private boolean isError;
     private String errorCourante;
     private ArrayList<Bitmap> listeImagesProduits;
@@ -67,7 +77,7 @@ public class VenteCatalogueFragment extends Fragment
     private TextView titre;
     private TextView description;
     private TextView prix;
-    private ImageButton panier;
+    private ImageButton panierButton;
     private Button bPrecedent;
     private Button bSuivant;
     private ImageView image_pull_grande;
@@ -91,7 +101,7 @@ public class VenteCatalogueFragment extends Fragment
         outState.putSerializable("listePull", this.modele);
         outState.putBoolean("agrandie", this.agrandie);
         outState.putBoolean("is_error", this.isError);
-        outState.putDouble("total_panier", utils.arrondir(this.totalPanier));
+        outState.putSerializable("panier", this.panier);
         outState.putString("error_courante", this.errorCourante);
 
     }
@@ -110,7 +120,7 @@ public class VenteCatalogueFragment extends Fragment
             this.modele = (ArrayList<Produit>) savedInstanceState.getSerializable("listePull");
             this.agrandie = savedInstanceState.getBoolean("agrandie");
             this.isError = savedInstanceState.getBoolean("is_error");
-            this.totalPanier = utils.arrondir(savedInstanceState.getDouble("total_panier"));
+            this.panier = (Panier) savedInstanceState.getSerializable("panier");
             this.errorCourante = savedInstanceState.getString("error_courante");
 
         }else {
@@ -125,9 +135,7 @@ public class VenteCatalogueFragment extends Fragment
             ProduitDAO prodDAO = new ProduitDAO();
             prodDAO.findAllByCategorie(this, this.idCategorie);
 
-
-
-            this.totalPanier = utils.arrondir(0.00);
+            this.panier = ((ActiviteEcommerce) this.getActivity()).getPanier();
 
             this.noPullCourant = 0;
 
@@ -137,6 +145,7 @@ public class VenteCatalogueFragment extends Fragment
 
             this.errorCourante = "Erreur";
         }
+
 
         this.listeFavorisProduit = new ArrayMap<>();
 
@@ -164,7 +173,7 @@ public class VenteCatalogueFragment extends Fragment
         this.image_pull_grande = this.root.findViewById(R.id.image_pull_grande);
         this.staille = this.root.findViewById(R.id.taille_spinner);
         this.euro = this.root.findViewById(R.id.euro_pull);
-        this.panier = this.root.findViewById(R.id.image_panier);
+        this.panierButton = this.root.findViewById(R.id.image_panier);
         this.errorSpinner = this.root.findViewById(R.id.error_spinner);
         this.favoris = this.root.findViewById(R.id.image_favori);
 
@@ -172,8 +181,9 @@ public class VenteCatalogueFragment extends Fragment
         this.image_pull_grande.setOnClickListener(this::onClickDezoom);
         this.bPrecedent.setOnClickListener(this::onClickPrecedent);
         this.bSuivant.setOnClickListener(this::onClickSuivant);
-        this.panier.setOnClickListener(this::onClickPanier);
+        this.panierButton.setOnClickListener(this::onClickPanier);
         this.favoris.setOnClickListener(this::onClickFavoris);
+        this.panierButton.setOnClickListener(this::onClickPanier);
 
         if (this.modele.size()>0){
             // Changements
@@ -311,14 +321,48 @@ public class VenteCatalogueFragment extends Fragment
 
     public void onClickPanier(View v){
         if (!(this.staille.getSelectedItem().toString().equals("Choix de la taille"))){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        LayoutInflater inflater = this.getLayoutInflater();
+        View view = inflater.inflate(R.layout.quantity_alert,null);
+        final EditText text = view.findViewById(R.id.EditQuantity);
+
+        builder.setTitle(R.string.quantity_titre);
+        builder.setView(view);
+
+        builder.setPositiveButton(R.string.valider, ((dialog, which) -> {
+            final String input = text.getText().toString();
+            int quantity =1;
+
+            if(!input.matches("")){
+                quantity = Integer.parseInt(input);
+            }
+
+
             this.errorSpinner.setVisibility(View.INVISIBLE);
             this.isError = false;
+
+            if(this.panier.articleInBasket(this.modele.get(noPullCourant).getId()) != -1){
+                int index = this.panier.articleInBasket(this.modele.get(noPullCourant).getId());
+                this.panier.updateArticleQuantity(this.panier.getBasketContent().get(index).getProduit().getId(), quantity);                System.out.println(this.panier.getBasketContent().get(0).getQuantite());
+
+            }
+            else{
+                this.panier.basketContent.add(new Triplet<Produit, String, Integer>(this.modele.get(noPullCourant), this.staille.getSelectedItem().toString(), quantity ));
+                System.out.println(this.panier.getBasketContent().get(0).getQuantite());
+            }
+
+            ((ActiviteEcommerce) this.getActivity()).setPanier(this.panier);
+            //Navigation.findNavController(this.getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_gestion_panier);
             Toast.makeText(this.getContext(),
                     String.format(getString(R.string.ajout_panier), this.noPullCourant + 1),
                     Toast.LENGTH_LONG).show();
-            double prix = Double.parseDouble(this.modele.get(noPullCourant).getPrix());
-            this.totalPanier += utils.arrondir(prix);
-        } else {
+
+        }));
+        builder.setNegativeButton(R.string.annuler,null);
+        builder.show();
+        }
+        else {
             this.isError = true;
             this.errorCourante = "Vous devez selectionner une taille !";
             this.errorSpinner.setText(this.errorCourante);
@@ -352,7 +396,8 @@ public class VenteCatalogueFragment extends Fragment
         this.bPrecedent.setVisibility(visibility);
         this.staille.setVisibility(visibility);
         this.euro.setVisibility(visibility);
-        this.panier.setVisibility(visibility);
+        this.panierButton.setVisibility(visibility);
+        this.panierButton.setVisibility(visibility);
         if (sessionManager.isLoggin()){
             this.favoris.setVisibility(visibility);
         } else {
@@ -395,25 +440,25 @@ public class VenteCatalogueFragment extends Fragment
     public void onResponse(JSONObject response) {
         try {
             String requete = response.getString("requete");
+            JSONArray data = response.getJSONArray("data");
+            int cmp = 0;
             switch (requete){
                 case "produits" :
-                    JSONArray data = response.getJSONArray("data");
                     for (int i = 0 ; i < data.length() ; i++) {
                         JSONObject o = response.getJSONArray("data").getJSONObject(i);
 
                         int idProduit = o.getInt("id_produit");
+                        int idCat = o.getInt("id_categorie");
+                        String title = o.getString("titre");
+                        String desc = o.getString("description");
+                        String tarif = String.valueOf(o.getDouble("tarif"));
+                        String visuel = o.getString("visuel");
 
                         if (sessionManager.isLoggin()){
                             int idClient = sessionManager.getIdUser();
                             FavorisDAO favDAO = new FavorisDAO();
                             favDAO.findOneByIds(this, idClient, idProduit);
                         }
-
-                        int idCat = o.getInt("id_categorie");
-                        String title = o.getString("titre");
-                        String desc = o.getString("description");
-                        String tarif = String.valueOf(o.getDouble("tarif"));
-                        String visuel = o.getString("visuel");
 
                         Produit prod = new Produit(idProduit, title, desc, tarif, visuel, idCat);
                         this.modele.add(prod);

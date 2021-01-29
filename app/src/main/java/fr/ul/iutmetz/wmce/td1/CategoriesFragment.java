@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ public class CategoriesFragment extends Fragment
                 com.android.volley.Response.ErrorListener {
 
     private ArrayList<Categorie> listeCategories;
-    private double totalPanier;
+    private ImageButton ic_panier;
     private Utils utils = new Utils();
 
     private ArrayList listeImagesCategories;
@@ -51,7 +52,6 @@ public class CategoriesFragment extends Fragment
         super.onSaveInstanceState(outState);
 
         outState.putSerializable("listeCategorie", this.listeCategories);
-        outState.putDouble("total_panier", utils.arrondir(this.totalPanier));
     }
 
     @Override
@@ -62,7 +62,6 @@ public class CategoriesFragment extends Fragment
 
         if (savedInstanceState!=null){
             this.listeCategories = (ArrayList<Categorie>) savedInstanceState.getSerializable("listeCategorie");
-            this.totalPanier = utils.arrondir(savedInstanceState.getDouble("total_panier"));
         } else {
 
             this.listeCategories = new ArrayList<>();
@@ -70,7 +69,6 @@ public class CategoriesFragment extends Fragment
             CategorieDAO catDAO = new CategorieDAO();
             catDAO.findAll(this);
 
-            this.totalPanier = utils.arrondir(0.00);
         }
 
         this.listeImagesCategories = new ArrayList<>();
@@ -93,11 +91,11 @@ public class CategoriesFragment extends Fragment
         super.onStart();
 
         this.lvCategories = this.root.findViewById(R.id.ca_liste);
-        this.prixTotal = this.root.findViewById(R.id.total_panier_nombre);
+        this.ic_panier = this.root.findViewById(R.id.icon_panier);
 
         this.lvCategories.setAdapter(adaptateur);
         this.lvCategories.setOnItemClickListener(this);
-        this.prixTotal.setText(" " + utils.arrondir(this.totalPanier));
+        this.ic_panier.setOnClickListener(this::onClickGoToBasket);
     }
 
     @Override
@@ -124,18 +122,23 @@ public class CategoriesFragment extends Fragment
         Toast.makeText(this.getContext(), R.string.ca_erreur_bdd, Toast.LENGTH_LONG).show();
     }
 
+    public void onClickGoToBasket(View view){
+        Bundle bundle = new Bundle();
+        //bundle.putInt("id_categ", this.listeCategories.get(position).getId());
+
+        Navigation.findNavController(view).navigate(R.id.action_toPanierFragment,bundle);
+    }
+
     @Override
     public void onResponse(JSONArray response) {
 
         try {
             for (int i = 0 ; i < response.length() ; i++){
                 JSONObject o = response.getJSONObject(i);
-                System.out.println("---------- cat " + i + "------------------");
                 int idCat = o.getInt("id_categorie");
                 String title = o.getString("titre");
                 String visuel = o.getString("visuel");
                 Categorie cat = new Categorie(idCat, title, visuel);
-                System.out.println("------- Categorie : " + cat.getTitre());
                 this.listeCategories.add(cat);
                 this.listeImagesCategories.add(null);
                 ImageFromURL chargement = new ImageFromURL(this);

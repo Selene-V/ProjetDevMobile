@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="quantity_titre">Quantity</string>
+    <string name="quantity_panier">How many would you like to add to your cart ?</string>
+    <string name="annuler">Cancel</string>
+
+    <string name="rennes">At Christmas it\'s me who holds the reindeer</string>
+    <string name="desc">A sweater that will delight young and old alike. Knitted by authentic Australian grandmothers, in 100% natural absorbent cotton from sustainable agriculture certified ISO-2560.</string>
+    <string name="prix">19.5</string>
+
     <string name="app_name">MonPullMoche Shop</string>
     <string name="left">&lt;</string>
     <string name="right">&gt;</string>
-    <string name="euro">€</string>
-    <string name="ajout_panier">Product n°%1$d added to cart</string>
+    <string name="euro">â‚¬</string>
+    <string name="ajout_panier">Product nÂ°%1$d added to cart</string>
     <string name="total_panier_texte">Cart total:  </string>
-    <string name="footer">Réalisé par M. FRANCOIS, R. FRANCOIS, S. VIOLA, 2020</string>
+    <string name="footer">RÃ©alisÃ© par M. FRANCOIS, R. FRANCOIS, S. VIOLA, 2020</string>
     <string name="retour">Return</string>
 
     <string name="confirm_titre">Confirmation request</string>
@@ -53,7 +61,7 @@
     <string name="quantite">Quantity:</string>
 
     <string name="taille">Size :</string>
-    <string name="commande_n">Order n° :</string>
+    <string name="commande_n">Order nÂ° :</string>
     <string name="commande_effectuee_le">Order made on :</string>
 
     <string name="delete_favori">Product removed from favorites</string>

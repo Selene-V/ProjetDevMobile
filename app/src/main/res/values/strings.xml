@@ -13,10 +13,13 @@
 
     <string name="confirm_titre">Demande de confirmation</string>
     <string name="confirm_phrase">Attention, vous allez annuler tous les achats effectués sur cette page. Etes-vous sûr ?</string>
+    <string name="quantity_titre">Quantité</string>
+    <string name="quantity_panier">Quelle quantité souhaitez vous ajouter au panier ?</string>
     <string name="confirm_oui">OUI</string>
     <string name="confirm_non">NON</string>
 
     <string name="valider">Valider</string>
+    <string name="annuler">Annuler</string>
     <string name="description">Description</string>
     <string name="titre">Titre</string>
     <string name="prix_newproduit">Prix</string>
