@@ -13,10 +13,10 @@ import org.json.JSONObject;
 
 public class ProduitDAO {
 
-    public static void findAll(Fragment fragment){
+    public static void findAllByCategorie(Fragment fragment, int idCategorie){
 
         RequestQueue queue = Volley.newRequestQueue(fragment.getContext());
-        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/produits/findallProduit.php";
+        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/produits/findAllByCategorie.php?id_categorie=" + idCategorie;
 
         // Request a string response from the provided URL
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,

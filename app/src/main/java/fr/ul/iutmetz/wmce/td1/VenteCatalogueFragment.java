@@ -106,8 +106,13 @@ public class VenteCatalogueFragment extends Fragment
 
             this.modele = new ArrayList<>();
 
+            // Recuperation id categorie
+            if (this.getArguments().getInt("id_categ", -1)!=-1){
+                this.idCategorie = this.getArguments().getInt("id_categ", -1);
+            }
+
             ProduitDAO prodDAO = new ProduitDAO();
-            prodDAO.findAll(this);
+            prodDAO.findAllByCategorie(this, this.idCategorie);
 
 
 
@@ -120,11 +125,6 @@ public class VenteCatalogueFragment extends Fragment
             this.isError = false;
 
             this.errorCourante = "Erreur";
-
-            // Recuperation id categorie
-            if (this.getArguments().getInt("id_categ", -1)!=-1){
-                this.idCategorie = this.getArguments().getInt("id_categ", -1);
-            }
         }
 
         this.listeImagesProduits = new ArrayList<>();
@@ -393,34 +393,26 @@ public class VenteCatalogueFragment extends Fragment
             System.out.println("requete");
             System.out.println(requete);
             JSONArray data = response.getJSONArray("data");
-            int cmp = 0;
             switch (requete){
                 case "produits" :
-                    System.out.println("PRODUIT");
                     for (int i = 0 ; i < data.length() ; i++) {
                         JSONObject o = response.getJSONArray("data").getJSONObject(i);
 
+                        int idProduit = o.getInt("id_produit");
+
                         int idCat = o.getInt("id_categorie");
+                        String title = o.getString("titre");
+                        String desc = o.getString("description");
+                        String tarif = String.valueOf(o.getDouble("tarif"));
+                        String visuel = o.getString("visuel");
 
-                        System.out.println("---------- produit " + i + "------------------");
-                        if (idCategorie == idCat) {
+                        Produit prod = new Produit(idProduit, title, desc, tarif, visuel, idCat);
+                        this.modele.add(prod);
 
-                            int idProduit = o.getInt("id_produit");
-                            String title = o.getString("titre");
-                            String desc = o.getString("description");
-                            String tarif = String.valueOf(o.getDouble("tarif"));
-                            String visuel = o.getString("visuel");
-
-                            Produit prod = new Produit(idProduit, title, desc, tarif, visuel, idCat);
-                            System.out.println("------- Produit : " + prod.getTitre());
-                            this.modele.add(prod);
-
-                            this.listeImagesProduits.add(null);
-                            ImageFromURL chargement = new ImageFromURL(this);
-                            chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
-                                    this.modele.get(cmp).getVisuel(), String.valueOf(cmp));
-                            cmp++;
-                        }
+                        this.listeImagesProduits.add(null);
+                        ImageFromURL chargement = new ImageFromURL(this);
+                        chargement.execute("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/" +
+                                this.modele.get(i).getVisuel(), String.valueOf(i));
                     }
                     // Changements
                     changement();
