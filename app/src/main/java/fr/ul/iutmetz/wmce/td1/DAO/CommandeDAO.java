@@ -77,7 +77,7 @@ public class CommandeDAO {
     public static void insertLigneCommande(Fragment fragment, ArrayList<Triplet<Produit, String, Integer>> contenuPanier){
 
         RequestQueue queue = Volley.newRequestQueue(fragment.getContext());
-        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/commandes/insertCommande.php?id_commande="+commande.getId()+"&id_client="+commande.getIdClient()+"&date="+commande.getDateCommande();
+        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/commandes/insertCommande.php?id_commande="+contenuPanier+"&id_client="+contenuPanier+"&date="+contenuPanier;
 
         // Request a string response from the provided URL
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,

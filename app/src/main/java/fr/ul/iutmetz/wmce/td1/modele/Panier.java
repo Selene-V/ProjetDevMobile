@@ -15,15 +15,15 @@ public class Panier implements Serializable {
     public Panier(Context context, int i, List<Panier> panier) {
     }
 
-    public ArrayList<Triplet<Produit, String, Integer>> getBasketContent() {
+    public ArrayList<Triplet<Produit, Taille, Integer>> getBasketContent() {
         return basketContent;
     }
 
-    public void setBasketContent(ArrayList<Triplet<Produit, String, Integer>> basketContent) {
+    public void setBasketContent(ArrayList<Triplet<Produit, Taille, Integer>> basketContent) {
         this.basketContent = basketContent;
     }
 
-    public Panier(ArrayList<Triplet<Produit, String, Integer>> basketContent) {
+    public Panier(ArrayList<Triplet<Produit, Taille, Integer>> basketContent) {
         this.basketContent = basketContent;
     }
 

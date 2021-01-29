@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements ActiviteEcommerce
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        this.Panier = new Panier(new ArrayList<Triplet<Produit, String, Integer>>());
+        this.Panier = new Panier(new ArrayList<Triplet<Produit, Taille, Integer>>());
     }
 
     @Override

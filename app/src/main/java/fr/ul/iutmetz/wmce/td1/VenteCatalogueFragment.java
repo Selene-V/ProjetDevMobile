@@ -15,10 +15,10 @@ import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
+
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,10 +81,13 @@ public class VenteCatalogueFragment extends Fragment
     private Button bPrecedent;
     private Button bSuivant;
     private ImageView image_pull_grande;
-    private Spinner staille;
     private TextView euro;
     private TextView errorSpinner;
     private ImageButton favoris;
+
+    private Spinner staille;
+    private SpinnerAdapter adapter;
+    private Taille tailleSelected;
 
 
     SessionManager sessionManager;
@@ -254,13 +257,28 @@ public class VenteCatalogueFragment extends Fragment
         verifbPrecedent();
     }
 
-    public void changementSpinnerTaille(ArrayList listSpinner){
+    public void changementSpinnerTaille(ArrayList<Taille> listSpinner){
 
-        ArrayAdapter adaptateur = new ArrayAdapter(this.getContext(),
+        this.adapter = new SpinnerAdapter(this.getContext(),
                 android.R.layout.simple_spinner_item, listSpinner
         );
-        adaptateur.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        staille.setAdapter(adaptateur);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        staille.setAdapter(adapter);
+        staille.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view,
+                                               int position, long id) {
+                        tailleSelected = adapter.getItem(position);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                }
+        );
     }
 
     public void changement(){
@@ -320,6 +338,9 @@ public class VenteCatalogueFragment extends Fragment
     }
 
     public void onClickPanier(View v){
+        System.out.println("------------ TAILLE -------------");
+        System.out.println("LIBELLE = " + this.tailleSelected.getLabel());
+        System.out.println("ID = " + this.tailleSelected.getId());
         if (!(this.staille.getSelectedItem().toString().equals("Choix de la taille"))){
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
@@ -348,7 +369,7 @@ public class VenteCatalogueFragment extends Fragment
 
             }
             else{
-                this.panier.basketContent.add(new Triplet<Produit, String, Integer>(this.modele.get(noPullCourant), this.staille.getSelectedItem().toString(), quantity ));
+                this.panier.basketContent.add(new Triplet<Produit, Taille, Integer>(this.modele.get(noPullCourant), this.tailleSelected, quantity ));
                 System.out.println(this.panier.getBasketContent().get(0).getQuantite());
             }
 
@@ -483,7 +504,9 @@ public class VenteCatalogueFragment extends Fragment
                         int idProduit = o.getInt("id_produit");
                         if (this.modele.get(noPullCourant).getId() == idProduit) {
                             String libelle = o.getString("libelle");
-                            listSpinner.add(libelle);
+                            int idTaille = o.getInt("id_taille");
+                            Taille t = new Taille(idTaille, libelle);
+                            listSpinner.add(t);
                         }
                     }
                     changementSpinnerTaille(listSpinner);
