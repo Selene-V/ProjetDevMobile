@@ -463,7 +463,6 @@ public class VenteCatalogueFragment extends Fragment
     public void onResponse(JSONObject response) {
         try {
             String requete = response.getString("requete");
-            int cmp = 0;
             switch (requete){
                 case "produits" :
                     JSONArray data = response.getJSONArray("data");

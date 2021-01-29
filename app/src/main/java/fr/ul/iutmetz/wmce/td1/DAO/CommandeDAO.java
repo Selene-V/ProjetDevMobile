@@ -64,7 +64,7 @@ public class CommandeDAO {
     public static void insertCommande(Fragment fragment, Commande commande){
 
         RequestQueue queue = Volley.newRequestQueue(fragment.getContext());
-        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/commandes/insertCommande.php?id_commande="+commande.getId()+"&id_client="+commande.getIdClient()+"&date="+commande.getDateCommande();
+        String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/commandes/insertCommande.php?id_client="+commande.getIdClient()+"&date="+commande.getDateCommande();
 
         // Request a string response from the provided URL
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -75,11 +75,11 @@ public class CommandeDAO {
         queue.add(jsonRequest);
     }
 
-    public static void insertLigneCommande(Fragment fragment, ArrayList<Triplet<Produit, Taille, Integer>> contenuPanier, Commande commande){
+    public static void insertLigneCommande(Fragment fragment, ArrayList<Triplet<Produit, Taille, Integer>> contenuPanier, int idCommande){
 
         RequestQueue queue = Volley.newRequestQueue(fragment.getContext());
         for (int i = 0 ; i < contenuPanier.size() ; i++){
-            String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/commandes/insertLigneCommande.php?id_commande="+commande.getId()+"&id_produit="+contenuPanier.get(i).getProduit().getId()+"&id_taille="+contenuPanier.get(i).getTaille().getId()+"&quantite="+contenuPanier.get(i).getQuantite()+"&tarif="+contenuPanier.get(i).getProduit().getPrix();
+            String url = "https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/commandes/insertLigneCommande.php?id_commande="+idCommande+"&id_produit="+contenuPanier.get(i).getProduit().getId()+"&id_taille="+contenuPanier.get(i).getTaille().getId()+"&quantite="+contenuPanier.get(i).getQuantite()+"&tarif="+contenuPanier.get(i).getProduit().getPrix();
 
             // Request a string response from the provided URL
             JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,

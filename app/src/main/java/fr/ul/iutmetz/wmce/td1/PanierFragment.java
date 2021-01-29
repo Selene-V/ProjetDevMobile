@@ -111,14 +111,8 @@ public class PanierFragment extends Fragment implements ActiviteEnAttenteImage, 
         Commande c = new Commande(-1,date ,sessionManager.getIdUser());
 
         CommandeDAO cDAO = new CommandeDAO();
-        CommandeDAO cDAOLigne = new CommandeDAO();
 
         cDAO.insertCommande(this,c);
-
-        cDAOLigne.insertLigneCommande(this,panier.getBasketContent(),c);
-
-
-
     }
 
     @Override
@@ -131,8 +125,16 @@ public class PanierFragment extends Fragment implements ActiviteEnAttenteImage, 
     public void onResponse(JSONObject response) {
         try {
             String requete = response.getString("requete");
-            int cmp = 0;
             switch (requete){
+                case "insertCommande" :
+                    CommandeDAO cDAOCommande = new CommandeDAO();
+                    cDAOCommande.findLastCommandByClient(this,sessionManager.getIdUser());
+                case "rechercheCommande":
+                    JSONObject data = response.getJSONObject("data");
+                    int idCommande = data.getInt("id_commande");
+                    CommandeDAO cDAOLigne = new CommandeDAO();
+                    cDAOLigne.insertLigneCommande(this,panier.getBasketContent(), idCommande);
+                    break;
                 case "insertLigneCommande" :
                     this.panier = new Panier(new ArrayList<Triplet<Produit, Taille, Integer>>());
                     ((ActiviteEcommerce) this.getActivity()).setPanier(this.panier);
