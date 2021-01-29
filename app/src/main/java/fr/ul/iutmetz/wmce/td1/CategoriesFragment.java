@@ -1,11 +1,16 @@
 package fr.ul.iutmetz.wmce.td1;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 import androidx.navigation.Navigation;
 
-import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +38,7 @@ import utils.Utils;
 public class CategoriesFragment extends Fragment
     implements AdapterView.OnItemClickListener, ActiviteEnAttenteImage,
                 com.android.volley.Response.Listener<JSONArray>,
-                com.android.volley.Response.ErrorListener {
+                com.android.volley.Response.ErrorListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     SessionManager sessionManager;
 
@@ -51,6 +55,8 @@ public class CategoriesFragment extends Fragment
 
     private View root;
 
+    private boolean firstTimeLoaded;
+
     @Override
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
@@ -64,6 +70,14 @@ public class CategoriesFragment extends Fragment
                                 ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         this.root = inflater.inflate(R.layout.categories_fragment, container, false);
+
+        if(!firstTimeLoaded){
+            getLoaderManager().initLoader(1, null, this);
+            firstTimeLoaded = true;
+        }
+        else{
+            getLoaderManager().restartLoader(1, null, this);
+        }
 
         if (savedInstanceState!=null){
             this.listeCategories = (ArrayList<Categorie>) savedInstanceState.getSerializable("listeCategorie");
@@ -155,7 +169,34 @@ public class CategoriesFragment extends Fragment
         }
     }
 
-    public void onBackPressed(){
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        Uri myUri = Uri.parse("https://devweb.iutmetz.univ-lorraine.fr/~viola11u/WS_PM/php/categories/findallCategorie.php");
+        if(id==1){
+            return new CursorLoader(getActivity(), myUri, null, null, null, null);
+        }
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        if(data!=null){
+            StringBuilder stringBuilderQueryResult=new StringBuilder("");
+            /*while(data.moveToNext()){
+                stringBuilderQueryResult.append(data.getString(0) + " " + data.getString(1) + data.getString(2) + "\n");
+            }*/
+            Toast toast = Toast.makeText(getActivity(), "oui", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else{
+            Toast toast = Toast.makeText(getActivity(), "no categories", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
 
     }
 }
