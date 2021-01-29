@@ -66,10 +66,8 @@ public class PanierFragment extends Fragment implements ActiviteEnAttenteImage, 
                     this.panier.getBasketContent().get(i).getProduit().getVisuel(), String.valueOf(i));
         }
 
-        for (int i = 0 ; i < this.panier.getBasketSize() ; i++ ){
-            Log.e("Calcul", "In");
-            this.prixTotal = this.prixTotal + Float.parseFloat(this.panier.getBasketContent().get(i).getProduit().getPrix())  * this.panier.getBasketContent().get(i).getQuantite();
-        }
+        this.prixTotal = this.panier.getTotalPanier();
+
         TextView tvTotal = this.root.findViewById(R.id.totalAmount);
         tvTotal.setText(Float.toString(this.prixTotal));
 
@@ -89,7 +87,6 @@ public class PanierFragment extends Fragment implements ActiviteEnAttenteImage, 
         this.valider = this.root.findViewById(R.id.bouttonValiderPanier);
         this.lvPanierListe = this.root.findViewById(R.id.panier_liste);
         this.lvPanierListe.setAdapter(adaptateur);
-        //this.lvPanierListe.setOnItemClickListener(this);
 
         this.valider.setOnClickListener(this::onClickValiderCommande);
     }

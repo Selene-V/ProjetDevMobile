@@ -35,30 +35,30 @@ public class PanierAdapter extends ArrayAdapter<Triplet<Produit, Taille, Integer
         if (convertView==null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_liste_panier, parent, false);
         }
-//        TextView tvTitre = convertView.findViewById(R.id.Titre_produit);
-//        tvTitre.setText(this.panierContent.get(position).getProduit().getTitre());
-//
-//        TextView tvTaille = convertView.findViewById(R.id.taille_panier);
-//        tvTaille.setText(this.panierContent.get(position).getTaille());
-//
-//        TextView tvQuantite = convertView.findViewById(R.id.quantite_panier);
-//        tvQuantite.setText(this.panierContent.get(position).getQuantite().toString());
-//
-//        TextView tvPrix = convertView.findViewById(R.id.tarif_panier);
-//        float prixTotalProduit = Float.parseFloat(this.panierContent.get(position).getProduit().getPrix()) * this.panierContent.get(position).getQuantite();
-//        tvPrix.setText(String.valueOf(prixTotalProduit));
-//
-//        ImageView img = convertView.findViewById(R.id.img_produit_panier);
-//        if (this.listeImagesProduits.get(position) != null) {
-//            img.setImageBitmap(this.listeImagesProduits.get(position));
-//        } else {
-//            int id = getContext().getResources().getIdentifier(
-//                    this.panierContent.get(position).getProduit().getVisuel(),
-//                    "drawable",
-//                    getContext().getPackageName()
-//            );
-//            img.setImageResource(id);
-//        }
+        TextView tvTitre = convertView.findViewById(R.id.Titre_produit);
+        tvTitre.setText(this.panierContent.get(position).getProduit().getTitre());
+
+        TextView tvTaille = convertView.findViewById(R.id.taille_panier);
+        tvTaille.setText(this.panierContent.get(position).getTaille().getLabel());
+
+        TextView tvQuantite = convertView.findViewById(R.id.quantite_panier);
+        tvQuantite.setText(this.panierContent.get(position).getQuantite().toString());
+
+        TextView tvPrix = convertView.findViewById(R.id.tarif_panier);
+        float prixTotalProduit = Float.parseFloat(this.panierContent.get(position).getProduit().getPrix()) * this.panierContent.get(position).getQuantite();
+        tvPrix.setText(String.valueOf(prixTotalProduit));
+
+        ImageView img = convertView.findViewById(R.id.img_produit_panier);
+        if (this.listeImagesProduits.get(position) != null) {
+            img.setImageBitmap(this.listeImagesProduits.get(position));
+        } else {
+            int id = getContext().getResources().getIdentifier(
+                    this.panierContent.get(position).getProduit().getVisuel(),
+                    "drawable",
+                    getContext().getPackageName()
+            );
+            img.setImageResource(id);
+        }
 
         return convertView;
     }

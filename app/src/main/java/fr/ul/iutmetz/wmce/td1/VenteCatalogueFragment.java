@@ -338,56 +338,58 @@ public class VenteCatalogueFragment extends Fragment
     }
 
     public void onClickPanier(View v){
-        System.out.println("------------ TAILLE -------------");
-        System.out.println("LIBELLE = " + this.tailleSelected.getLabel());
-        System.out.println("ID = " + this.tailleSelected.getId());
-        if (!(this.staille.getSelectedItem().toString().equals("Choix de la taille"))){
+        SessionManager sessionManager = new SessionManager(this.getContext());
+        if(sessionManager.isLoggin()){
+            if (!(this.tailleSelected.getLabel().equals("Choix de la taille"))){
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-        LayoutInflater inflater = this.getLayoutInflater();
-        View view = inflater.inflate(R.layout.quantity_alert,null);
-        final EditText text = view.findViewById(R.id.EditQuantity);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+                LayoutInflater inflater = this.getLayoutInflater();
+                View view = inflater.inflate(R.layout.quantity_alert,null);
+                final EditText text = view.findViewById(R.id.EditQuantity);
 
-        builder.setTitle(R.string.quantity_titre);
-        builder.setView(view);
+                builder.setTitle(R.string.quantity_titre);
+                builder.setView(view);
 
-        builder.setPositiveButton(R.string.valider, ((dialog, which) -> {
-            final String input = text.getText().toString();
-            int quantity =1;
+                builder.setPositiveButton(R.string.valider, ((dialog, which) -> {
+                    final String input = text.getText().toString();
+                    int quantity =1;
 
-            if(!input.matches("")){
-                quantity = Integer.parseInt(input);
+                    if(!input.matches("")){
+                        quantity = Integer.parseInt(input);
+                    }
+
+                    this.errorSpinner.setVisibility(View.INVISIBLE);
+                    this.isError = false;
+
+                    if(this.panier.articleInBasket(this.modele.get(noPullCourant).getId()) != -1){
+                        int index = this.panier.articleInBasket(this.modele.get(noPullCourant).getId());
+                        this.panier.updateArticleQuantity(this.panier.getBasketContent().get(index).getProduit().getId(), quantity);
+                    }
+                    else{
+                        this.panier.basketContent.add(new Triplet<Produit, Taille, Integer>(this.modele.get(noPullCourant), this.tailleSelected, quantity ));
+                        System.out.println(this.panier.getBasketContent().get(0).getQuantite());
+                    }
+
+                    ((ActiviteEcommerce) this.getActivity()).setPanier(this.panier);
+                    Toast.makeText(this.getContext(),
+                            String.format(getString(R.string.ajout_panier), this.noPullCourant + 1),
+                            Toast.LENGTH_LONG).show();
+
+                }));
+                builder.setNegativeButton(R.string.annuler,null);
+                builder.show();
             }
-
-
-            this.errorSpinner.setVisibility(View.INVISIBLE);
-            this.isError = false;
-
-            if(this.panier.articleInBasket(this.modele.get(noPullCourant).getId()) != -1){
-                int index = this.panier.articleInBasket(this.modele.get(noPullCourant).getId());
-                this.panier.updateArticleQuantity(this.panier.getBasketContent().get(index).getProduit().getId(), quantity);                System.out.println(this.panier.getBasketContent().get(0).getQuantite());
-
+            else {
+                this.isError = true;
+                this.errorCourante = "Vous devez selectionner une taille !";
+                this.errorSpinner.setText(this.errorCourante);
+                this.errorSpinner.setVisibility(View.VISIBLE);
             }
-            else{
-                this.panier.basketContent.add(new Triplet<Produit, Taille, Integer>(this.modele.get(noPullCourant), this.tailleSelected, quantity ));
-                System.out.println(this.panier.getBasketContent().get(0).getQuantite());
-            }
-
-            ((ActiviteEcommerce) this.getActivity()).setPanier(this.panier);
-            //Navigation.findNavController(this.getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_gestion_panier);
-            Toast.makeText(this.getContext(),
-                    String.format(getString(R.string.ajout_panier), this.noPullCourant + 1),
-                    Toast.LENGTH_LONG).show();
-
-        }));
-        builder.setNegativeButton(R.string.annuler,null);
-        builder.show();
         }
-        else {
-            this.isError = true;
-            this.errorCourante = "Vous devez selectionner une taille !";
-            this.errorSpinner.setText(this.errorCourante);
-            this.errorSpinner.setVisibility(View.VISIBLE);
+        else{
+            Toast.makeText(this.getContext(),
+                    String.format(getString(R.string.connectedCheck)),
+                    Toast.LENGTH_LONG).show();
         }
     }
 

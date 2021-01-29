@@ -44,4 +44,12 @@ public class Panier implements Serializable {
         int index = articleInBasket(productId);
         this.basketContent.get(index).setQuantite(this.basketContent.get(index).getQuantite() + newQuantite);
     }
+
+    public float getTotalPanier(){
+        float prixTotal = 0;
+        for (int i = 0 ; i < this.getBasketSize() ; i++ ){
+            prixTotal = prixTotal + Float.parseFloat(this.getBasketContent().get(i).getProduit().getPrix())  * this.getBasketContent().get(i).getQuantite();
+        }
+        return prixTotal;
+    }
 }

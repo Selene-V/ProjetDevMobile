@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import fr.ul.iutmetz.wmce.td1.DAO.CategorieDAO;
 import fr.ul.iutmetz.wmce.td1.manager.SessionManager;
 import fr.ul.iutmetz.wmce.td1.modele.Categorie;
+import fr.ul.iutmetz.wmce.td1.modele.Panier;
 import utils.Utils;
 
 public class CategoriesFragment extends Fragment
@@ -47,6 +48,8 @@ public class CategoriesFragment extends Fragment
 
     private View root;
 
+    private Panier panier;
+
     @Override
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
@@ -59,6 +62,8 @@ public class CategoriesFragment extends Fragment
                                 ViewGroup container, Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         this.root = inflater.inflate(R.layout.fragment_categories, container, false);
+
+        this.panier = ((ActiviteEcommerce) this.getActivity()).getPanier();
 
         if (savedInstanceState!=null){
             this.listeCategories = (ArrayList<Categorie>) savedInstanceState.getSerializable("listeCategorie");
@@ -92,10 +97,14 @@ public class CategoriesFragment extends Fragment
 
         this.lvCategories = this.root.findViewById(R.id.ca_liste);
         this.ic_panier = this.root.findViewById(R.id.icon_panier);
+        this.prixTotal = this.root.findViewById(R.id.euro_total);
 
         this.lvCategories.setAdapter(adaptateur);
         this.lvCategories.setOnItemClickListener(this);
         this.ic_panier.setOnClickListener(this::onClickGoToBasket);
+
+        this.prixTotal.setText(Float.toString(this.panier.getTotalPanier()));
+
     }
 
     @Override

@@ -16,6 +16,8 @@
     <string name="total_panier_texte">Cart total:  </string>
     <string name="footer">RÃ©alisÃ© par M. FRANCOIS, R. FRANCOIS, S. VIOLA, 2020</string>
     <string name="retour">Return</string>
+    <string name="connectedCheck">You must be logged in to add an item to the cart</string>
+
 
     <string name="confirm_titre">Confirmation request</string>
     <string name="confirm_phrase">Please note, you will cancel all purchases made on this page. Are you sure?</string>
