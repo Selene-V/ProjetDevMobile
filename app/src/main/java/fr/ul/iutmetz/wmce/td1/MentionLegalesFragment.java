@@ -103,8 +103,9 @@ public class MentionLegalesFragment extends Fragment
         int iTabMaj = 0;
         for (int idb = 0 ; idb < data.length() ; idb++){
             JSONObject o = data.getJSONObject(idb);
-            String mention = o.getString("mentions").replaceAll("<br>", "\n");
-            String[] mentionSplit = mention.split("::");
+            String m = o.getString("mentions").replaceAll("<br>", "\n");
+            String mention = m.replaceAll("<h1>", "");
+            String[] mentionSplit = mention.split("</h1>");
             if (mentionSplit.length>1){
                 for (int j = 0 ; j < mentionSplit.length ; j++){
                     lChampsARemplir[iTabMaj].setText(mentionSplit[j]);
