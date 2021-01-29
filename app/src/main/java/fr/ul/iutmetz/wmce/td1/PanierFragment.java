@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.android.volley.VolleyError;
 
@@ -103,16 +104,13 @@ public class PanierFragment extends Fragment implements ActiviteEnAttenteImage, 
 
     public void onClickValiderCommande(View view)  {
 
-        String pattern = "yyyy-dd-mm";
+        String pattern = "YYYY-DD-MM";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(new Date());
-        System.out.println(date);
 
         Commande c = new Commande(-1,date ,sessionManager.getIdUser());
 
         CommandeDAO cDAO = new CommandeDAO();
-
-        cDAO.insertCommande(this,c);
     }
 
     @Override
@@ -138,6 +136,7 @@ public class PanierFragment extends Fragment implements ActiviteEnAttenteImage, 
                 case "insertLigneCommande" :
                     this.panier = new Panier(new ArrayList<Triplet<Produit, Taille, Integer>>());
                     ((ActiviteEcommerce) this.getActivity()).setPanier(this.panier);
+                    Navigation.findNavController(this.root).navigate(R.id.action_to_Boutique,new Bundle());
                     break;
             }
         } catch (JSONException jsonException) {

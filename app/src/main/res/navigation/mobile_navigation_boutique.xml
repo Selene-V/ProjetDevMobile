@@ -21,7 +21,12 @@
     <fragment
         android:id="@+id/panierFragment"
         android:name="fr.ul.iutmetz.wmce.td1.PanierFragment"
-        android:label="panierFragment" />
+        android:label="panierFragment"
+        >
+        <action
+        android:id="@+id/action_to_Boutique"
+        app:destination="@id/boutique_categories" />
+    </fragment>
 
     <fragment
         android:id="@+id/venteCatalogueFragment"
