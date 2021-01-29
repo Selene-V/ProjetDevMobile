@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Client :  devbdd.iutmetz.univ-lorraine.fr
--- Généré le :  Ven 29 Janvier 2021 à 09:29
+-- Généré le :  Ven 29 Janvier 2021 à 18:02
 -- Version du serveur :  10.3.27-MariaDB
 -- Version de PHP :  7.1.33
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `Categorie` (
   `id_categorie` int(3) NOT NULL,
   `titre` varchar(30) NOT NULL,
   `visuel` varchar(30) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Contenu de la table `Categorie`
@@ -76,9 +76,9 @@ INSERT INTO `Client` (`id_client`, `nom`, `prenom`, `identifiant`, `mot_de_passe
 
 CREATE TABLE IF NOT EXISTS `Commande` (
   `id_commande` int(5) NOT NULL,
-  `date_commande` date NOT NULL,
+  `date_commande` varchar(255) NOT NULL,
   `id_client` int(5) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Contenu de la table `Commande`
@@ -87,7 +87,8 @@ CREATE TABLE IF NOT EXISTS `Commande` (
 INSERT INTO `Commande` (`id_commande`, `date_commande`, `id_client`) VALUES
 (1, '2021-01-22', 1),
 (2, '2020-12-09', 1),
-(3, '2021-01-23', 2);
+(3, '2021-01-23', 2),
+(4, '2021-29-01', 1);
 
 -- --------------------------------------------------------
 
@@ -375,7 +376,7 @@ ALTER TABLE `Client`
 -- AUTO_INCREMENT pour la table `Commande`
 --
 ALTER TABLE `Commande`
-  MODIFY `id_commande` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id_commande` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `Magasin`
 --
