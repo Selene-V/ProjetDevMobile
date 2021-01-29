@@ -440,10 +440,11 @@ public class VenteCatalogueFragment extends Fragment
     public void onResponse(JSONObject response) {
         try {
             String requete = response.getString("requete");
-            JSONArray data = response.getJSONArray("data");
             int cmp = 0;
             switch (requete){
                 case "produits" :
+                    JSONArray data = response.getJSONArray("data");
+
                     for (int i = 0 ; i < data.length() ; i++) {
                         JSONObject o = response.getJSONArray("data").getJSONObject(i);
 
@@ -475,8 +476,8 @@ public class VenteCatalogueFragment extends Fragment
                     break;
                 case "taillesProduits" :
                     JSONArray taille = response.getJSONArray("data");
-                    ArrayList<String> listSpinner = new ArrayList<>();
-                    listSpinner.add("Choix de la taille");
+                    ArrayList<Taille> listSpinner = new ArrayList<>();
+                    listSpinner.add(new Taille(0, "Choix de la taille"));
                     for (int i = 0 ; i < taille.length() ; i++){
                         JSONObject o = taille.getJSONObject(i);
                         int idProduit = o.getInt("id_produit");

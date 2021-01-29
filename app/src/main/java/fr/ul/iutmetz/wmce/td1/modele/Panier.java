@@ -10,7 +10,7 @@ import utils.Triplet;
 
 public class Panier implements Serializable {
 
-    public ArrayList<Triplet<Produit, String, Integer>> basketContent;
+    public ArrayList<Triplet<Produit, Taille, Integer>> basketContent;
 
     public Panier(Context context, int i, List<Panier> panier) {
     }
